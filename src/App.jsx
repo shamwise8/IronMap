@@ -104,7 +104,7 @@ export default function IronMap() {
       {/* NAV */}
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "0 clamp(20px,4vw,48px)", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(10,10,10,0.92)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${C.border}` }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 30, height: 30, background: C.red, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 800, color: "white", letterSpacing: -1 }}>IM</div>
+          <img src="/favicon.png" alt="IronMap" style={{ width: 30, height: 30, borderRadius: 8 }} />
           <span style={{ fontWeight: 800, fontSize: 16, letterSpacing: -0.5 }}>IronMap</span>
         </div>
         <div className="nav-links" style={{ display: "flex", gap: 32 }}>
@@ -140,7 +140,7 @@ export default function IronMap() {
         {/* Hero visual */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, animation: "fadeUp 0.8s ease 0.5s both", position: "relative" }}>
           <div style={{ background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
-            <div style={{ width: 28, height: 28, background: C.red, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: "white" }}>IM</div>
+            <img src="/favicon.png" alt="IronMap" style={{ width: 28, height: 28, borderRadius: 8 }} />
             <div>
               <div style={{ fontSize: 10, color: C.muted2, letterSpacing: 0.5 }}>Barbell Squat · Set 3/4</div>
               <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.5, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
@@ -449,7 +449,7 @@ export default function IronMap() {
       <footer style={{ background: C.card, borderTop: `1px solid ${C.border}`, padding: "28px clamp(20px,4vw,48px)" }}>
         <div className="footer-inner" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 24, height: 24, background: C.red, borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "white" }}>IM</div>
+            <img src="/favicon.png" alt="IronMap" style={{ width: 24, height: 24, borderRadius: 6 }} />
             <span style={{ fontWeight: 700, fontSize: 14 }}>IronMap</span>
           </div>
           <ul className="footer-links" style={{ display: "flex", gap: 24, listStyle: "none" }}>
