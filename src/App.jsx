@@ -34,7 +34,7 @@ const FEATURES = [
   { icon: "🔥", title: "Streaks & Check-Ins", desc: "Daily accountability items: water, protein, sleep, anything. Streaks build, completion rings fill, your crew sees who showed up.", tag: "SHIPPED" },
   { icon: "📊", title: "PR Tracking", desc: "Every set logged. Personal records tracked automatically. Progressive overload suggestions based on your last session.", tag: "SHIPPED" },
   { icon: "🧠", title: "AI Mid-Workout Coach", desc: '"Shoulder hurts" → removes overhead pressing, subs lateral raises. A few words and your session restructures on-device.', tag: "COMING SOON" },
-  { icon: "⌚", title: "Apple Watch", desc: "Tap through sets from your wrist. Crown adjusts weight, rest timer syncs with your phone. Works without your phone nearby.", tag: "COMING SOON" },
+  { icon: "⌚", title: "Apple Watch", desc: "Tap through sets from your wrist. Crown adjusts weight, rest timer syncs with your phone. Works without your phone nearby.", tag: "SHIPPED", isNew: true },
   { icon: "👥", title: "Community Codes", desc: "Drop a code in your group chat — everyone's in. No friend requests, no social graph. Just an accountability board.", tag: "SHIPPED" },
 ];
 
@@ -70,6 +70,7 @@ export default function IronMap() {
         @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
         @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
         @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
+        @keyframes shimmer { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
         @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
         a { text-decoration:none; color:inherit; }
         .nav-link { color:${C.muted2}; font-size:13px; font-weight:500; transition:color 0.2s; letter-spacing:0.3px; }
@@ -232,10 +233,13 @@ export default function IronMap() {
         <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12 }}>
           {FEATURES.map((f, i) => (
             <Reveal key={i} delay={i * 0.06}>
-              <div className="feat-card" style={{ height: "100%" }}>
+              <div className="feat-card" style={{ height: "100%", ...(f.isNew ? { borderColor: "rgba(232,57,42,0.35)", boxShadow: `0 0 24px ${C.redGlow2}` } : {}) }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
                   <span style={{ fontSize: 28 }}>{f.icon}</span>
-                  <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: 1.2, padding: "4px 10px", borderRadius: 100, background: f.tag === "SHIPPED" ? "rgba(52,199,89,0.1)" : "rgba(232,57,42,0.08)", color: f.tag === "SHIPPED" ? C.green : C.red, border: `1px solid ${f.tag === "SHIPPED" ? "rgba(52,199,89,0.2)" : "rgba(232,57,42,0.2)"}` }}>{f.tag}</span>
+                  <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                    {f.isNew && <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: 1.2, padding: "4px 10px", borderRadius: 100, background: "rgba(232,57,42,0.1)", color: C.red, border: "1px solid rgba(232,57,42,0.25)", animation: "shimmer 2s ease-in-out infinite" }}>NEW</span>}
+                    <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: 1.2, padding: "4px 10px", borderRadius: 100, background: f.tag === "SHIPPED" ? "rgba(52,199,89,0.1)" : "rgba(232,57,42,0.08)", color: f.tag === "SHIPPED" ? C.green : C.red, border: `1px solid ${f.tag === "SHIPPED" ? "rgba(52,199,89,0.2)" : "rgba(232,57,42,0.2)"}` }}>{f.tag}</span>
+                  </div>
                 </div>
                 <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, letterSpacing: -0.3 }}>{f.title}</div>
                 <div style={{ fontSize: 13, color: C.muted2, lineHeight: 1.65 }}>{f.desc}</div>
