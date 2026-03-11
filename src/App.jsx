@@ -101,6 +101,7 @@ export default function IronMap() {
           .di-section-grid { grid-template-columns:1fr !important; }
           .hero-visual-row { flex-direction:column !important; align-items:center !important; justify-content:center !important; }
           .di-pill { align-self:center !important; margin-left:0 !important; }
+          .hero-visual-col { align-items:center !important; text-align:center !important; }
           .hero-grid { padding-bottom:80px !important; }
           .watch-caption { margin-bottom:24px !important; }
         }
@@ -121,7 +122,7 @@ export default function IronMap() {
       </nav>
 
       {/* HERO */}
-      <section style={{ minHeight: "100vh", padding: "100px clamp(20px,4vw,48px) 60px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center", position: "relative", overflow: "hidden" }} className="hero-grid">
+      <section style={{ minHeight: "100vh", padding: "100px clamp(20px,4vw,48px) 100px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center", position: "relative", overflow: "hidden" }} className="hero-grid">
         <div style={{ position: "absolute", top: "30%", left: "50%", width: 700, height: 700, background: `radial-gradient(circle, ${C.redGlow} 0%, transparent 70%)`, pointerEvents: "none", transform: "translate(-50%, -50%)" }} />
         <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start" }} className="hero-text">
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", borderRadius: 100, padding: "6px 16px", fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 28, animation: "fadeUp 0.7s ease 0.1s both" }}>
@@ -143,7 +144,7 @@ export default function IronMap() {
           </div>
         </div>
         {/* Hero visual */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 16, animation: "fadeUp 0.8s ease 0.5s both" }}>
+        <div className="hero-visual-col" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 16, animation: "fadeUp 0.8s ease 0.5s both" }}>
 
           {/* Dynamic Island pill — aligned above phone */}
           <div className="di-pill" style={{ alignSelf: "flex-start", marginLeft: 8, background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
