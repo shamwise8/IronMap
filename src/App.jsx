@@ -72,6 +72,7 @@ export default function IronMap() {
         @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
         @keyframes shimmer { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
         @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+        @keyframes watchGlow { 0%,100% { box-shadow: 0 0 0 2px #1a1a1a, 0 0 30px rgba(232,57,42,0.1); } 50% { box-shadow: 0 0 0 2px #1a1a1a, 0 0 40px rgba(232,57,42,0.2); } }
         a { text-decoration:none; color:inherit; }
         .nav-link { color:${C.muted2}; font-size:13px; font-weight:500; transition:color 0.2s; letter-spacing:0.3px; }
         .nav-link:hover { color:${C.text}; }
@@ -139,6 +140,7 @@ export default function IronMap() {
         </div>
         {/* Hero visual */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, animation: "fadeUp 0.8s ease 0.5s both", position: "relative" }}>
+          {/* Dynamic Island pill */}
           <div style={{ background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
             <img src="/favicon.png" alt="IronMap" style={{ width: 28, height: 28, borderRadius: 8 }} />
             <div>
@@ -152,37 +154,59 @@ export default function IronMap() {
               </svg>
             </div>
           </div>
-          <div style={{ width: 260, height: 520, background: C.card, borderRadius: 44, border: `3px solid ${C.border2}`, boxShadow: `0 40px 80px rgba(0,0,0,0.7), 0 0 80px ${C.redGlow2}`, overflow: "hidden", position: "relative" }}>
-            <div style={{ height: 48, background: C.bg, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 6 }}>
-              <div style={{ width: 80, height: 24, background: "#000", borderRadius: 12 }} />
-            </div>
-            <div style={{ padding: "16px 20px", background: C.bg }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.5 }}>Workouts</div>
-                <div style={{ background: C.card2, borderRadius: 8, padding: "4px 10px", fontSize: 9, fontWeight: 600, color: C.muted2 }}>Virgin Active</div>
+
+          {/* Phone + Watch group */}
+          <div style={{ position: "relative", display: "inline-block" }}>
+            {/* Phone */}
+            <div style={{ width: 260, height: 520, background: C.card, borderRadius: 44, border: `3px solid ${C.border2}`, boxShadow: `0 40px 80px rgba(0,0,0,0.7), 0 0 80px ${C.redGlow2}`, overflow: "hidden", position: "relative" }}>
+              <div style={{ height: 48, background: C.bg, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 6 }}>
+                <div style={{ width: 80, height: 24, background: "#000", borderRadius: 12 }} />
               </div>
-              <div style={{ display: "flex", gap: 6, marginBottom: 20 }}>
-                {["S1", "S2", "S3", "S4", "R"].map((s, i) => (
-                  <div key={s} style={{ flex: 1, textAlign: "center", padding: "8px 0", borderRadius: 8, fontSize: 11, fontWeight: 700, background: i === 1 ? C.red : C.card, color: i === 1 ? "white" : C.muted, position: "relative" }}>
-                    {s}
-                    {i === 1 && <div style={{ position: "absolute", top: -2, right: -2, width: 6, height: 6, background: C.red, borderRadius: "50%", border: `1.5px solid ${C.bg}` }} />}
+              <div style={{ padding: "16px 20px", background: C.bg }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                  <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.5 }}>Workouts</div>
+                  <div style={{ background: C.card2, borderRadius: 8, padding: "4px 10px", fontSize: 9, fontWeight: 600, color: C.muted2 }}>Virgin Active</div>
+                </div>
+                <div style={{ display: "flex", gap: 6, marginBottom: 20 }}>
+                  {["S1", "S2", "S3", "S4", "R"].map((s, i) => (
+                    <div key={s} style={{ flex: 1, textAlign: "center", padding: "8px 0", borderRadius: 8, fontSize: 11, fontWeight: 700, background: i === 1 ? C.red : C.card, color: i === 1 ? "white" : C.muted, position: "relative" }}>
+                      {s}
+                      {i === 1 && <div style={{ position: "absolute", top: -2, right: -2, width: 6, height: 6, background: C.red, borderRadius: "50%", border: `1.5px solid ${C.bg}` }} />}
+                    </div>
+                  ))}
+                </div>
+                {[
+                  { name: "Barbell Squat", weight: "50kg", sets: "3/4", active: true },
+                  { name: "Bulgarian Split Squat", weight: "6kg", sets: "0/3", active: false },
+                  { name: "Leg Press", weight: "80kg", sets: "0/3", active: false },
+                  { name: "Leg Curls", weight: "20kg", sets: "0/2", active: false },
+                ].map((ex, i) => (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 14px", background: ex.active ? C.card2 : "transparent", borderRadius: 12, marginBottom: 4, borderLeft: ex.active ? `3px solid ${C.red}` : "3px solid transparent" }}>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: ex.active ? C.text : C.muted2 }}>{ex.name}</div>
+                      <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{ex.weight} · {ex.sets} sets</div>
+                    </div>
+                    {ex.active && <div style={{ width: 8, height: 8, borderRadius: "50%", background: C.red, animation: "blink 1.5s ease-in-out infinite" }} />}
                   </div>
                 ))}
               </div>
-              {[
-                { name: "Barbell Squat", weight: "50kg", sets: "3/4", active: true },
-                { name: "Bulgarian Split Squat", weight: "6kg", sets: "0/3", active: false },
-                { name: "Leg Press", weight: "80kg", sets: "0/3", active: false },
-                { name: "Leg Curls", weight: "20kg", sets: "0/2", active: false },
-              ].map((ex, i) => (
-                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 14px", background: ex.active ? C.card2 : "transparent", borderRadius: 12, marginBottom: 4, borderLeft: ex.active ? `3px solid ${C.red}` : "3px solid transparent" }}>
-                  <div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: ex.active ? C.text : C.muted2 }}>{ex.name}</div>
-                    <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{ex.weight} · {ex.sets} sets</div>
-                  </div>
-                  {ex.active && <div style={{ width: 8, height: 8, borderRadius: "50%", background: C.red, animation: "blink 1.5s ease-in-out infinite" }} />}
+            </div>
+
+            {/* Watch — bottom-left, overlapping, slight rotation */}
+            <div style={{ position: "absolute", bottom: -16, left: -100, transform: "rotate(-7deg)", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}>
+              <div style={{ width: 110, height: 130, background: "#0a0a0a", borderRadius: 28, border: "1.5px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "12px 8px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 0 30px rgba(232,57,42,0.1)" }}>
+                <div style={{ color: "#666", fontSize: 7, fontFamily: "-apple-system, sans-serif", fontWeight: 600, letterSpacing: "0.15em", marginBottom: 1 }}>REST</div>
+                <div style={{ color: C.red, fontSize: 7, fontFamily: "-apple-system, sans-serif", fontWeight: 700, letterSpacing: "0.04em", textAlign: "center", marginBottom: 1, lineHeight: 1.2 }}>BARBELL SQUAT</div>
+                <div style={{ color: "#555", fontSize: 6, fontFamily: "-apple-system, sans-serif", marginBottom: 6 }}>3/4 done</div>
+                <div style={{ fontSize: 26, fontWeight: 800, color: "#fff", fontFamily: "-apple-system, sans-serif", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
+                <div style={{ width: "85%", height: 2, background: "#222", borderRadius: 1, marginBottom: 5, overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${(1 - timer/180) * 100}%`, background: C.red, borderRadius: 1, transition: "width 1s linear" }} />
                 </div>
-              ))}
+                <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                  <span style={{ color: C.red, fontSize: 7 }}>♥</span>
+                  <span style={{ color: C.red, fontSize: 8, fontWeight: 600, fontFamily: "-apple-system, sans-serif" }}>76</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
