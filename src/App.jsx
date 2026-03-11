@@ -209,7 +209,7 @@ export default function IronMap() {
                   <span style={{ color: C.red, fontSize: 11, fontWeight: 600, fontFamily: "-apple-system, sans-serif" }}>76</span>
                 </div>
               </div>
-              <div style={{ textAlign: "center", marginTop: 10, fontSize: 11, color: C.muted, lineHeight: 1.4, maxWidth: 155 }}>Fully synced. Works without your iPhone during training.</div>
+              <div style={{ textAlign: "center", marginTop: 10, fontSize: 11, color: C.muted, lineHeight: 1.4, maxWidth: 155 }}>Your wrist handles the workout. Phone stays in your bag.</div>
             </div>
           </div>
         </div>
