@@ -104,6 +104,8 @@ export default function IronMap() {
           .hero-visual-col { align-items:center !important; text-align:center !important; }
           .watch-caption-col { flex-direction:column !important; align-items:center !important; gap:12px !important; }
           .watch-caption-col > div:last-child { text-align:center !important; }
+          .watch-mockup-inner { width:110px !important; height:134px !important; border-radius:32px !important; }
+          .watch-mockup-inner .watch-time { font-size:24px !important; }
           .hero-grid { padding-bottom:80px !important; }
           .watch-caption { margin-bottom:24px !important; }
         }
@@ -203,11 +205,11 @@ export default function IronMap() {
 
             {/* Watch + caption */}
             <div className="watch-caption-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, flexShrink: 0 }}>
-              <div style={{ width: 140, height: 170, background: "#0a0a0a", borderRadius: 40, border: "2px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "14px 10px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(232,57,42,0.08)", transform: "rotate(4deg)" }}>
+              <div className="watch-mockup-inner" style={{ width: 140, height: 170, background: "#0a0a0a", borderRadius: 40, border: "2px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "14px 10px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(232,57,42,0.08)", transform: "rotate(4deg)" }}>
                 <div style={{ color: "#666", fontSize: 9, fontWeight: 600, letterSpacing: "0.15em", marginBottom: 2 }}>REST</div>
                 <div style={{ color: C.red, fontSize: 9, fontWeight: 700, textAlign: "center", marginBottom: 2 }}>BARBELL SQUAT</div>
                 <div style={{ color: "#555", fontSize: 8, marginBottom: 8 }}>3/4 done</div>
-                <div style={{ fontSize: 32, fontWeight: 800, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 8, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
+                <div className="watch-time" style={{ fontSize: 32, fontWeight: 800, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 8, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
                 <div style={{ width: "85%", height: 2, background: "#222", borderRadius: 1, marginBottom: 6, overflow: "hidden" }}>
                   <div style={{ height: "100%", width: `${(1 - timer/180) * 100}%`, background: C.red, borderRadius: 1, transition: "width 1s linear" }} />
                 </div>
@@ -216,7 +218,7 @@ export default function IronMap() {
                   <span style={{ color: C.red, fontSize: 10, fontWeight: 600 }}>76</span>
                 </div>
               </div>
-              <div className="watch-caption" style={{ fontSize: 12, color: C.muted2, fontWeight: 500, textAlign: "center", maxWidth: 130, lineHeight: 1.4 }}>Your wrist handles the workout.<br />Phone stays in your bag.</div>
+              <div className="watch-caption" style={{ fontSize: 12, color: C.muted2, fontWeight: 500, textAlign: "center", maxWidth: 200, lineHeight: 1.4 }}>Your wrist handles the workout. Phone stays in your bag.</div>
             </div>
 
           </div>
