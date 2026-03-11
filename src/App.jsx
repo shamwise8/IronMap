@@ -99,6 +99,8 @@ export default function IronMap() {
           .footer-links { justify-content:center; }
           .hero-h1 { font-size:40px !important; }
           .di-section-grid { grid-template-columns:1fr !important; }
+          .watch-mockup { display:none !important; }
+          .hero-phone-group { margin:0 auto !important; }
         }
       `}</style>
 
@@ -117,7 +119,7 @@ export default function IronMap() {
       </nav>
 
       {/* HERO */}
-      <section style={{ minHeight: "100vh", padding: "120px clamp(20px,4vw,48px) 80px", display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 24, alignItems: "center", position: "relative", overflow: "hidden" }} className="hero-grid">
+      <section style={{ minHeight: "100vh", padding: "100px clamp(20px,4vw,48px) 60px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "center", position: "relative", overflow: "hidden" }} className="hero-grid">
         <div style={{ position: "absolute", top: "30%", left: "50%", width: 700, height: 700, background: `radial-gradient(circle, ${C.redGlow} 0%, transparent 70%)`, pointerEvents: "none", transform: "translate(-50%, -50%)" }} />
         <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start" }} className="hero-text">
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", borderRadius: 100, padding: "6px 16px", fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 28, animation: "fadeUp 0.7s ease 0.1s both" }}>
@@ -139,7 +141,7 @@ export default function IronMap() {
           </div>
         </div>
         {/* Hero visual */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, animation: "fadeUp 0.8s ease 0.5s both", position: "relative", marginRight: "auto", marginLeft: "-40px" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, animation: "fadeUp 0.8s ease 0.5s both", position: "relative" }}>
           {/* Dynamic Island pill */}
           <div style={{ background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
             <img src="/favicon.png" alt="IronMap" style={{ width: 28, height: 28, borderRadius: 8 }} />
@@ -156,7 +158,7 @@ export default function IronMap() {
           </div>
 
           {/* Phone + Watch group */}
-          <div style={{ position: "relative", display: "inline-block" }}>
+          <div className="hero-phone-group" style={{ position: "relative", display: "inline-block", marginLeft: "auto" }}>
             {/* Phone */}
             <div style={{ width: 260, height: 520, background: C.card, borderRadius: 44, border: `3px solid ${C.border2}`, boxShadow: `0 40px 80px rgba(0,0,0,0.7), 0 0 80px ${C.redGlow2}`, overflow: "hidden", position: "relative" }}>
               <div style={{ height: 48, background: C.bg, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 6 }}>
@@ -193,7 +195,7 @@ export default function IronMap() {
             </div>
 
             {/* Watch — bottom-left, overlapping, slight rotation */}
-            <div style={{ position: "absolute", top: "30%", right: -80, transform: "rotate(7deg)", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}>
+            <div className="watch-mockup" style={{ position: "absolute", top: "30%", right: -80, transform: "rotate(7deg)", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}>
               <div style={{ width: 155, height: 188, background: "#0a0a0a", borderRadius: 38, border: "1.5px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "18px 12px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 0 30px rgba(232,57,42,0.1)" }}>
                 <div style={{ color: "#666", fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 600, letterSpacing: "0.15em", marginBottom: 1 }}>REST</div>
                 <div style={{ color: C.red, fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 700, letterSpacing: "0.04em", textAlign: "center", marginBottom: 1, lineHeight: 1.2 }}>BARBELL SQUAT</div>
