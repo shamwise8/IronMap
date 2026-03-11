@@ -117,7 +117,7 @@ export default function IronMap() {
       </nav>
 
       {/* HERO */}
-      <section style={{ minHeight: "100vh", padding: "120px clamp(20px,4vw,48px) 80px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center", position: "relative", overflow: "hidden" }} className="hero-grid">
+      <section style={{ minHeight: "100vh", padding: "120px clamp(20px,4vw,48px) 80px", display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 40, alignItems: "center", position: "relative", overflow: "hidden" }} className="hero-grid">
         <div style={{ position: "absolute", top: "30%", left: "50%", width: 700, height: 700, background: `radial-gradient(circle, ${C.redGlow} 0%, transparent 70%)`, pointerEvents: "none", transform: "translate(-50%, -50%)" }} />
         <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start" }} className="hero-text">
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", borderRadius: 100, padding: "6px 16px", fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 28, animation: "fadeUp 0.7s ease 0.1s both" }}>
@@ -193,18 +193,18 @@ export default function IronMap() {
             </div>
 
             {/* Watch — bottom-left, overlapping, slight rotation */}
-            <div style={{ position: "absolute", bottom: -16, left: -100, transform: "rotate(-7deg)", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}>
-              <div style={{ width: 110, height: 130, background: "#0a0a0a", borderRadius: 28, border: "1.5px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "12px 8px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 0 30px rgba(232,57,42,0.1)" }}>
-                <div style={{ color: "#666", fontSize: 7, fontFamily: "-apple-system, sans-serif", fontWeight: 600, letterSpacing: "0.15em", marginBottom: 1 }}>REST</div>
-                <div style={{ color: C.red, fontSize: 7, fontFamily: "-apple-system, sans-serif", fontWeight: 700, letterSpacing: "0.04em", textAlign: "center", marginBottom: 1, lineHeight: 1.2 }}>BARBELL SQUAT</div>
-                <div style={{ color: "#555", fontSize: 6, fontFamily: "-apple-system, sans-serif", marginBottom: 6 }}>3/4 done</div>
-                <div style={{ fontSize: 26, fontWeight: 800, color: "#fff", fontFamily: "-apple-system, sans-serif", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
-                <div style={{ width: "85%", height: 2, background: "#222", borderRadius: 1, marginBottom: 5, overflow: "hidden" }}>
+            <div style={{ position: "absolute", bottom: -16, left: -130, transform: "rotate(-7deg)", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}>
+              <div style={{ width: 155, height: 188, background: "#0a0a0a", borderRadius: 38, border: "1.5px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "18px 12px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 0 30px rgba(232,57,42,0.1)" }}>
+                <div style={{ color: "#666", fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 600, letterSpacing: "0.15em", marginBottom: 1 }}>REST</div>
+                <div style={{ color: C.red, fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 700, letterSpacing: "0.04em", textAlign: "center", marginBottom: 1, lineHeight: 1.2 }}>BARBELL SQUAT</div>
+                <div style={{ color: "#555", fontSize: 9, fontFamily: "-apple-system, sans-serif", marginBottom: 6 }}>3/4 done</div>
+                <div style={{ fontSize: 36, fontWeight: 800, color: "#fff", fontFamily: "-apple-system, sans-serif", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
+                <div style={{ width: "85%", height: 3, background: "#222", borderRadius: 1, marginBottom: 5, overflow: "hidden" }}>
                   <div style={{ height: "100%", width: `${(1 - timer/180) * 100}%`, background: C.red, borderRadius: 1, transition: "width 1s linear" }} />
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
                   <span style={{ color: C.red, fontSize: 7 }}>♥</span>
-                  <span style={{ color: C.red, fontSize: 8, fontWeight: 600, fontFamily: "-apple-system, sans-serif" }}>76</span>
+                  <span style={{ color: C.red, fontSize: 11, fontWeight: 600, fontFamily: "-apple-system, sans-serif" }}>76</span>
                 </div>
               </div>
             </div>
