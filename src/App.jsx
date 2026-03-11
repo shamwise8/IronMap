@@ -140,24 +140,23 @@ export default function IronMap() {
           </div>
         </div>
         {/* Hero visual */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, animation: "fadeUp 0.8s ease 0.5s both", position: "relative" }}>
-          {/* Dynamic Island pill */}
-          <div style={{ background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
-            <img src="/favicon.png" alt="IronMap" style={{ width: 28, height: 28, borderRadius: 8 }} />
-            <div>
-              <div style={{ fontSize: 10, color: C.muted2, letterSpacing: 0.5 }}>Barbell Squat · Set 3/4</div>
-              <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.5, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
-            </div>
-            <div style={{ width: 32, height: 32, borderRadius: "50%", position: "relative" }}>
-              <svg width="32" height="32" viewBox="0 0 32 32">
-                <circle cx="16" cy="16" r="13" fill="none" stroke={C.border} strokeWidth="2.5" />
-                <circle cx="16" cy="16" r="13" fill="none" stroke={C.red} strokeWidth="2.5" strokeDasharray={`${progress * 0.816} 81.6`} strokeLinecap="round" transform="rotate(-90 16 16)" />
-              </svg>
-            </div>
-          </div>
-
+        <div style={{ animation: "fadeUp 0.8s ease 0.5s both", position: "relative" }}>
           {/* Phone + Watch group */}
-          <div className="hero-phone-group" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+          <div className="hero-phone-group" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center", position: "relative" }}>
+            {/* Dynamic Island pill */}
+            <div style={{ position: "absolute", top: -52, left: "50%", transform: "translateX(-50%)", background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite", whiteSpace: "nowrap", zIndex: 10 }}>
+              <img src="/favicon.png" alt="IronMap" style={{ width: 28, height: 28, borderRadius: 8 }} />
+              <div>
+                <div style={{ fontSize: 10, color: C.muted2, letterSpacing: 0.5 }}>Barbell Squat · Set 3/4</div>
+                <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.5, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
+              </div>
+              <div style={{ width: 32, height: 32, borderRadius: "50%", position: "relative" }}>
+                <svg width="32" height="32" viewBox="0 0 32 32">
+                  <circle cx="16" cy="16" r="13" fill="none" stroke={C.border} strokeWidth="2.5" />
+                  <circle cx="16" cy="16" r="13" fill="none" stroke={C.red} strokeWidth="2.5" strokeDasharray={`${progress * 0.816} 81.6`} strokeLinecap="round" transform="rotate(-90 16 16)" />
+                </svg>
+              </div>
+            </div>
             {/* Phone */}
             <div style={{ width: 260, height: 520, background: C.card, borderRadius: 44, border: `3px solid ${C.border2}`, boxShadow: `0 40px 80px rgba(0,0,0,0.7), 0 0 80px ${C.redGlow2}`, overflow: "hidden", position: "relative" }}>
               <div style={{ height: 48, background: C.bg, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 6 }}>
