@@ -100,6 +100,8 @@ export default function IronMap() {
           .hero-h1 { font-size:40px !important; }
           .di-section-grid { grid-template-columns:1fr !important; }
           .hero-visual-row { flex-direction:column !important; align-items:center !important; }
+          .hero-grid { padding-bottom:80px !important; }
+          .watch-caption { margin-bottom:24px !important; }
         }
       `}</style>
 
@@ -143,7 +145,7 @@ export default function IronMap() {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 16, animation: "fadeUp 0.8s ease 0.5s both" }}>
 
           {/* Dynamic Island pill — aligned above phone */}
-          <div style={{ marginLeft: 20, background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
+          <div style={{ alignSelf: "flex-start", marginLeft: 8, background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
             <img src="/favicon.png" alt="IronMap" style={{ width: 28, height: 28, borderRadius: 8 }} />
             <div>
               <div style={{ fontSize: 10, color: C.muted2, letterSpacing: 0.5 }}>Barbell Squat · Set 3/4</div>
@@ -210,7 +212,7 @@ export default function IronMap() {
                   <span style={{ color: C.red, fontSize: 10, fontWeight: 600 }}>76</span>
                 </div>
               </div>
-              <div style={{ fontSize: 11, color: C.muted, textAlign: "center", maxWidth: 130, lineHeight: 1.4 }}>Your wrist handles the workout.<br />Phone stays in your bag.</div>
+              <div className="watch-caption" style={{ fontSize: 11, color: C.muted, textAlign: "center", maxWidth: 130, lineHeight: 1.4 }}>Crown adjusts weight.<br />No phone needed.</div>
             </div>
 
           </div>
