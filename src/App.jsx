@@ -218,7 +218,7 @@ export default function IronMap() {
                   <span style={{ color: C.red, fontSize: 10, fontWeight: 600 }}>76</span>
                 </div>
               </div>
-              <div className="watch-caption" style={{ fontSize: 13, color: "#aaaaaa", fontWeight: 500, textAlign: "center", maxWidth: 260, lineHeight: 1.4, whiteSpace: "nowrap" }}>Your wrist handles the workout. Phone stays in your bag.</div>
+              <div className="watch-caption" style={{ fontSize: 12, color: C.muted2, fontWeight: 500, textAlign: "center", maxWidth: 200, lineHeight: 1.4 }}>Your wrist handles the workout. Phone stays in your bag.</div>
             </div>
 
           </div>
