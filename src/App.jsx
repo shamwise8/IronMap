@@ -99,8 +99,8 @@ export default function IronMap() {
           .footer-links { justify-content:center; }
           .hero-h1 { font-size:40px !important; }
           .di-section-grid { grid-template-columns:1fr !important; }
-          .watch-mockup { display:none !important; }
-          .hero-phone-group { margin:0 auto !important; }
+          .watch-mockup { position:static !important; transform:rotate(0deg) !important; filter:none !important; margin-top:20px; display:flex; justify-content:center; }
+          .hero-phone-group { margin:0 auto !important; display:flex !important; flex-direction:column !important; align-items:center !important; }
         }
       `}</style>
 
@@ -209,6 +209,7 @@ export default function IronMap() {
                   <span style={{ color: C.red, fontSize: 11, fontWeight: 600, fontFamily: "-apple-system, sans-serif" }}>76</span>
                 </div>
               </div>
+              <div style={{ textAlign: "center", marginTop: 10, fontSize: 11, color: C.muted, lineHeight: 1.4, maxWidth: 155 }}>Fully synced. Works without your iPhone during training.</div>
             </div>
           </div>
         </div>
