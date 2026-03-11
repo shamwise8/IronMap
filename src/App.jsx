@@ -72,7 +72,7 @@ export default function IronMap() {
         @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
         @keyframes shimmer { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
         @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
-        @keyframes watchGlow { 0%,100% { box-shadow: 0 0 0 2px #1a1a1a, 0 0 30px rgba(232,57,42,0.1); } 50% { box-shadow: 0 0 0 2px #1a1a1a, 0 0 40px rgba(232,57,42,0.2); } }
+        @keyframes watchGlow { 0%,100% { box-shadow: 0 0 30px rgba(232,57,42,0.1); } 50% { box-shadow: 0 0 40px rgba(232,57,42,0.2); } }
         a { text-decoration:none; color:inherit; }
         .nav-link { color:${C.muted2}; font-size:13px; font-weight:500; transition:color 0.2s; letter-spacing:0.3px; }
         .nav-link:hover { color:${C.text}; }
@@ -205,7 +205,7 @@ export default function IronMap() {
 
             {/* Watch + caption */}
             <div className="watch-caption-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, flexShrink: 0 }}>
-              <div className="watch-mockup-inner" style={{ width: 140, height: 170, background: "#0a0a0a", borderRadius: 40, border: "2px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "14px 10px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 10px 24px rgba(0,0,0,0.5), 0 0 30px rgba(232,57,42,0.08)", transform: "rotate(4deg)" }}>
+              <div className="watch-mockup-inner" style={{ width: 140, height: 170, background: "#0a0a0a", borderRadius: 40, border: "2px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "14px 10px", boxSizing: "border-box", boxShadow: "0 10px 24px rgba(0,0,0,0.5)", transform: "rotate(4deg)" }}>
                 <div style={{ color: "#666", fontSize: 9, fontWeight: 600, letterSpacing: "0.15em", marginBottom: 2 }}>REST</div>
                 <div style={{ color: C.red, fontSize: 9, fontWeight: 700, textAlign: "center", marginBottom: 2 }}>BARBELL SQUAT</div>
                 <div style={{ color: "#555", fontSize: 8, marginBottom: 8 }}>3/4 done</div>
