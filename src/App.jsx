@@ -99,8 +99,7 @@ export default function IronMap() {
           .footer-links { justify-content:center; }
           .hero-h1 { font-size:40px !important; }
           .di-section-grid { grid-template-columns:1fr !important; }
-          .watch-mockup { position:static !important; transform:rotate(0deg) !important; filter:none !important; margin-top:20px; display:flex; justify-content:center; }
-          .hero-phone-group { margin:0 auto !important; display:flex !important; flex-direction:column !important; align-items:center !important; }
+          .hero-phone-group { grid-template-columns:1fr !important; gap:32px !important; justify-items:center !important; }
         }
       `}</style>
 
@@ -158,7 +157,7 @@ export default function IronMap() {
           </div>
 
           {/* Phone + Watch group */}
-          <div className="hero-phone-group" style={{ position: "relative", display: "inline-block", marginLeft: "auto" }}>
+          <div className="hero-phone-group" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
             {/* Phone */}
             <div style={{ width: 260, height: 520, background: C.card, borderRadius: 44, border: `3px solid ${C.border2}`, boxShadow: `0 40px 80px rgba(0,0,0,0.7), 0 0 80px ${C.redGlow2}`, overflow: "hidden", position: "relative" }}>
               <div style={{ height: 48, background: C.bg, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 6 }}>
@@ -194,22 +193,24 @@ export default function IronMap() {
               </div>
             </div>
 
-            {/* Watch — bottom-left, overlapping, slight rotation */}
-            <div className="watch-mockup" style={{ position: "absolute", top: "30%", right: -80, transform: "rotate(7deg)", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}>
-              <div style={{ width: 155, height: 188, background: "#0a0a0a", borderRadius: 38, border: "1.5px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "18px 12px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 0 30px rgba(232,57,42,0.1)" }}>
-                <div style={{ color: "#666", fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 600, letterSpacing: "0.15em", marginBottom: 1 }}>REST</div>
-                <div style={{ color: C.red, fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 700, letterSpacing: "0.04em", textAlign: "center", marginBottom: 1, lineHeight: 1.2 }}>BARBELL SQUAT</div>
-                <div style={{ color: "#555", fontSize: 9, fontFamily: "-apple-system, sans-serif", marginBottom: 6 }}>3/4 done</div>
-                <div style={{ fontSize: 36, fontWeight: 800, color: "#fff", fontFamily: "-apple-system, sans-serif", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
-                <div style={{ width: "85%", height: 3, background: "#222", borderRadius: 1, marginBottom: 5, overflow: "hidden" }}>
-                  <div style={{ height: "100%", width: `${(1 - timer/180) * 100}%`, background: C.red, borderRadius: 1, transition: "width 1s linear" }} />
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
-                  <span style={{ color: C.red, fontSize: 7 }}>♥</span>
-                  <span style={{ color: C.red, fontSize: 11, fontWeight: 600, fontFamily: "-apple-system, sans-serif" }}>76</span>
+            {/* Watch */}
+            <div className="watch-mockup" style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+              <div style={{ transform: "rotate(7deg)", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}>
+                <div style={{ width: 155, height: 188, background: "#0a0a0a", borderRadius: 38, border: "1.5px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "18px 12px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 0 30px rgba(232,57,42,0.1)" }}>
+                  <div style={{ color: "#666", fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 600, letterSpacing: "0.15em", marginBottom: 1 }}>REST</div>
+                  <div style={{ color: C.red, fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 700, letterSpacing: "0.04em", textAlign: "center", marginBottom: 1, lineHeight: 1.2 }}>BARBELL SQUAT</div>
+                  <div style={{ color: "#555", fontSize: 9, fontFamily: "-apple-system, sans-serif", marginBottom: 6 }}>3/4 done</div>
+                  <div style={{ fontSize: 36, fontWeight: 800, color: "#fff", fontFamily: "-apple-system, sans-serif", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
+                  <div style={{ width: "85%", height: 3, background: "#222", borderRadius: 1, marginBottom: 5, overflow: "hidden" }}>
+                    <div style={{ height: "100%", width: `${(1 - timer/180) * 100}%`, background: C.red, borderRadius: 1, transition: "width 1s linear" }} />
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                    <span style={{ color: C.red, fontSize: 7 }}>♥</span>
+                    <span style={{ color: C.red, fontSize: 11, fontWeight: 600, fontFamily: "-apple-system, sans-serif" }}>76</span>
+                  </div>
                 </div>
               </div>
-              <div style={{ textAlign: "center", marginTop: 10, fontSize: 11, color: C.muted, lineHeight: 1.4, maxWidth: 155 }}>Your wrist handles the workout. Phone stays in your bag.</div>
+              <div style={{ textAlign: "center", marginTop: 14, fontSize: 11, color: C.muted, lineHeight: 1.4, maxWidth: 170 }}>Your wrist handles the workout. Phone stays in your bag.</div>
             </div>
           </div>
         </div>
