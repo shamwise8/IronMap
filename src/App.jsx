@@ -99,7 +99,8 @@ export default function IronMap() {
           .footer-links { justify-content:center; }
           .hero-h1 { font-size:40px !important; }
           .di-section-grid { grid-template-columns:1fr !important; }
-          .hero-visual-row { flex-direction:column !important; align-items:center !important; }
+          .hero-visual-row { flex-direction:column !important; align-items:center !important; justify-content:center !important; }
+          .di-pill { align-self:center !important; margin-left:0 !important; }
           .hero-grid { padding-bottom:80px !important; }
           .watch-caption { margin-bottom:24px !important; }
         }
@@ -145,7 +146,7 @@ export default function IronMap() {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 16, animation: "fadeUp 0.8s ease 0.5s both" }}>
 
           {/* Dynamic Island pill — aligned above phone */}
-          <div style={{ alignSelf: "flex-start", marginLeft: 8, background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
+          <div className="di-pill" style={{ alignSelf: "flex-start", marginLeft: 8, background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
             <img src="/favicon.png" alt="IronMap" style={{ width: 28, height: 28, borderRadius: 8 }} />
             <div>
               <div style={{ fontSize: 10, color: C.muted2, letterSpacing: 0.5 }}>Barbell Squat · Set 3/4</div>
