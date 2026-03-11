@@ -99,7 +99,7 @@ export default function IronMap() {
           .footer-links { justify-content:center; }
           .hero-h1 { font-size:40px !important; }
           .di-section-grid { grid-template-columns:1fr !important; }
-          .hero-phone-group { grid-template-columns:1fr !important; gap:32px !important; justify-items:center !important; }
+          .hero-visual-row { flex-direction:column !important; align-items:center !important; }
         }
       `}</style>
 
@@ -118,7 +118,7 @@ export default function IronMap() {
       </nav>
 
       {/* HERO */}
-      <section style={{ minHeight: "100vh", padding: "100px clamp(20px,4vw,48px) 60px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "center", position: "relative", overflow: "hidden" }} className="hero-grid">
+      <section style={{ minHeight: "100vh", padding: "100px clamp(20px,4vw,48px) 60px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center", position: "relative", overflow: "hidden" }} className="hero-grid">
         <div style={{ position: "absolute", top: "30%", left: "50%", width: 700, height: 700, background: `radial-gradient(circle, ${C.redGlow} 0%, transparent 70%)`, pointerEvents: "none", transform: "translate(-50%, -50%)" }} />
         <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start" }} className="hero-text">
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", borderRadius: 100, padding: "6px 16px", fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 28, animation: "fadeUp 0.7s ease 0.1s both" }}>
@@ -140,25 +140,28 @@ export default function IronMap() {
           </div>
         </div>
         {/* Hero visual */}
-        <div style={{ animation: "fadeUp 0.8s ease 0.5s both", position: "relative" }}>
-          {/* Phone + Watch group */}
-          <div className="hero-phone-group" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center", position: "relative" }}>
-            {/* Dynamic Island pill */}
-            <div style={{ position: "absolute", top: -52, left: "50%", transform: "translateX(-50%)", background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite", whiteSpace: "nowrap", zIndex: 10 }}>
-              <img src="/favicon.png" alt="IronMap" style={{ width: 28, height: 28, borderRadius: 8 }} />
-              <div>
-                <div style={{ fontSize: 10, color: C.muted2, letterSpacing: 0.5 }}>Barbell Squat · Set 3/4</div>
-                <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.5, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
-              </div>
-              <div style={{ width: 32, height: 32, borderRadius: "50%", position: "relative" }}>
-                <svg width="32" height="32" viewBox="0 0 32 32">
-                  <circle cx="16" cy="16" r="13" fill="none" stroke={C.border} strokeWidth="2.5" />
-                  <circle cx="16" cy="16" r="13" fill="none" stroke={C.red} strokeWidth="2.5" strokeDasharray={`${progress * 0.816} 81.6`} strokeLinecap="round" transform="rotate(-90 16 16)" />
-                </svg>
-              </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 16, animation: "fadeUp 0.8s ease 0.5s both" }}>
+
+          {/* Dynamic Island pill — aligned above phone */}
+          <div style={{ marginLeft: 20, background: "#000", borderRadius: 22, padding: "8px 20px", display: "flex", alignItems: "center", gap: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.6)", border: `1px solid ${C.border2}`, animation: "float 3s ease-in-out infinite" }}>
+            <img src="/favicon.png" alt="IronMap" style={{ width: 28, height: 28, borderRadius: 8 }} />
+            <div>
+              <div style={{ fontSize: 10, color: C.muted2, letterSpacing: 0.5 }}>Barbell Squat · Set 3/4</div>
+              <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.5, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
             </div>
+            <div style={{ width: 32, height: 32 }}>
+              <svg width="32" height="32" viewBox="0 0 32 32">
+                <circle cx="16" cy="16" r="13" fill="none" stroke={C.border} strokeWidth="2.5" />
+                <circle cx="16" cy="16" r="13" fill="none" stroke={C.red} strokeWidth="2.5" strokeDasharray={`${progress * 0.816} 81.6`} strokeLinecap="round" transform="rotate(-90 16 16)" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Phone + Watch row */}
+          <div className="hero-visual-row" style={{ display: "flex", alignItems: "center", gap: 20 }}>
+
             {/* Phone */}
-            <div style={{ width: 260, height: 520, background: C.card, borderRadius: 44, border: `3px solid ${C.border2}`, boxShadow: `0 40px 80px rgba(0,0,0,0.7), 0 0 80px ${C.redGlow2}`, overflow: "hidden", position: "relative" }}>
+            <div style={{ width: 240, height: 480, background: C.card, borderRadius: 44, border: `3px solid ${C.border2}`, boxShadow: `0 40px 80px rgba(0,0,0,0.7), 0 0 80px ${C.redGlow2}`, overflow: "hidden", flexShrink: 0 }}>
               <div style={{ height: 48, background: C.bg, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 6 }}>
                 <div style={{ width: 80, height: 24, background: "#000", borderRadius: 12 }} />
               </div>
@@ -168,18 +171,18 @@ export default function IronMap() {
                   <div style={{ background: C.card2, borderRadius: 8, padding: "4px 10px", fontSize: 9, fontWeight: 600, color: C.muted2 }}>Virgin Active</div>
                 </div>
                 <div style={{ display: "flex", gap: 6, marginBottom: 20 }}>
-                  {["S1", "S2", "S3", "S4", "R"].map((s, i) => (
-                    <div key={s} style={{ flex: 1, textAlign: "center", padding: "8px 0", borderRadius: 8, fontSize: 11, fontWeight: 700, background: i === 1 ? C.red : C.card, color: i === 1 ? "white" : C.muted, position: "relative" }}>
+                  {["S1","S2","S3","S4","R"].map((s,i) => (
+                    <div key={s} style={{ flex: 1, textAlign: "center", padding: "8px 0", borderRadius: 8, fontSize: 11, fontWeight: 700, background: i===1 ? C.red : C.card, color: i===1 ? "white" : C.muted, position: "relative" }}>
                       {s}
-                      {i === 1 && <div style={{ position: "absolute", top: -2, right: -2, width: 6, height: 6, background: C.red, borderRadius: "50%", border: `1.5px solid ${C.bg}` }} />}
+                      {i===1 && <div style={{ position: "absolute", top: -2, right: -2, width: 6, height: 6, background: C.red, borderRadius: "50%", border: `1.5px solid ${C.bg}` }} />}
                     </div>
                   ))}
                 </div>
                 {[
                   { name: "Barbell Squat", weight: "50kg", sets: "3/4", active: true },
-                  { name: "Bulgarian Split Squat", weight: "6kg", sets: "0/3", active: false },
-                  { name: "Leg Press", weight: "80kg", sets: "0/3", active: false },
-                  { name: "Leg Curls", weight: "20kg", sets: "0/2", active: false },
+                  { name: "Bulgarian Split Squat", weight: "6kg", sets: "0/3" },
+                  { name: "Leg Press", weight: "80kg", sets: "0/3" },
+                  { name: "Leg Curls", weight: "20kg", sets: "0/2" },
                 ].map((ex, i) => (
                   <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 14px", background: ex.active ? C.card2 : "transparent", borderRadius: 12, marginBottom: 4, borderLeft: ex.active ? `3px solid ${C.red}` : "3px solid transparent" }}>
                     <div>
@@ -192,25 +195,24 @@ export default function IronMap() {
               </div>
             </div>
 
-            {/* Watch */}
-            <div className="watch-mockup" style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-              <div style={{ transform: "rotate(7deg)", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}>
-                <div style={{ width: 155, height: 188, background: "#0a0a0a", borderRadius: 38, border: "1.5px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "18px 12px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 0 30px rgba(232,57,42,0.1)" }}>
-                  <div style={{ color: "#666", fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 600, letterSpacing: "0.15em", marginBottom: 1 }}>REST</div>
-                  <div style={{ color: C.red, fontSize: 10, fontFamily: "-apple-system, sans-serif", fontWeight: 700, letterSpacing: "0.04em", textAlign: "center", marginBottom: 1, lineHeight: 1.2 }}>BARBELL SQUAT</div>
-                  <div style={{ color: "#555", fontSize: 9, fontFamily: "-apple-system, sans-serif", marginBottom: 6 }}>3/4 done</div>
-                  <div style={{ fontSize: 36, fontWeight: 800, color: "#fff", fontFamily: "-apple-system, sans-serif", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 6, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
-                  <div style={{ width: "85%", height: 3, background: "#222", borderRadius: 1, marginBottom: 5, overflow: "hidden" }}>
-                    <div style={{ height: "100%", width: `${(1 - timer/180) * 100}%`, background: C.red, borderRadius: 1, transition: "width 1s linear" }} />
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
-                    <span style={{ color: C.red, fontSize: 7 }}>♥</span>
-                    <span style={{ color: C.red, fontSize: 11, fontWeight: 600, fontFamily: "-apple-system, sans-serif" }}>76</span>
-                  </div>
+            {/* Watch + caption */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, flexShrink: 0 }}>
+              <div style={{ width: 140, height: 170, background: "#0a0a0a", borderRadius: 40, border: "2px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "14px 10px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(232,57,42,0.08)", transform: "rotate(4deg)" }}>
+                <div style={{ color: "#666", fontSize: 9, fontWeight: 600, letterSpacing: "0.15em", marginBottom: 2 }}>REST</div>
+                <div style={{ color: C.red, fontSize: 9, fontWeight: 700, textAlign: "center", marginBottom: 2 }}>BARBELL SQUAT</div>
+                <div style={{ color: "#555", fontSize: 8, marginBottom: 8 }}>3/4 done</div>
+                <div style={{ fontSize: 32, fontWeight: 800, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 8, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</div>
+                <div style={{ width: "85%", height: 2, background: "#222", borderRadius: 1, marginBottom: 6, overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${(1 - timer/180) * 100}%`, background: C.red, borderRadius: 1, transition: "width 1s linear" }} />
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                  <span style={{ color: C.red, fontSize: 9 }}>♥</span>
+                  <span style={{ color: C.red, fontSize: 10, fontWeight: 600 }}>76</span>
                 </div>
               </div>
-              <div style={{ textAlign: "center", marginTop: 14, fontSize: 11, color: C.muted, lineHeight: 1.4, maxWidth: 170 }}>Your wrist handles the workout. Phone stays in your bag.</div>
+              <div style={{ fontSize: 11, color: C.muted, textAlign: "center", maxWidth: 130, lineHeight: 1.4 }}>Your wrist handles the workout.<br />Phone stays in your bag.</div>
             </div>
+
           </div>
         </div>
       </section>
