@@ -102,6 +102,8 @@ export default function IronMap() {
           .hero-visual-row { flex-direction:column !important; align-items:center !important; justify-content:center !important; }
           .di-pill { align-self:center !important; margin-left:0 !important; }
           .hero-visual-col { align-items:center !important; text-align:center !important; }
+          .watch-caption-col { flex-direction:column !important; align-items:center !important; gap:12px !important; }
+          .watch-caption-col > div:last-child { text-align:center !important; }
           .hero-grid { padding-bottom:80px !important; }
           .watch-caption { margin-bottom:24px !important; }
         }
@@ -200,7 +202,7 @@ export default function IronMap() {
             </div>
 
             {/* Watch + caption */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, flexShrink: 0 }}>
+            <div className="watch-caption-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, flexShrink: 0 }}>
               <div style={{ width: 140, height: 170, background: "#0a0a0a", borderRadius: 40, border: "2px solid #2a2a2a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "14px 10px", boxSizing: "border-box", boxShadow: "0 0 0 2px #1a1a1a, 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(232,57,42,0.08)", transform: "rotate(4deg)" }}>
                 <div style={{ color: "#666", fontSize: 9, fontWeight: 600, letterSpacing: "0.15em", marginBottom: 2 }}>REST</div>
                 <div style={{ color: C.red, fontSize: 9, fontWeight: 700, textAlign: "center", marginBottom: 2 }}>BARBELL SQUAT</div>
@@ -214,7 +216,7 @@ export default function IronMap() {
                   <span style={{ color: C.red, fontSize: 10, fontWeight: 600 }}>76</span>
                 </div>
               </div>
-              <div className="watch-caption" style={{ fontSize: 11, color: "#3a3a3a", textAlign: "center", maxWidth: 130, lineHeight: 1.4 }}>Your wrist handles the workout.<br />Phone stays in your bag.</div>
+              <div className="watch-caption" style={{ fontSize: 12, color: C.muted2, fontWeight: 500, textAlign: "center", maxWidth: 130, lineHeight: 1.4 }}>Your wrist handles the workout.<br />Phone stays in your bag.</div>
             </div>
 
           </div>
