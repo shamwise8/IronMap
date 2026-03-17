@@ -490,7 +490,7 @@ export default function IronMap() {
             <span style={{ fontWeight: 700, fontSize: 14 }}>IronMap</span>
           </div>
           <ul className="footer-links" style={{ display: "flex", gap: 24, listStyle: "none" }}>
-            {[["#features", "Features"], ["#how", "How It Works"], ["#ai", "AI Coach"], ["#pricing", "Pricing"], ["#download", "Download"]].map(([href, label]) => (
+            {[["#features", "Features"], ["#how", "How It Works"], ["#ai", "AI Coach"], ["#pricing", "Pricing"], ["#download", "Download"], ["/privacy.html", "Privacy"]].map(([href, label]) => (
               <li key={href}><a href={href} style={{ fontSize: 12, color: C.muted, transition: "color 0.2s" }}>{label}</a></li>
             ))}
           </ul>
