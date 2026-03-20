@@ -36,6 +36,9 @@ const FEATURES = [
   { icon: "🧠", title: "AI Mid-Workout Coach", desc: '"Shoulder hurts" → removes overhead pressing, subs lateral raises. A few words and your session restructures on-device.', tag: "COMING SOON" },
   { icon: "⌚", title: "Apple Watch", desc: "Tap through sets from your wrist. Crown adjusts weight, rest timer syncs with your phone. Works without your phone nearby.", tag: "SHIPPED", isNew: true },
   { icon: "👥", title: "Community Codes", desc: "Drop a code in your group chat — everyone's in. No friend requests, no social graph. Just an accountability board.", tag: "SHIPPED" },
+  { icon: "🎯", title: "Focus Mode", desc: "One exercise, one screen. Giant weight display, tap-to-edit, +/- reps. No scrolling, no distractions — just the set in front of you.", tag: "SHIPPED", isNew: true },
+  { icon: "💪", title: "RPE Check-Ins", desc: "Quick \"how did that feel?\" prompt twice per session. One tap adjusts your next workout automatically. Light, Right, or Hard — that's it.", tag: "SHIPPED", isNew: true },
+  { icon: "⏳", title: "Duration Hold Tracker", desc: "Planks, dead hangs, farmer carries — timer counts up with a target reference. Turns green when you beat it. Logs time and weight together.", tag: "SHIPPED", isNew: true },
 ];
 
 export default function IronMap() {
@@ -445,8 +448,8 @@ export default function IronMap() {
         <Reveal><h2 style={{ fontSize: "clamp(30px,3.5vw,52px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 56 }}>Free. Really.<br /><span style={{ color: C.red }}>No catch.</span></h2></Reveal>
         <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, alignItems: "start", maxWidth: 720, margin: "0 auto" }}>
           {[
-            { name: "Free", price: "Free", period: "forever · no credit card", featured: false, features: ["Unlimited gym profiles", "All training programs", "Equipment-aware filtering", "Group check-ins & streaks", "PR tracking & overload suggestions", "Dynamic Island rest timer", "Community codes (join & create)", "Apple Watch support"], cta: "Download Free" },
-            { name: "Pro", price: "฿299/mo", period: "AI coaching features", featured: true, features: ["Everything in Free", "AI mid-workout adaptation", "Multi-week program restructuring", "Advanced analytics", "Priority support", "Early access to new features"], cta: "Coming Soon" },
+            { name: "Free", price: "Free", period: "forever · no credit card", featured: false, features: ["Unlimited gym profiles", "All training programs", "Equipment-aware filtering", "Group check-ins & streaks", "PR tracking & overload suggestions", "Dynamic Island rest timer", "Community codes (join & create)", "Apple Watch support", "Build Your Own"], cta: "Download Free" },
+            { name: "Pro", price: "$8.99/mo", period: "AI coaching features", featured: true, features: ["Everything in Free", "AI mid-workout adaptation", "Multi-week program restructuring", "Advanced analytics", "Priority support", "Early access to new features"], cta: "Coming Soon" },
           ].map((p, i) => (
             <Reveal key={p.name} delay={i * 0.1}>
               <div style={{ background: p.featured ? "linear-gradient(160deg, #180808, #0D0505)" : C.card, border: `1px solid ${p.featured ? "rgba(232,57,42,0.35)" : C.border}`, borderRadius: 20, padding: "36px 28px", position: "relative", boxShadow: p.featured ? `0 0 48px rgba(232,57,42,0.06)` : "none" }}>
