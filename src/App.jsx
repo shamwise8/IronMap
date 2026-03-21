@@ -479,7 +479,7 @@ export default function IronMap() {
         <Reveal delay={0.1}><p style={{ fontSize: 16, color: C.muted2, maxWidth: 440, margin: "0 auto 40px", lineHeight: 1.75, position: "relative" }}>IronMap is free on iOS and Android. Start training with the equipment you actually have.</p></Reveal>
         <Reveal delay={0.2}>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", position: "relative" }}>
-            <a href="https://testflight.apple.com/join/TGzq2jhW" className="btn-primary" style={{ fontSize: 16, padding: "16px 36px" }}>🍎 Download on TestFlight</a>
+            <a href="https://testflight.apple.com/join/TGzq2jhW" className="btn-primary" style={{ fontSize: 16, padding: "16px 36px" }}>🍎 Download on iOS TestFlight</a>
           </div>
         </Reveal>
         <Reveal delay={0.3}>
