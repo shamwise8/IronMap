@@ -137,13 +137,13 @@ export default function IronMap() {
             Available on TestFlight
           </div>
           <h1 className="hero-h1" style={{ fontSize: "clamp(44px,5.5vw,76px)", fontWeight: 800, lineHeight: 0.98, letterSpacing: -3, marginBottom: 24, animation: "fadeUp 0.7s ease 0.2s both" }}>
-            Your gym.<br />Your program.<br /><span style={{ color: C.red }}>Your tribe.</span>
+            The program<br />isn't the<br /><span style={{ color: C.red }}>hard part.</span>
           </h1>
           <p style={{ fontSize: 17, lineHeight: 1.75, color: C.muted2, maxWidth: 460, marginBottom: 12, animation: "fadeUp 0.7s ease 0.3s both" }}>
-            IronMap filters every exercise to the equipment your gym actually has. Log sets, track PRs, and stay accountable with your crew.
+            Showing up is. IronMap is built for the days the plan falls apart — wrong gym, bad sleep, busy machine, low energy. Two taps and you're still moving.
           </p>
           <p style={{ fontSize: 14, color: C.muted, maxWidth: 420, marginBottom: 40, animation: "fadeUp 0.7s ease 0.35s both" }}>
-            Most apps are workout logs. IronMap is a training partner.
+            Most apps are logs. IronMap is a training partner.
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", animation: "fadeUp 0.7s ease 0.4s both" }} className="hero-btns">
             <a href="#download" className="btn-primary">Join IronMap Beta →</a>
@@ -231,7 +231,7 @@ export default function IronMap() {
       {/* STATS */}
       <div style={{ background: C.card, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "32px clamp(20px,4vw,48px)" }}>
         <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", maxWidth: 900, margin: "0 auto" }}>
-          {[["100+", "Exercises\nmapped"], ["38", "Equipment types\ntracked"], ["5", "Seed communities\nready"], ["$0", "Cost to\nget started"]].map(([num, label], i) => (
+          {[["100+", "Exercises\nmapped"], ["38", "Equipment types\ntracked"], ["6", "Templates\nfor every goal"], ["$0", "Cost to\nget started"]].map(([num, label], i) => (
             <Reveal key={i} delay={i * 0.08}>
               <div style={{ textAlign: "center", padding: "0 20px", borderRight: i < 3 ? `1px solid ${C.border}` : "none" }}>
                 <div style={{ fontSize: 36, fontWeight: 800, color: C.red, letterSpacing: -2, lineHeight: 1, marginBottom: 6 }}>{num}</div>
@@ -241,6 +241,71 @@ export default function IronMap() {
           ))}
         </div>
       </div>
+
+      {/* REAL LIFE */}
+      <section style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg2 }}>
+        <div className="section-label">Why IronMap Exists</div>
+        <Reveal>
+          <h2 style={{ fontSize: "clamp(30px,3.5vw,52px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 16 }}>
+            Every other app<br /><span style={{ color: C.red }}>breaks here.</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p style={{ fontSize: 16, color: C.muted2, maxWidth: 520, lineHeight: 1.8, marginBottom: 64 }}>
+            You open the app. The program says bench press. The bench is taken. The app has no answer. You improvise, lose the thread, skip logging. That's the moment every other app fails. IronMap is designed for exactly that moment.
+          </p>
+        </Reveal>
+
+        <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+          {[
+            {
+              problem: "The bench is taken.",
+              answer: "Two taps. IronMap finds the best substitute by movement and muscle group — and tells you why.",
+              icon: "🔄",
+              tag: "Substitution Engine"
+            },
+            {
+              problem: "You slept 4 hours.",
+              answer: "The weekly checkpoint asks how you're feeling. Worn out isn't failure — it's data. The app adjusts.",
+              icon: "😴",
+              tag: "Weekly Checkpoint"
+            },
+            {
+              problem: "Your gym has no barbell.",
+              answer: "Set up your gym once. Every exercise, every session filters to what you actually have.",
+              icon: "🏠",
+              tag: "Equipment Filter"
+            },
+            {
+              problem: "You can't remember last week's weight.",
+              answer: "IronMap remembers. Progressive overload suggestions based on your last session. Always.",
+              icon: "📊",
+              tag: "PR Tracking"
+            },
+            {
+              problem: "You're travelling.",
+              answer: "Switch gym profiles. Hotel gym, condo gym, home setup — the program follows you.",
+              icon: "✈️",
+              tag: "Multi-Gym"
+            },
+            {
+              problem: "You just don't feel like it.",
+              answer: "Your crew's streak is on the board. Someone's watching. In the best way.",
+              icon: "👥",
+              tag: "Community"
+            },
+          ].map((item, i) => (
+            <Reveal key={i} delay={i * 0.06}>
+              <div className="feat-card" style={{ height: "100%" }}>
+                <div style={{ fontSize: 28, marginBottom: 16 }}>{item.icon}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, color: C.red, marginBottom: 10 }}>{item.tag}</div>
+                <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, letterSpacing: -0.3, color: C.text }}>"{item.problem}"</div>
+                <div style={{ fontSize: 13, color: C.muted2, lineHeight: 1.65 }}>{item.answer}</div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       {/* HOW IT WORKS */}
       <section id="how" style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg }}>
@@ -325,6 +390,97 @@ export default function IronMap() {
                   <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <span style={{ fontSize: 13, color: C.muted2 }}>Rest</span>
                     <span style={{ fontSize: 15, fontWeight: 800, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* WATCH */}
+      <section style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg }}>
+        <div className="split-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+          <div>
+            <div className="section-label">Apple Watch</div>
+            <Reveal>
+              <h2 style={{ fontSize: "clamp(28px,3vw,48px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 20 }}>
+                Your whole workout.<br /><span style={{ color: C.red }}>From your wrist.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p style={{ fontSize: 15, color: C.muted2, lineHeight: 1.75, marginBottom: 32 }}>
+                Not just a timer. A complete workout interface. Phone stays in your bag the entire session.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                {[
+                  ["⌚", "Swipe to start", "Session name, exercise count, one swipe to begin."],
+                  ["👑", "Crown adjusts weight", "Scroll up or down between sets. No typing."],
+                  ["✓", "Tap DONE", "Rest timer starts automatically. Phone stays dark."],
+                  ["≡", "Full exercise list", "Tap the list icon to see all exercises. Jump to any. Crown scrolls."],
+                  ["♥", "Heart rate live", "HR tracked throughout. Session summary on completion."],
+                ].map(([icon, title, desc]) => (
+                  <div key={title} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                    <span style={{ fontSize: 18, width: 28, flexShrink: 0, marginTop: 2 }}>{icon}</span>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 3 }}>{title}</div>
+                      <div style={{ fontSize: 13, color: C.muted2, lineHeight: 1.5 }}>{desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 32 }}>
+              {/* Watch mockup — Active Set screen */}
+              <div style={{
+                width: 198, height: 242,
+                background: "#000",
+                borderRadius: 42,
+                border: "3px solid #333",
+                position: "relative",
+                overflow: "hidden",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.6), 0 0 40px rgba(232,57,42,0.1)"
+              }}>
+                {/* Crown */}
+                <div style={{
+                  position: "absolute", right: -9, top: "50%", transform: "translateY(-50%)",
+                  width: 7, height: 28, background: "#444", borderRadius: 3, border: "1px solid #555"
+                }} />
+                {/* Screen content */}
+                <div style={{ padding: "22px 14px 12px", display: "flex", flexDirection: "column", height: "100%" }}>
+                  {/* Time */}
+                  <div style={{ position: "absolute", top: 6, right: 14, fontSize: 11, fontWeight: 600, color: "#999" }}>13:44</div>
+                  {/* Exercise name */}
+                  <div style={{ fontSize: 11, fontWeight: 800, color: C.red, textAlign: "center", letterSpacing: 0.3, marginBottom: 2 }}>BARBELL BENCH PRESS</div>
+                  {/* Set row */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 6 }}>
+                    <div style={{ fontSize: 10, color: "#888", fontWeight: 600 }}>SET 1 OF 3</div>
+                    <div style={{ width: 18, height: 18, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 2, background: "rgba(232,57,42,0.15)", border: "1px solid rgba(232,57,42,0.3)", borderRadius: 4 }}>
+                      {[0,1,2].map(i => <div key={i} style={{ width: 10, height: 1.5, background: C.red, borderRadius: 1 }} />)}
+                    </div>
+                  </div>
+                  {/* Reps */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 4 }}>
+                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#222", border: "1.5px solid #444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, color: "#ccc" }}>−</div>
+                    <div style={{ fontSize: 18, fontWeight: 700 }}>6 <span style={{ fontSize: 11, color: "#888" }}>reps</span></div>
+                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#222", border: "1.5px solid #444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, color: "#ccc" }}>+</div>
+                  </div>
+                  {/* Weight */}
+                  <div style={{ fontSize: 32, fontWeight: 800, color: C.red, textAlign: "center", lineHeight: 1 }}>52.5 <span style={{ fontSize: 16, fontWeight: 600 }}>kg</span></div>
+                  {/* Crown label + HR */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 6, marginBottom: 8 }}>
+                    <div style={{ fontSize: 9, color: "#666" }}>Crown adjusts</div>
+                    <div style={{ fontSize: 10, color: C.red, fontWeight: 600 }}>♥ 80</div>
+                  </div>
+                  {/* Actions */}
+                  <div style={{ display: "flex", gap: 6 }}>
+                    <div style={{ flex: 1, padding: "7px 0", borderRadius: 8, background: "#1a1a1a", border: "1px solid #333", fontSize: 10, fontWeight: 700, color: "#888", textAlign: "center" }}>SKIP</div>
+                    <div style={{ flex: 1, padding: "7px 0", borderRadius: 8, background: C.red, fontSize: 10, fontWeight: 800, color: "white", textAlign: "center" }}>DONE</div>
                   </div>
                 </div>
               </div>
