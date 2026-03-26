@@ -76,6 +76,7 @@ export default function IronMap() {
         @keyframes shimmer { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
         @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
         @keyframes watchGlow { 0%,100% { box-shadow: 0 0 30px rgba(232,57,42,0.1); } 50% { box-shadow: 0 0 40px rgba(232,57,42,0.2); } }
+        @keyframes pasteCrossfade { 0%,20% { opacity:1; } 25%,95% { opacity:0; } 100% { opacity:1; } }
         a { text-decoration:none; color:inherit; }
         .nav-link { color:${C.muted2}; font-size:13px; font-weight:500; transition:color 0.2s; letter-spacing:0.3px; }
         .nav-link:hover { color:${C.text}; }
@@ -100,6 +101,7 @@ export default function IronMap() {
           .section-label { justify-content:center; }
           .footer-inner { flex-direction:column; text-align:center; }
           .footer-links { justify-content:center; }
+          .paste-phone { width:220px !important; height:440px !important; }
           .hero-h1 { font-size:40px !important; }
           .di-section-grid { grid-template-columns:1fr !important; }
           .hero-visual-row { flex-direction:column !important; align-items:center !important; justify-content:center !important; }
@@ -313,7 +315,7 @@ export default function IronMap() {
         <Reveal><h2 style={{ fontSize: "clamp(30px,3.5vw,52px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 56 }}>60 seconds to start.<br /><span style={{ color: C.red }}>Then just train.</span></h2></Reveal>
         <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
           {[
-            { step: "01", title: "Name your gym", desc: "Type your gym name, pick an equipment preset, toggle off what's missing.", icon: "🏠" },
+            { step: "01", title: "Set up your gym", desc: "Pick an equipment preset, toggle off what's missing.", icon: "🏠" },
             { step: "02", title: "Start training", desc: "Every exercise filtered to your equipment. Suggested weights from last session. Tap and go.", icon: "🏋️" },
             { step: "03", title: "Check in daily", desc: "Workouts auto-sync. Track water, protein, sleep. Streaks build. Rings fill.", icon: "✅" },
             { step: "04", title: "Join your crew", desc: "Enter a community code. See who checked in. Accountability without the noise.", icon: "👥" },
@@ -489,6 +491,73 @@ export default function IronMap() {
         </div>
       </section>
 
+      {/* PASTE ANY PROGRAM */}
+      <section style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg2 }}>
+        <div className="split-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+          <div>
+            <div className="section-label">Paste Any Program</div>
+            <Reveal>
+              <h2 style={{ fontSize: "clamp(28px,3vw,48px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 20 }}>
+                Copy. Paste.<br /><span style={{ color: C.red }}>Train.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p style={{ fontSize: 15, color: C.muted2, lineHeight: 1.75, marginBottom: 12 }}>
+                Found a workout on Reddit, got a program from your coach, or saved one from Instagram? Just copy the text — IronMap detects it automatically and loads it into your sessions.
+              </p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.7, marginBottom: 28 }}>
+                Tap <span style={{ color: C.red, fontWeight: 600 }}>Build Your Own</span> → IronMap checks your clipboard. Exercises matched, sets and reps parsed, ready to train in seconds.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {[
+                  ["📋", "Auto-detect", "Clipboard scanned when you tap Build Your Own"],
+                  ["🔍", "200+ aliases", "Recognizes exercise names in any format"],
+                  ["🔄", "Equipment swap", "Missing gear? Substitution engine finds alternatives"],
+                  ["📄", "Any format", "Plain text, tables, numbered lists, messy copy-paste"],
+                ].map(([icon, title, desc]) => (
+                  <div key={title} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                    <span style={{ fontSize: 18, width: 28, flexShrink: 0, marginTop: 2 }}>{icon}</span>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 2 }}>{title}</div>
+                      <div style={{ fontSize: 13, color: C.muted2, lineHeight: 1.5 }}>{desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+          <Reveal>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div style={{ position: "relative", width: 260, height: 520, borderRadius: 44, overflow: "hidden", border: `3px solid ${C.border2}`, boxShadow: `0 40px 80px rgba(0,0,0,0.7), 0 0 80px ${C.redGlow2}` }}>
+                {[
+                  { src: "/paste-1-copy.jpg", label: "Copy from anywhere" },
+                  { src: "/paste-2-detect.jpg", label: "Clipboard detected" },
+                  { src: "/paste-3-review.jpg", label: "Exercises parsed" },
+                  { src: "/paste-4-train.jpg", label: "Ready to train" },
+                ].map((img, i) => (
+                  <div key={i} style={{
+                    position: i === 0 ? "relative" : "absolute",
+                    top: 0, left: 0, width: "100%", height: "100%",
+                    animation: `pasteCrossfade 10s ${i * 2.5}s ease-in-out infinite`,
+                    opacity: i === 0 ? 1 : 0,
+                  }}>
+                    <img src={img.src} alt={img.label} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "24px 16px 16px", background: "linear-gradient(transparent, rgba(0,0,0,0.85))", textAlign: "center" }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, color: C.red, textTransform: "uppercase" }}>STEP {String(i + 1).padStart(2, "0")}</div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: "white", marginTop: 4 }}>{img.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* AI */}
       <section id="ai" style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg2 }}>
         <div className="split-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
@@ -604,7 +673,7 @@ export default function IronMap() {
         <Reveal><h2 style={{ fontSize: "clamp(30px,3.5vw,52px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 56 }}>Free. Really.<br /><span style={{ color: C.red }}>No catch.</span></h2></Reveal>
         <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, alignItems: "start", maxWidth: 720, margin: "0 auto" }}>
           {[
-            { name: "Free", price: "Free", period: "forever · no credit card", featured: false, features: ["Unlimited gym profiles", "All training programs", "Equipment-aware filtering", "Group check-ins & streaks", "PR tracking & overload suggestions", "Dynamic Island rest timer", "Community codes (join & create)", "Apple Watch support", "Build Your Own"], cta: "Download Free" },
+            { name: "Free", price: "Free", period: "forever · no credit card", featured: false, features: ["Unlimited gym profiles", "All training programs", "Equipment-aware filtering", "Group check-ins & streaks", "PR tracking & overload suggestions", "Dynamic Island rest timer", "Community codes (join & create)", "Apple Watch support", "Build Your Own", "Paste any program"], cta: "Download Free" },
             { name: "Pro", price: "$8.99/mo", period: "AI coaching features", featured: true, features: ["Everything in Free", "AI mid-workout adaptation", "Multi-week program restructuring", "Advanced analytics", "Priority support", "Early access to new features"], cta: "Coming Soon" },
           ].map((p, i) => (
             <Reveal key={p.name} delay={i * 0.1}>
