@@ -77,8 +77,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
-    padding: 80px 60px;
+    gap: 24px;
+    padding: 60px 60px;
     width: 100%;
   }
 
@@ -90,9 +90,9 @@
   }
 
   .logo-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 26px;
+    width: 90px;
+    height: 90px;
+    border-radius: 20px;
     box-shadow:
       0 0 0 1px rgba(232,49,26,0.3),
       0 0 40px rgba(232,49,26,0.3),
@@ -100,7 +100,7 @@
   }
 
   .app-name {
-    font-size: 72px;
+    font-size: 58px;
     font-weight: 800;
     letter-spacing: -2px;
     color: #F5F5F5;
@@ -117,16 +117,16 @@
   /* Phone mockups row */
   .phones-row {
     display: flex;
-    gap: 20px;
+    gap: 28px;
     align-items: flex-start;
-    margin: 8px 0;
+    margin: 4px 0;
   }
 
   .phone {
-    width: 160px;
-    height: 326px;
+    width: 240px;
+    height: 490px;
     background: #1A1A1A;
-    border-radius: 24px;
+    border-radius: 28px;
     border: 1.5px solid #2A2A2A;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0,0,0,0.7);
@@ -139,13 +139,9 @@
     object-position: top;
   }
 
-  .phone.center {
-    width: 180px;
-    height: 368px;
-    border-radius: 28px;
+  .phone.highlight {
     border-color: rgba(232,49,26,0.5);
     box-shadow: 0 0 0 1px rgba(232,49,26,0.2), 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(232,49,26,0.15);
-    margin-top: -20px;
   }
 
   /* Feature cards */
@@ -228,11 +224,8 @@
       <div class="phone">
         <img src="/seeker-1.png" alt="Templates" />
       </div>
-      <div class="phone center">
+      <div class="phone highlight">
         <img src="/seeker-4.png" alt="SEEKER Check-Ins" />
-      </div>
-      <div class="phone">
-        <img src="/seeker-6.png" alt="1 SOL Pro" />
       </div>
     </div>
 
