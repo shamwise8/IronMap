@@ -732,7 +732,7 @@ export default function IronMap() {
                 ))}
               </ul>
               <a href="https://play.google.com/store/apps/details?id=com.ironmap.app" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: "linear-gradient(90deg,#9945FF,#14F195)", color: "white", textDecoration: "none" }}>
-                <svg width="16" height="14" viewBox="0 0 397 311" xmlns="http://www.w3.org/2000/svg" style={{ fill: "#fff", flexShrink: 0 }}><path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zm0-164.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1L332.9 143c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zM332.9 3.8c-2.4-2.4-5.7-3.8-9.2-3.8H6.5C.7 0-2.2 7 1.9 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1L332.9 3.8z"/></svg>
+                <img src="/solana-mark.svg" alt="Solana" style={{ width: 18, height: 16, filter: "brightness(0) invert(1)", flexShrink: 0 }} />
                 Get on Seeker
               </a>
             </div>
