@@ -671,29 +671,72 @@ export default function IronMap() {
       <section id="pricing" style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg2 }}>
         <div className="section-label">Pricing</div>
         <Reveal><h2 style={{ fontSize: "clamp(30px,3.5vw,52px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 56 }}>Free. Really.<br /><span style={{ color: C.red }}>No catch.</span></h2></Reveal>
-        <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, alignItems: "start", maxWidth: 720, margin: "0 auto" }}>
-          {[
-            { name: "Free", price: "Free", period: "forever · no credit card", featured: false, features: ["Unlimited gym profiles", "All training programs", "Equipment-aware filtering", "Group check-ins & streaks", "PR tracking & overload suggestions", "Dynamic Island rest timer", "Community codes (join & create)", "Apple Watch support", "Build Your Own", "Paste any program"], cta: "Download Free" },
-            { name: "Pro", price: "$8.99/mo", period: "AI coaching features", featured: true, features: ["Everything in Free", "AI mid-workout adaptation", "Multi-week program restructuring", "Advanced analytics", "Priority support", "Early access to new features"], cta: "Coming Soon" },
-          ].map((p, i) => (
-            <Reveal key={p.name} delay={i * 0.1}>
-              <div style={{ background: p.featured ? "linear-gradient(160deg, #180808, #0D0505)" : C.card, border: `1px solid ${p.featured ? "rgba(232,57,42,0.35)" : C.border}`, borderRadius: 20, padding: "36px 28px", position: "relative", boxShadow: p.featured ? `0 0 48px rgba(232,57,42,0.06)` : "none" }}>
-                {p.featured && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: C.red, color: "white", fontSize: 10, fontWeight: 700, letterSpacing: 1.5, padding: "5px 18px", borderRadius: 100, whiteSpace: "nowrap" }}>AI FEATURES</div>}
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: p.featured ? C.red : C.muted, marginBottom: 16 }}>{p.name.toUpperCase()}</div>
-                <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1, marginBottom: 4 }}>{p.price}</div>
-                <div style={{ fontSize: 12, color: C.muted, marginBottom: 28 }}>{p.period}</div>
-                <div style={{ height: 1, background: p.featured ? "rgba(232,57,42,0.12)" : C.border, marginBottom: 24 }} />
-                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-                  {p.features.map(f => (
-                    <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
-                      <span style={{ color: p.featured ? C.red : C.green, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
-                    </li>
-                  ))}
-                </ul>
-                <div style={{ display: "block", width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: p.featured ? C.red : "transparent", color: p.featured ? "white" : C.muted2, border: p.featured ? "none" : `1px solid ${C.border2}`, cursor: p.featured ? "default" : "pointer" }}>{p.cta}</div>
+        <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, alignItems: "start", maxWidth: 1000, margin: "0 auto" }}>
+          {/* Free */}
+          <Reveal delay={0}>
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: "36px 28px", position: "relative" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: C.muted, marginBottom: 16 }}>FREE</div>
+              <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1, marginBottom: 4 }}>Free</div>
+              <div style={{ fontSize: 12, color: C.muted, marginBottom: 28 }}>forever · no credit card</div>
+              <div style={{ height: 1, background: C.border, marginBottom: 24 }} />
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                {["Unlimited gym profiles", "All training programs", "Equipment-aware filtering", "Group check-ins & streaks", "PR tracking & overload suggestions", "Dynamic Island rest timer", "Community codes", "Apple Watch support", "Build Your Own", "Paste any program"].map(f => (
+                  <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
+                    <span style={{ color: C.green, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
+                  </li>
+                ))}
+              </ul>
+              <div style={{ display: "block", width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: "transparent", color: C.muted2, border: `1px solid ${C.border2}` }}>Download Free</div>
+            </div>
+          </Reveal>
+
+          {/* Pro iOS/Android */}
+          <Reveal delay={0.1}>
+            <div style={{ background: "linear-gradient(160deg, #180808, #0D0505)", border: "1px solid rgba(232,57,42,0.35)", borderRadius: 20, padding: "36px 28px", position: "relative", boxShadow: "0 0 48px rgba(232,57,42,0.06)" }}>
+              <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: C.red, color: "white", fontSize: 10, fontWeight: 700, letterSpacing: 1.5, padding: "5px 18px", borderRadius: 100, whiteSpace: "nowrap" }}>AI FEATURES</div>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: C.red, marginBottom: 16 }}>PRO</div>
+              <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1, marginBottom: 4 }}>$3.99<span style={{ fontSize: 18, fontWeight: 500, letterSpacing: 0 }}>/mo</span></div>
+              <div style={{ fontSize: 12, color: C.muted, marginBottom: 4 }}>iOS & Android</div>
+              <div style={{ fontSize: 11, color: C.muted, marginBottom: 24 }}>$34.99/yr · $79.99 lifetime</div>
+              <div style={{ height: 1, background: "rgba(232,57,42,0.12)", marginBottom: 24 }} />
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                {["Everything in Free", "AI mid-workout adaptation", "Multi-week program restructuring", "Advanced analytics", "Priority support", "Early access to new features"].map(f => (
+                  <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
+                    <span style={{ color: C.red, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
+                  </li>
+                ))}
+              </ul>
+              <div style={{ display: "block", width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: C.red, color: "white" }}>Coming Soon</div>
+            </div>
+          </Reveal>
+
+          {/* Pro Seeker */}
+          <Reveal delay={0.2}>
+            <div style={{ background: "linear-gradient(160deg, #0a0a1a, #050510)", border: "1px solid rgba(153,69,255,0.35)", borderRadius: 20, padding: "36px 28px", position: "relative", boxShadow: "0 0 48px rgba(153,69,255,0.06)" }}>
+              <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "linear-gradient(90deg,#9945FF,#14F195)", color: "white", fontSize: 10, fontWeight: 700, letterSpacing: 1.5, padding: "5px 18px", borderRadius: 100, whiteSpace: "nowrap" }}>SEEKER EXCLUSIVE</div>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: "#9945FF", marginBottom: 16 }}>PRO · SEEKER</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 2 }}>
+                <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1 }}>0.6 SOL</div>
+                <div style={{ fontSize: 18, color: C.muted, textDecoration: "line-through", fontWeight: 500 }}>1 SOL</div>
               </div>
-            </Reveal>
-          ))}
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(232,57,42,0.12)", border: "1px solid rgba(232,57,42,0.3)", borderRadius: 100, padding: "3px 10px", marginBottom: 24 }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.red, display: "inline-block", animation: "blink 2s ease-in-out infinite" }} />
+                <span style={{ fontSize: 10, fontWeight: 700, color: C.red, letterSpacing: 1 }}>LIMITED TIME</span>
+              </div>
+              <div style={{ height: 1, background: "rgba(153,69,255,0.12)", marginBottom: 24 }} />
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                {["Everything in Free", "AI mid-workout adaptation", "Multi-week program restructuring", "Advanced analytics", "Lifetime access · one-time payment", "Exclusive to Seeker dApp Store"].map(f => (
+                  <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
+                    <span style={{ color: "#14F195", fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
+                  </li>
+                ))}
+              </ul>
+              <a href="https://play.google.com/store/apps/details?id=com.ironmap.app" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: "linear-gradient(90deg,#9945FF,#14F195)", color: "white", textDecoration: "none" }}>
+                <svg width="16" height="14" viewBox="0 0 397 311" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zm0-164.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1L332.9 143c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zM332.9 3.8c-2.4-2.4-5.7-3.8-9.2-3.8H6.5C.7 0-2.2 7 1.9 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1L332.9 3.8z"/></svg>
+                Get on Seeker
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
