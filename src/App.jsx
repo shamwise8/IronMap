@@ -693,14 +693,14 @@ export default function IronMap() {
           {/* Pro iOS/Android */}
           <Reveal delay={0.1}>
             <div style={{ background: "linear-gradient(160deg, #180808, #0D0505)", border: "1px solid rgba(232,57,42,0.35)", borderRadius: 20, padding: "36px 28px", position: "relative", boxShadow: "0 0 48px rgba(232,57,42,0.06)" }}>
-              <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: C.red, color: "white", fontSize: 10, fontWeight: 700, letterSpacing: 1.5, padding: "5px 18px", borderRadius: 100, whiteSpace: "nowrap" }}>AI FEATURES</div>
+              <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: C.red, color: "white", fontSize: 10, fontWeight: 700, letterSpacing: 1.5, padding: "5px 18px", borderRadius: 100, whiteSpace: "nowrap" }}>MOST POPULAR</div>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: C.red, marginBottom: 16 }}>PRO</div>
               <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1, marginBottom: 4 }}>$3.99<span style={{ fontSize: 18, fontWeight: 500, letterSpacing: 0 }}>/mo</span></div>
               <div style={{ fontSize: 12, color: C.muted, marginBottom: 4 }}>iOS & Android</div>
               <div style={{ fontSize: 11, color: C.muted, marginBottom: 24 }}>$34.99/yr · $79.99 lifetime</div>
               <div style={{ height: 1, background: "rgba(232,57,42,0.12)", marginBottom: 24 }} />
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-                {["Everything in Free", "AI mid-workout adaptation", "Multi-week program restructuring", "Advanced analytics", "Priority support", "Early access to new features"].map(f => (
+                {["Everything in Free", "Warm Up Mode", "Saved Program", "Data Exports", "Unlimited Communities"].map(f => (
                   <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
                     <span style={{ color: C.red, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
                   </li>
@@ -725,7 +725,7 @@ export default function IronMap() {
               </div>
               <div style={{ height: 1, background: "rgba(153,69,255,0.12)", marginBottom: 24 }} />
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-                {["Everything in Free", "AI mid-workout adaptation", "Multi-week program restructuring", "Advanced analytics", "Lifetime access · one-time payment", "Exclusive to Seeker dApp Store"].map(f => (
+                {["Everything in Free", "Warm Up Mode", "Saved Program", "Data Exports", "Unlimited Communities", "Lifetime access · one-time payment"].map(f => (
                   <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
                     <span style={{ color: "#14F195", fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
                   </li>
