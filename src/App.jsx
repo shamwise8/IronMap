@@ -696,8 +696,7 @@ export default function IronMap() {
               <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: C.red, color: "white", fontSize: 10, fontWeight: 700, letterSpacing: 1.5, padding: "5px 18px", borderRadius: 100, whiteSpace: "nowrap" }}>MOST POPULAR</div>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: C.red, marginBottom: 16 }}>PRO</div>
               <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1, marginBottom: 4 }}>$3.99<span style={{ fontSize: 18, fontWeight: 500, letterSpacing: 0 }}>/mo</span></div>
-              <div style={{ fontSize: 12, color: C.muted, marginBottom: 4 }}>iOS & Android</div>
-              <div style={{ fontSize: 11, color: C.muted, marginBottom: 24 }}>$34.99/yr · $79.99 lifetime</div>
+              <div style={{ fontSize: 12, color: C.muted, marginBottom: 24 }}>iOS & Android</div>
               <div style={{ height: 1, background: "rgba(232,57,42,0.12)", marginBottom: 24 }} />
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
                 {["Everything in Free", "Warm Up Mode", "Saved Program", "Data Exports", "Unlimited Communities"].map(f => (
