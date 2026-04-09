@@ -671,7 +671,7 @@ export default function IronMap() {
       <section id="pricing" style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg2 }}>
         <div className="section-label">Pricing</div>
         <Reveal><h2 style={{ fontSize: "clamp(30px,3.5vw,52px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 56 }}>Free. Really.<br /><span style={{ color: C.red }}>No catch.</span></h2></Reveal>
-        <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, alignItems: "start", maxWidth: 1000, margin: "0 auto" }}>
+        <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, alignItems: "start", maxWidth: 720, margin: "0 auto" }}>
           {/* Free */}
           <Reveal delay={0}>
             <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: "36px 28px", position: "relative" }}>
@@ -710,33 +710,6 @@ export default function IronMap() {
             </div>
           </Reveal>
 
-          {/* Pro Seeker */}
-          <Reveal delay={0.2}>
-            <div style={{ background: "linear-gradient(160deg, #0a0a1a, #050510)", border: "1px solid rgba(153,69,255,0.35)", borderRadius: 20, padding: "36px 28px", position: "relative", boxShadow: "0 0 48px rgba(153,69,255,0.06)" }}>
-              <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "linear-gradient(90deg,#9945FF,#14F195)", color: "white", fontSize: 10, fontWeight: 700, letterSpacing: 1.5, padding: "5px 18px", borderRadius: 100, whiteSpace: "nowrap" }}>SEEKER EXCLUSIVE</div>
-              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: "#9945FF", marginBottom: 16 }}>PRO · SEEKER</div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 2 }}>
-                <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1 }}>0.6 SOL</div>
-                <div style={{ fontSize: 18, color: C.muted, textDecoration: "line-through", fontWeight: 500 }}>1 SOL</div>
-              </div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(232,57,42,0.12)", border: "1px solid rgba(232,57,42,0.3)", borderRadius: 100, padding: "3px 10px", marginBottom: 24 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.red, display: "inline-block", animation: "blink 2s ease-in-out infinite" }} />
-                <span style={{ fontSize: 10, fontWeight: 700, color: C.red, letterSpacing: 1 }}>LIMITED TIME</span>
-              </div>
-              <div style={{ height: 1, background: "rgba(153,69,255,0.12)", marginBottom: 24 }} />
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-                {["Everything in Free", "Warm Up Mode", "Saved Program", "Data Exports", "Unlimited Communities", "Lifetime access · one-time payment"].map(f => (
-                  <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
-                    <span style={{ color: "#14F195", fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <a href="https://play.google.com/store/apps/details?id=com.ironmap.app" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: "linear-gradient(90deg,#9945FF,#14F195)", color: "white", textDecoration: "none" }}>
-                <img src="/solana-mark.svg" alt="Solana" style={{ width: 18, height: 16, filter: "brightness(0) invert(1)", flexShrink: 0 }} />
-                Get on Seeker
-              </a>
-            </div>
-          </Reveal>
         </div>
       </section>
 
