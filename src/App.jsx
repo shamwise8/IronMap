@@ -239,7 +239,7 @@ export default function IronMap() {
       {/* STATS */}
       <div style={{ background: C.card, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "32px clamp(20px,4vw,48px)" }}>
         <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", maxWidth: 900, margin: "0 auto" }}>
-          {[["100+", "Exercises\nmapped"], ["38", "Equipment types\ntracked"], ["6", "Templates\nfor every goal"], ["$0", "Cost to\nget started"]].map(([num, label], i) => (
+          {[["150+", "Exercises\nmapped"], ["38", "Equipment types\ntracked"], ["7", "Templates\nfor every goal"], ["$0", "Cost to\nget started"]].map(([num, label], i) => (
             <Reveal key={i} delay={i * 0.08}>
               <div style={{ textAlign: "center", padding: "0 20px", borderRight: i < 3 ? `1px solid ${C.border}` : "none" }}>
                 <div style={{ fontSize: 36, fontWeight: 800, color: C.red, letterSpacing: -2, lineHeight: 1, marginBottom: 6 }}>{num}</div>
