@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=390"/>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 390px;
+    height: 844px;
+    background: #0F0F0F;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    color: #F0F0F0;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .screen {
+    width: 390px;
+    height: 844px;
+    background: #0F0F0F;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* status bar */
+  .status-bar {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    font-size: 15px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .status-time { font-weight: 700; }
+  .status-icons { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+
+  /* header */
+  .header {
+    padding: 8px 20px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .workouts-title {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #F5F5F5;
+  }
+
+  .gym-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #E8311A 0%, #FF6B47 100%);
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.3px;
+    box-shadow: 0 4px 16px rgba(232,49,26,0.35);
+  }
+
+  /* session tabs */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px 20px;
+    flex-shrink: 0;
+  }
+
+  .tab {
+    width: 48px;
+    height: 48px;
+    border-radius: 13px;
+    background: #1C1C1C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #666;
+    position: relative;
+  }
+
+  .tab.active {
+    background: #E8311A;
+    color: white;
+  }
+
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #E8311A;
+    border-radius: 50%;
+    border: 2px solid #0F0F0F;
+  }
+
+  .tab.add {
+    background: #1C1C1C;
+    color: #444;
+    font-size: 20px;
+  }
+
+  /* exercises */
+  .exercises {
+    flex: 1;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+  }
+
+  .exercise-active {
+    background: #1A1A1A;
+    border-radius: 16px;
+    padding: 18px 20px;
+    border-left: 3px solid #E8311A;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .exercise-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #F5F5F5;
+    letter-spacing: -0.3px;
+  }
+
+  .exercise-meta {
+    font-size: 14px;
+    color: #888;
+    margin-top: 4px;
+  }
+
+  .dot-active {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #E8311A;
+    flex-shrink: 0;
+  }
+
+  .exercise-row {
+    padding: 18px 4px;
+    border-bottom: 1px solid #1A1A1A;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .exercise-row:last-child { border-bottom: none; }
+
+  .exercise-row .exercise-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: #C0C0C0;
+  }
+
+  .exercise-row .exercise-meta {
+    font-size: 13px;
+    color: #555;
+  }
+
+  /* tab bar */
+  .tab-bar {
+    height: 82px;
+    background: #111;
+    border-top: 1px solid #1E1E1E;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 12px;
+    flex-shrink: 0;
+  }
+
+  .tab-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .tab-item.active { color: #E8311A; }
+
+  .tab-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+</style>
+</head>
+<body>
+<div class="screen">
+  <!-- Status bar -->
+  <div class="status-bar">
+    <span class="status-time">10:34</span>
+    <div class="status-icons">
+      <span>▲▲▲▲</span>
+      <span>50%</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="workouts-title">Workouts</div>
+    <div class="gym-badge">IronMap</div>
+  </div>
+
+  <!-- Session tabs -->
+  <div class="tabs">
+    <div class="tab">S1</div>
+    <div class="tab active">S2</div>
+    <div class="tab">S3</div>
+    <div class="tab">S4</div>
+    <div class="tab">R</div>
+    <div class="tab add">+</div>
+  </div>
+
+  <!-- Exercises -->
+  <div class="exercises">
+    <div class="exercise-active">
+      <div>
+        <div class="exercise-name">Barbell Squat</div>
+        <div class="exercise-meta">50kg · 3/4 sets</div>
+      </div>
+      <div class="dot-active"></div>
+    </div>
+
+    <div class="exercise-row">
+      <div class="exercise-name">Bulgarian Split Squat</div>
+      <div class="exercise-meta">6kg · 0/3 sets</div>
+    </div>
+
+    <div class="exercise-row">
+      <div class="exercise-name">Leg Press</div>
+      <div class="exercise-meta">80kg · 0/3 sets</div>
+    </div>
+
+    <div class="exercise-row">
+      <div class="exercise-name">Leg Curls</div>
+      <div class="exercise-meta">20kg · 0/2 sets</div>
+    </div>
+  </div>
+
+  <!-- Tab bar -->
+  <div class="tab-bar">
+    <div class="tab-item active">
+      <div class="tab-icon">♡</div>
+      <span>Workouts</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">✓</div>
+      <span>Check-Ins</span>
+    </div>
+    <div class="tab-item">
+      <div class="tab-icon">⊞</div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
