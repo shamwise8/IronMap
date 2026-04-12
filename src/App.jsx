@@ -136,7 +136,7 @@ export default function IronMap() {
         <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start" }} className="hero-text">
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", borderRadius: 100, padding: "6px 16px", fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 28, animation: "fadeUp 0.7s ease 0.1s both" }}>
             <span style={{ width: 6, height: 6, background: C.red, borderRadius: "50%", animation: "blink 2s ease-in-out infinite" }} />
-            Available on TestFlight
+            Now Live on iOS & Android
           </div>
           <h1 className="hero-h1" style={{ fontSize: "clamp(44px,5.5vw,76px)", fontWeight: 800, lineHeight: 0.98, letterSpacing: -3, marginBottom: 24, animation: "fadeUp 0.7s ease 0.2s both" }}>
             The program<br />isn't the<br /><span style={{ color: C.red }}>hard part.</span>
@@ -148,7 +148,7 @@ export default function IronMap() {
             Most apps are logs. IronMap is a training partner.
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", animation: "fadeUp 0.7s ease 0.4s both" }} className="hero-btns">
-            <a href="#download" className="btn-primary">Join IronMap Beta →</a>
+            <a href="#download" className="btn-primary">Download IronMap →</a>
             <a href="#features" className="btn-ghost">See Features</a>
           </div>
         </div>
@@ -716,29 +716,18 @@ export default function IronMap() {
       <section id="download" style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg, textAlign: "center", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 500, background: `radial-gradient(ellipse, ${C.redGlow} 0%, transparent 70%)`, pointerEvents: "none" }} />
         <Reveal><h2 style={{ fontSize: "clamp(36px,5vw,72px)", fontWeight: 800, letterSpacing: -3, lineHeight: 0.95, marginBottom: 16, position: "relative" }}>Ready to train<br /><span style={{ color: C.red }}>smarter?</span></h2></Reveal>
-        <Reveal delay={0.1}><p style={{ fontSize: 16, color: C.muted2, maxWidth: 440, margin: "0 auto 40px", lineHeight: 1.75, position: "relative" }}>IronMap is free on iOS and Android. Start training with the equipment you actually have.</p></Reveal>
+        <Reveal delay={0.1}><p style={{ fontSize: 16, color: C.muted2, maxWidth: 440, margin: "0 auto 40px", lineHeight: 1.75, position: "relative" }}>Free on iOS and Android. Start training with the equipment you actually have.</p></Reveal>
         <Reveal delay={0.2}>
-          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", position: "relative" }}>
-            <a href="https://testflight.apple.com/join/TGzq2jhW" className="btn-primary" style={{ fontSize: 16, padding: "16px 36px" }}>🍎 Download on iOS TestFlight</a>
+          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", alignItems: "center", position: "relative" }}>
+            <a href="https://apps.apple.com/app/ironmap-your-gym-your-tribe/id6760124588" target="_blank" rel="noopener noreferrer">
+              <img src="/app-store-badge.svg" alt="Download on the App Store" style={{ height: 48, width: "auto", display: "block" }} />
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.ironmap.app" target="_blank" rel="noopener noreferrer">
+              <img src="/google-play-badge.svg" alt="Get it on Google Play" style={{ height: 48, width: "auto", display: "block" }} />
+            </a>
           </div>
         </Reveal>
-        <Reveal delay={0.3}>
-          <div style={{ marginTop: 48, maxWidth: 420, margin: "48px auto 0", position: "relative" }}>
-            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: C.green, textTransform: "uppercase", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>🤖 Android Beta</div>
-            <p style={{ fontSize: 13, color: C.muted2, lineHeight: 1.7, marginBottom: 20 }}>Android is in closed testing. Two quick steps to get access:</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <a href="https://groups.google.com/g/ironmap" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ justifyContent: "center", gap: 12 }}>
-                <span style={{ background: C.red, color: "white", width: 24, height: 24, borderRadius: "50%", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>1</span>
-                Join the Google Group
-              </a>
-              <a href="https://play.google.com/store/apps/details?id=com.ironmap.app" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ justifyContent: "center", gap: 12 }}>
-                <span style={{ background: C.red, color: "white", width: 24, height: 24, borderRadius: "50%", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>2</span>
-                Download from Google Play
-              </a>
-            </div>
-          </div>
-        </Reveal>
-        <Reveal delay={0.4}><div style={{ marginTop: 32, fontSize: 12, color: C.muted, position: "relative" }}>Free during beta · iOS & Android · Built in Bangkok 🇹🇭</div></Reveal>
+        <Reveal delay={0.3}><div style={{ marginTop: 24, fontSize: 12, color: C.muted, position: "relative" }}>Free · iOS & Android · Built in Bangkok 🇹🇭</div></Reveal>
       </section>
 
       {/* FOOTER */}
