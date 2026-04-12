@@ -135,14 +135,14 @@ export default function IronMap() {
         <div style={{ position: "absolute", top: "30%", left: "50%", width: 700, height: 700, background: `radial-gradient(circle, ${C.redGlow} 0%, transparent 70%)`, pointerEvents: "none", transform: "translate(-50%, -50%)" }} />
         <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start" }} className="hero-text">
           <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", borderRadius: 100, padding: "6px 16px 6px 10px", marginBottom: 28, animation: "fadeUp 0.7s ease 0.1s both" }}>
+            <span style={{ fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: 1.5, textTransform: "uppercase" }}>Now Live</span>
+            <span style={{ width: 1, height: 14, background: "rgba(232,57,42,0.3)" }} />
             <a href="https://apps.apple.com/app/ironmap-your-gym-your-tribe/id6760124588" target="_blank" rel="noopener noreferrer" style={{ display: "block", lineHeight: 0 }}>
-              <img src="/app-store-badge.svg" alt="App Store" style={{ height: 22, width: "auto", display: "block" }} />
+              <img src="/app-store-badge.svg" alt="App Store" style={{ height: 40, width: "auto", display: "block" }} />
             </a>
             <a href="https://play.google.com/store/apps/details?id=com.ironmap.app" target="_blank" rel="noopener noreferrer" style={{ display: "block", lineHeight: 0 }}>
-              <img src="/google-play-badge.svg" alt="Google Play" style={{ height: 22, width: "auto", display: "block" }} />
+              <img src="/google-play-badge.svg" alt="Google Play" style={{ height: 40, width: "auto", display: "block" }} />
             </a>
-            <span style={{ width: 1, height: 14, background: "rgba(232,57,42,0.3)" }} />
-            <span style={{ fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: 1.5, textTransform: "uppercase" }}>Now Live</span>
           </div>
           <h1 className="hero-h1" style={{ fontSize: "clamp(44px,5.5vw,76px)", fontWeight: 800, lineHeight: 0.98, letterSpacing: -3, marginBottom: 24, animation: "fadeUp 0.7s ease 0.2s both" }}>
             The program<br />isn't the<br /><span style={{ color: C.red }}>hard part.</span>
