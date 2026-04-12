@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>End User License Agreement — IronMap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0F0F0F;
+      --surface: #1A1A1A;
+      --border: #2A2A2A;
+      --accent: #E8311A;
+      --text: #F0F0F0;
+      --muted: #888;
+      --faint: #444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,15,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      gap: 12px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-mark {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: #fff;
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+
+    .nav-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--border);
+    }
+
+    .nav-label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 24px 48px;
+      max-width: 720px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 600;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .hero-meta {
+      font-size: 14px;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 120px;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    p {
+      font-size: 15px;
+      color: #C0C0C0;
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 24px 0;
+      font-size: 14px;
+      color: #C0C0C0;
+      line-height: 1.7;
+    }
+
+    .highlight strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── LIST ── */
+    ul {
+      padding-left: 0;
+      list-style: none;
+      margin: 16px 0;
+    }
+
+    ul li {
+      font-size: 15px;
+      color: #C0C0C0;
+      padding: 6px 0 6px 20px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.7;
+    }
+
+    /* ── CONTACT BLOCK ── */
+    .contact-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-top: 24px;
+    }
+
+    .contact-block p {
+      margin-bottom: 8px;
+    }
+
+    .contact-email {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+
+    .contact-email:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-brand {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .footer-brand span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="https://ironmap.vercel.app">
+      <div class="nav-mark">IM</div>
+      <span class="nav-name">IronMap</span>
+    </a>
+    <div class="nav-divider"></div>
+    <span class="nav-label">End User License Agreement</span>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Legal</div>
+    <h1>End User License Agreement</h1>
+    <div class="hero-meta">Effective date: March 2026 &nbsp;·&nbsp; Last updated: March 2026</div>
+  </div>
+
+  <div class="container">
+
+    <!-- 01 AGREEMENT -->
+    <div class="section">
+      <div class="section-number">01</div>
+      <h2>Agreement</h2>
+      <p>This End User License Agreement ("Agreement") is a legal agreement between you ("User") and IronMap ("we", "us", or "our") for the use of the IronMap mobile application ("App"), available on iOS and Android.</p>
+      <p>By downloading, installing, or using the App, you agree to be bound by the terms of this Agreement. If you do not agree, do not use the App.</p>
+    </div>
+
+    <!-- 02 LICENSE -->
+    <div class="section">
+      <div class="section-number">02</div>
+      <h2>License Grant</h2>
+      <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use the App on devices you own or control, for personal, non-commercial use, subject to the terms of this Agreement.</p>
+      <div class="highlight">
+        <strong>You may not:</strong> copy, modify, distribute, sell, or lease any part of the App, nor reverse engineer or attempt to extract its source code, except as permitted by applicable law.
+      </div>
+    </div>
+
+    <!-- 03 PRO FEATURES -->
+    <div class="section">
+      <div class="section-number">03</div>
+      <h2>Pro Features & Payments</h2>
+      <p>IronMap offers optional Pro features available through paid subscriptions or one-time purchases.</p>
+      <ul>
+        <li><strong>iOS (App Store):</strong> Pro is available as a monthly subscription ($3.99/month). Payments are processed through Apple App Store billing. Refunds are subject to Apple's refund policy.</li>
+      </ul>
+      <p>Pro status is tied to the device on which the purchase was made. We do not currently support cross-device or cross-platform transfer of Pro status.</p>
+    </div>
+
+    <!-- 04 COMMUNITY FEATURES -->
+    <div class="section">
+      <div class="section-number">04</div>
+      <h2>Community Features & User Content</h2>
+      <p>The App allows you to join communities, post updates, and share check-in data with other users. You are responsible for any content you share through community features.</p>
+      <ul>
+        <li>You will not post content that is abusive, harmful, misleading, or violates any applicable law</li>
+        <li>We reserve the right to remove content or restrict access to community features at our discretion</li>
+        <li>You retain ownership of any content you post, but grant us a license to display it within the App's community features</li>
+      </ul>
+    </div>
+
+    <!-- 05 DATA & PRIVACY -->
+    <div class="section">
+      <div class="section-number">05</div>
+      <h2>Data & Privacy</h2>
+      <p>Your use of the App is also governed by our <a href="https://ironmap.vercel.app/privacy" style="color: var(--accent); text-decoration: none;">Privacy Policy</a>, which describes how we collect, use, and protect your data.</p>
+      <p>Workout data and personal check-ins are stored locally on your device. Community data is synced to our servers only when you choose to join a community.</p>
+    </div>
+
+    <!-- 06 DISCLAIMERS -->
+    <div class="section">
+      <div class="section-number">06</div>
+      <h2>Disclaimers</h2>
+      <p>The App is provided "as is" without warranties of any kind, whether express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+      <ul>
+        <li>IronMap is a fitness tracking tool, not medical advice. Consult a healthcare professional before starting any exercise program.</li>
+        <li>We are not responsible for any injury, loss, or damage resulting from your use of the App or reliance on its content.</li>
+        <li>Progressive overload suggestions and exercise substitutions are informational only and should be used with proper judgment.</li>
+      </ul>
+    </div>
+
+    <!-- 07 BLOCKCHAIN TRANSACTIONS -->
+
+    <!-- 07 TERMINATION -->
+    <div class="section">
+      <div class="section-number">07</div>
+      <h2>Termination</h2>
+      <p>You may stop using the App at any time by uninstalling it from your device. We may terminate or suspend your access to community features if you violate this Agreement.</p>
+      <p>Upon termination, your local data remains on your device until you delete the App. Community data associated with your device ID will be removed from our servers.</p>
+    </div>
+
+    <!-- 08 CHANGES -->
+    <div class="section">
+      <div class="section-number">08</div>
+      <h2>Changes to This Agreement</h2>
+      <p>We may update this Agreement as the App evolves. When we make material changes, we will update the "Last updated" date at the top of this page. Continued use of the App after changes constitutes acceptance of the updated terms.</p>
+    </div>
+
+    <!-- 09 GOVERNING LAW -->
+    <div class="section">
+      <div class="section-number">09</div>
+      <h2>Governing Law</h2>
+      <p>This Agreement is governed by and construed in accordance with the laws of Thailand. Any disputes arising from this Agreement shall be subject to the exclusive jurisdiction of the courts of Thailand.</p>
+    </div>
+
+    <!-- 10 CONTACT -->
+    <div class="section">
+      <div class="section-number">10</div>
+      <h2>Contact</h2>
+      <p>If you have questions about this Agreement, contact us:</p>
+      <div class="contact-block">
+        <p>IronMap</p>
+        <a class="contact-email" href="mailto:support@ironmap.app">support@ironmap.app</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-brand"><span>IronMap</span> — Your Gym, Your Tribe</div>
+    <div class="footer-links">
+      <a href="https://ironmap.vercel.app">Home</a>
+      <a href="https://ironmap.vercel.app/privacy">Privacy</a>
+      <a href="https://ironmap.vercel.app/eula">EULA</a>
+    </div>
+  </footer>
+
+</body>
+</html>

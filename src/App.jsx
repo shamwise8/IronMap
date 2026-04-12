@@ -36,6 +36,9 @@ const FEATURES = [
   { icon: "🧠", title: "AI Mid-Workout Coach", desc: '"Shoulder hurts" → removes overhead pressing, subs lateral raises. A few words and your session restructures on-device.', tag: "COMING SOON" },
   { icon: "⌚", title: "Apple Watch", desc: "Tap through sets from your wrist. Crown adjusts weight, rest timer syncs with your phone. Works without your phone nearby.", tag: "SHIPPED", isNew: true },
   { icon: "👥", title: "Community Codes", desc: "Drop a code in your group chat — everyone's in. No friend requests, no social graph. Just an accountability board.", tag: "SHIPPED" },
+  { icon: "🎯", title: "Focus Mode", desc: "One exercise, one screen. Giant weight display, tap-to-edit, +/- reps. No scrolling, no distractions — just the set in front of you.", tag: "SHIPPED", isNew: true },
+  { icon: "💪", title: "RPE Check-Ins", desc: "Quick \"how did that feel?\" prompt twice per session. One tap adjusts your next workout automatically. Light, Right, or Hard — that's it.", tag: "SHIPPED", isNew: true },
+  { icon: "⏳", title: "Duration Hold Tracker", desc: "Planks, dead hangs, farmer carries — timer counts up with a target reference. Turns green when you beat it. Logs time and weight together.", tag: "SHIPPED", isNew: true },
 ];
 
 export default function IronMap() {
@@ -73,6 +76,7 @@ export default function IronMap() {
         @keyframes shimmer { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
         @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
         @keyframes watchGlow { 0%,100% { box-shadow: 0 0 30px rgba(232,57,42,0.1); } 50% { box-shadow: 0 0 40px rgba(232,57,42,0.2); } }
+        @keyframes pasteCrossfade { 0%,20% { opacity:1; } 25%,95% { opacity:0; } 100% { opacity:1; } }
         a { text-decoration:none; color:inherit; }
         .nav-link { color:${C.muted2}; font-size:13px; font-weight:500; transition:color 0.2s; letter-spacing:0.3px; }
         .nav-link:hover { color:${C.text}; }
@@ -97,6 +101,7 @@ export default function IronMap() {
           .section-label { justify-content:center; }
           .footer-inner { flex-direction:column; text-align:center; }
           .footer-links { justify-content:center; }
+          .paste-phone { width:220px !important; height:440px !important; }
           .hero-h1 { font-size:40px !important; }
           .di-section-grid { grid-template-columns:1fr !important; }
           .hero-visual-row { flex-direction:column !important; align-items:center !important; justify-content:center !important; }
@@ -131,19 +136,19 @@ export default function IronMap() {
         <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start" }} className="hero-text">
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", borderRadius: 100, padding: "6px 16px", fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 28, animation: "fadeUp 0.7s ease 0.1s both" }}>
             <span style={{ width: 6, height: 6, background: C.red, borderRadius: "50%", animation: "blink 2s ease-in-out infinite" }} />
-            Available on TestFlight
+            Now Live on iOS & Android
           </div>
           <h1 className="hero-h1" style={{ fontSize: "clamp(44px,5.5vw,76px)", fontWeight: 800, lineHeight: 0.98, letterSpacing: -3, marginBottom: 24, animation: "fadeUp 0.7s ease 0.2s both" }}>
-            Your gym.<br />Your program.<br /><span style={{ color: C.red }}>Your tribe.</span>
+            The program<br />isn't the<br /><span style={{ color: C.red }}>hard part.</span>
           </h1>
           <p style={{ fontSize: 17, lineHeight: 1.75, color: C.muted2, maxWidth: 460, marginBottom: 12, animation: "fadeUp 0.7s ease 0.3s both" }}>
-            IronMap filters every exercise to the equipment your gym actually has. Log sets, track PRs, and stay accountable with your crew.
+            Showing up is. IronMap is built for the days the plan falls apart — wrong gym, bad sleep, busy machine, low energy. Two taps and you're still moving.
           </p>
           <p style={{ fontSize: 14, color: C.muted, maxWidth: 420, marginBottom: 40, animation: "fadeUp 0.7s ease 0.35s both" }}>
-            Most apps are workout logs. IronMap is a training partner.
+            Most apps are logs. IronMap is a training partner.
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", animation: "fadeUp 0.7s ease 0.4s both" }} className="hero-btns">
-            <a href="#download" className="btn-primary">Download on iOS →</a>
+            <a href="#download" className="btn-primary">Download IronMap →</a>
             <a href="#features" className="btn-ghost">See Features</a>
           </div>
         </div>
@@ -228,7 +233,7 @@ export default function IronMap() {
       {/* STATS */}
       <div style={{ background: C.card, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "32px clamp(20px,4vw,48px)" }}>
         <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", maxWidth: 900, margin: "0 auto" }}>
-          {[["80+", "Exercises\nmapped"], ["26", "Equipment types\ntracked"], ["4", "Seed communities\nready"], ["$0", "Cost to\nget started"]].map(([num, label], i) => (
+          {[["100+", "Exercises\nmapped"], ["38", "Equipment types\ntracked"], ["6", "Templates\nfor every goal"], ["$0", "Cost to\nget started"]].map(([num, label], i) => (
             <Reveal key={i} delay={i * 0.08}>
               <div style={{ textAlign: "center", padding: "0 20px", borderRight: i < 3 ? `1px solid ${C.border}` : "none" }}>
                 <div style={{ fontSize: 36, fontWeight: 800, color: C.red, letterSpacing: -2, lineHeight: 1, marginBottom: 6 }}>{num}</div>
@@ -239,13 +244,78 @@ export default function IronMap() {
         </div>
       </div>
 
+      {/* REAL LIFE */}
+      <section style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg2 }}>
+        <div className="section-label">Why IronMap Exists</div>
+        <Reveal>
+          <h2 style={{ fontSize: "clamp(30px,3.5vw,52px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 16 }}>
+            Every other app<br /><span style={{ color: C.red }}>breaks here.</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p style={{ fontSize: 16, color: C.muted2, maxWidth: 520, lineHeight: 1.8, marginBottom: 64 }}>
+            You open the app. The program says bench press. The bench is taken. The app has no answer. You improvise, lose the thread, skip logging. That's the moment every other app fails. IronMap is designed for exactly that moment.
+          </p>
+        </Reveal>
+
+        <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+          {[
+            {
+              problem: "The bench is taken.",
+              answer: "Two taps. IronMap finds the best substitute by movement and muscle group — and tells you why.",
+              icon: "🔄",
+              tag: "Substitution Engine"
+            },
+            {
+              problem: "You slept 4 hours.",
+              answer: "The weekly checkpoint asks how you're feeling. Worn out isn't failure — it's data. The app adjusts.",
+              icon: "😴",
+              tag: "Weekly Checkpoint"
+            },
+            {
+              problem: "Your gym has no barbell.",
+              answer: "Set up your gym once. Every exercise, every session filters to what you actually have.",
+              icon: "🏠",
+              tag: "Equipment Filter"
+            },
+            {
+              problem: "You can't remember last week's weight.",
+              answer: "IronMap remembers. Progressive overload suggestions based on your last session. Always.",
+              icon: "📊",
+              tag: "PR Tracking"
+            },
+            {
+              problem: "You're travelling.",
+              answer: "Switch gym profiles. Hotel gym, condo gym, home setup — the program follows you.",
+              icon: "✈️",
+              tag: "Multi-Gym"
+            },
+            {
+              problem: "You just don't feel like it.",
+              answer: "Your crew's streak is on the board. Someone's watching. In the best way.",
+              icon: "👥",
+              tag: "Community"
+            },
+          ].map((item, i) => (
+            <Reveal key={i} delay={i * 0.06}>
+              <div className="feat-card" style={{ height: "100%" }}>
+                <div style={{ fontSize: 28, marginBottom: 16 }}>{item.icon}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, color: C.red, marginBottom: 10 }}>{item.tag}</div>
+                <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, letterSpacing: -0.3, color: C.text }}>"{item.problem}"</div>
+                <div style={{ fontSize: 13, color: C.muted2, lineHeight: 1.65 }}>{item.answer}</div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
       <section id="how" style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg }}>
         <div className="section-label">How It Works</div>
         <Reveal><h2 style={{ fontSize: "clamp(30px,3.5vw,52px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 56 }}>60 seconds to start.<br /><span style={{ color: C.red }}>Then just train.</span></h2></Reveal>
         <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
           {[
-            { step: "01", title: "Name your gym", desc: "Type your gym name, pick an equipment preset, toggle off what's missing.", icon: "🏠" },
+            { step: "01", title: "Set up your gym", desc: "Pick an equipment preset, toggle off what's missing.", icon: "🏠" },
             { step: "02", title: "Start training", desc: "Every exercise filtered to your equipment. Suggested weights from last session. Tap and go.", icon: "🏋️" },
             { step: "03", title: "Check in daily", desc: "Workouts auto-sync. Track water, protein, sleep. Streaks build. Rings fill.", icon: "✅" },
             { step: "04", title: "Join your crew", desc: "Enter a community code. See who checked in. Accountability without the noise.", icon: "👥" },
@@ -324,6 +394,164 @@ export default function IronMap() {
                     <span style={{ fontSize: 15, fontWeight: 800, animation: "pulse 1s ease-in-out infinite" }}>{mins}:{secs}</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* WATCH */}
+      <section style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg }}>
+        <div className="split-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+          <div>
+            <div className="section-label">Apple Watch</div>
+            <Reveal>
+              <h2 style={{ fontSize: "clamp(28px,3vw,48px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 20 }}>
+                Your whole workout.<br /><span style={{ color: C.red }}>From your wrist.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p style={{ fontSize: 15, color: C.muted2, lineHeight: 1.75, marginBottom: 32 }}>
+                Not just a timer. A complete workout interface. Phone stays in your bag the entire session.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                {[
+                  ["⌚", "Swipe to start", "Session name, exercise count, one swipe to begin."],
+                  ["👑", "Crown adjusts weight", "Scroll up or down between sets. No typing."],
+                  ["✓", "Tap DONE", "Rest timer starts automatically. Phone stays dark."],
+                  ["≡", "Full exercise list", "Tap the list icon to see all exercises. Jump to any. Crown scrolls."],
+                  ["♥", "Heart rate live", "HR tracked throughout. Session summary on completion."],
+                ].map(([icon, title, desc]) => (
+                  <div key={title} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                    <span style={{ fontSize: 18, width: 28, flexShrink: 0, marginTop: 2 }}>{icon}</span>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 3 }}>{title}</div>
+                      <div style={{ fontSize: 13, color: C.muted2, lineHeight: 1.5 }}>{desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 32 }}>
+              {/* Watch mockup — Active Set screen */}
+              <div style={{
+                width: 198, height: 242,
+                background: "#000",
+                borderRadius: 42,
+                border: "3px solid #333",
+                position: "relative",
+                overflow: "hidden",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.6), 0 0 40px rgba(232,57,42,0.1)"
+              }}>
+                {/* Crown */}
+                <div style={{
+                  position: "absolute", right: -9, top: "50%", transform: "translateY(-50%)",
+                  width: 7, height: 28, background: "#444", borderRadius: 3, border: "1px solid #555"
+                }} />
+                {/* Screen content */}
+                <div style={{ padding: "22px 14px 12px", display: "flex", flexDirection: "column", height: "100%" }}>
+                  {/* Time */}
+                  <div style={{ position: "absolute", top: 6, right: 14, fontSize: 11, fontWeight: 600, color: "#999" }}>13:44</div>
+                  {/* Exercise name */}
+                  <div style={{ fontSize: 11, fontWeight: 800, color: C.red, textAlign: "center", letterSpacing: 0.3, marginBottom: 2 }}>BARBELL BENCH PRESS</div>
+                  {/* Set row */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 6 }}>
+                    <div style={{ fontSize: 10, color: "#888", fontWeight: 600 }}>SET 1 OF 3</div>
+                    <div style={{ width: 18, height: 18, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 2, background: "rgba(232,57,42,0.15)", border: "1px solid rgba(232,57,42,0.3)", borderRadius: 4 }}>
+                      {[0,1,2].map(i => <div key={i} style={{ width: 10, height: 1.5, background: C.red, borderRadius: 1 }} />)}
+                    </div>
+                  </div>
+                  {/* Reps */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 4 }}>
+                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#222", border: "1.5px solid #444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, color: "#ccc" }}>−</div>
+                    <div style={{ fontSize: 18, fontWeight: 700 }}>6 <span style={{ fontSize: 11, color: "#888" }}>reps</span></div>
+                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#222", border: "1.5px solid #444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, color: "#ccc" }}>+</div>
+                  </div>
+                  {/* Weight */}
+                  <div style={{ fontSize: 32, fontWeight: 800, color: C.red, textAlign: "center", lineHeight: 1 }}>52.5 <span style={{ fontSize: 16, fontWeight: 600 }}>kg</span></div>
+                  {/* Crown label + HR */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 6, marginBottom: 8 }}>
+                    <div style={{ fontSize: 9, color: "#666" }}>Crown adjusts</div>
+                    <div style={{ fontSize: 10, color: C.red, fontWeight: 600 }}>♥ 80</div>
+                  </div>
+                  {/* Actions */}
+                  <div style={{ display: "flex", gap: 6 }}>
+                    <div style={{ flex: 1, padding: "7px 0", borderRadius: 8, background: "#1a1a1a", border: "1px solid #333", fontSize: 10, fontWeight: 700, color: "#888", textAlign: "center" }}>SKIP</div>
+                    <div style={{ flex: 1, padding: "7px 0", borderRadius: 8, background: C.red, fontSize: 10, fontWeight: 800, color: "white", textAlign: "center" }}>DONE</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* PASTE ANY PROGRAM */}
+      <section style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg2 }}>
+        <div className="split-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+          <div>
+            <div className="section-label">Paste Any Program</div>
+            <Reveal>
+              <h2 style={{ fontSize: "clamp(28px,3vw,48px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 20 }}>
+                Copy. Paste.<br /><span style={{ color: C.red }}>Train.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p style={{ fontSize: 15, color: C.muted2, lineHeight: 1.75, marginBottom: 12 }}>
+                Found a workout on Reddit, got a program from your coach, or saved one from Instagram? Just copy the text — IronMap detects it automatically and loads it into your sessions.
+              </p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.7, marginBottom: 28 }}>
+                Tap <span style={{ color: C.red, fontWeight: 600 }}>Build Your Own</span> → IronMap checks your clipboard. Exercises matched, sets and reps parsed, ready to train in seconds.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {[
+                  ["📋", "Auto-detect", "Clipboard scanned when you tap Build Your Own"],
+                  ["🔍", "200+ aliases", "Recognizes exercise names in any format"],
+                  ["🔄", "Equipment swap", "Missing gear? Substitution engine finds alternatives"],
+                  ["📄", "Any format", "Plain text, tables, numbered lists, messy copy-paste"],
+                ].map(([icon, title, desc]) => (
+                  <div key={title} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                    <span style={{ fontSize: 18, width: 28, flexShrink: 0, marginTop: 2 }}>{icon}</span>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 2 }}>{title}</div>
+                      <div style={{ fontSize: 13, color: C.muted2, lineHeight: 1.5 }}>{desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+          <Reveal>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div style={{ position: "relative", width: 260, height: 520, borderRadius: 44, overflow: "hidden", border: `3px solid ${C.border2}`, boxShadow: `0 40px 80px rgba(0,0,0,0.7), 0 0 80px ${C.redGlow2}` }}>
+                {[
+                  { src: "/paste-1-copy.jpg", label: "Copy from anywhere" },
+                  { src: "/paste-2-detect.jpg", label: "Clipboard detected" },
+                  { src: "/paste-3-review.jpg", label: "Exercises parsed" },
+                  { src: "/paste-4-train.jpg", label: "Ready to train" },
+                ].map((img, i) => (
+                  <div key={i} style={{
+                    position: i === 0 ? "relative" : "absolute",
+                    top: 0, left: 0, width: "100%", height: "100%",
+                    animation: `pasteCrossfade 10s ${i * 2.5}s ease-in-out infinite`,
+                    opacity: i === 0 ? 1 : 0,
+                  }}>
+                    <img src={img.src} alt={img.label} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "24px 16px 16px", background: "linear-gradient(transparent, rgba(0,0,0,0.85))", textAlign: "center" }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, color: C.red, textTransform: "uppercase" }}>STEP {String(i + 1).padStart(2, "0")}</div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: "white", marginTop: 4 }}>{img.label}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </Reveal>
@@ -444,28 +672,43 @@ export default function IronMap() {
         <div className="section-label">Pricing</div>
         <Reveal><h2 style={{ fontSize: "clamp(30px,3.5vw,52px)", fontWeight: 800, letterSpacing: -2, lineHeight: 1.05, marginBottom: 56 }}>Free. Really.<br /><span style={{ color: C.red }}>No catch.</span></h2></Reveal>
         <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, alignItems: "start", maxWidth: 720, margin: "0 auto" }}>
-          {[
-            { name: "Free", price: "Free", period: "forever · no credit card", featured: false, features: ["Unlimited gym profiles", "All training programs", "Equipment-aware filtering", "Group check-ins & streaks", "PR tracking & overload suggestions", "Dynamic Island rest timer", "Community codes (join & create)", "Apple Watch support"], cta: "Download Free" },
-            { name: "Pro", price: "฿299/mo", period: "AI coaching features", featured: true, features: ["Everything in Free", "AI mid-workout adaptation", "Multi-week program restructuring", "Advanced analytics", "Priority support", "Early access to new features"], cta: "Coming Soon" },
-          ].map((p, i) => (
-            <Reveal key={p.name} delay={i * 0.1}>
-              <div style={{ background: p.featured ? "linear-gradient(160deg, #180808, #0D0505)" : C.card, border: `1px solid ${p.featured ? "rgba(232,57,42,0.35)" : C.border}`, borderRadius: 20, padding: "36px 28px", position: "relative", boxShadow: p.featured ? `0 0 48px rgba(232,57,42,0.06)` : "none" }}>
-                {p.featured && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: C.red, color: "white", fontSize: 10, fontWeight: 700, letterSpacing: 1.5, padding: "5px 18px", borderRadius: 100, whiteSpace: "nowrap" }}>AI FEATURES</div>}
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: p.featured ? C.red : C.muted, marginBottom: 16 }}>{p.name.toUpperCase()}</div>
-                <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1, marginBottom: 4 }}>{p.price}</div>
-                <div style={{ fontSize: 12, color: C.muted, marginBottom: 28 }}>{p.period}</div>
-                <div style={{ height: 1, background: p.featured ? "rgba(232,57,42,0.12)" : C.border, marginBottom: 24 }} />
-                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-                  {p.features.map(f => (
-                    <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
-                      <span style={{ color: p.featured ? C.red : C.green, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
-                    </li>
-                  ))}
-                </ul>
-                <div style={{ display: "block", width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: p.featured ? C.red : "transparent", color: p.featured ? "white" : C.muted2, border: p.featured ? "none" : `1px solid ${C.border2}`, cursor: p.featured ? "default" : "pointer" }}>{p.cta}</div>
-              </div>
-            </Reveal>
-          ))}
+          {/* Free */}
+          <Reveal delay={0}>
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: "36px 28px", position: "relative" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: C.muted, marginBottom: 16 }}>FREE</div>
+              <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1, marginBottom: 4 }}>Free</div>
+              <div style={{ fontSize: 12, color: C.muted, marginBottom: 28 }}>forever · no credit card</div>
+              <div style={{ height: 1, background: C.border, marginBottom: 24 }} />
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                {["Unlimited gym profiles", "All training programs", "Equipment-aware filtering", "Group check-ins & streaks", "PR tracking & overload suggestions", "Dynamic Island rest timer", "Community codes", "Apple Watch support", "Build Your Own", "Paste any program"].map(f => (
+                  <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
+                    <span style={{ color: C.green, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
+                  </li>
+                ))}
+              </ul>
+              <div style={{ display: "block", width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: "transparent", color: C.muted2, border: `1px solid ${C.border2}` }}>Download Free</div>
+            </div>
+          </Reveal>
+
+          {/* Pro iOS/Android */}
+          <Reveal delay={0.1}>
+            <div style={{ background: "linear-gradient(160deg, #180808, #0D0505)", border: "1px solid rgba(232,57,42,0.35)", borderRadius: 20, padding: "36px 28px", position: "relative", boxShadow: "0 0 48px rgba(232,57,42,0.06)" }}>
+              <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: C.red, color: "white", fontSize: 10, fontWeight: 700, letterSpacing: 1.5, padding: "5px 18px", borderRadius: 100, whiteSpace: "nowrap" }}>MOST POPULAR</div>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: C.red, marginBottom: 16 }}>PRO</div>
+              <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: -2, lineHeight: 1, marginBottom: 4 }}>$3.99<span style={{ fontSize: 18, fontWeight: 500, letterSpacing: 0 }}>/mo</span></div>
+              <div style={{ fontSize: 12, color: C.muted, marginBottom: 24 }}>iOS & Android</div>
+              <div style={{ height: 1, background: "rgba(232,57,42,0.12)", marginBottom: 24 }} />
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                {["Everything in Free", "Warm Up Mode", "Saved Program", "Data Exports", "Unlimited Communities"].map(f => (
+                  <li key={f} style={{ fontSize: 13, color: C.muted2, display: "flex", gap: 10, alignItems: "flex-start", lineHeight: 1.4 }}>
+                    <span style={{ color: C.red, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>✓</span> {f}
+                  </li>
+                ))}
+              </ul>
+              <div style={{ display: "block", width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: C.red, color: "white" }}>Coming Soon</div>
+            </div>
+          </Reveal>
+
         </div>
       </section>
 
@@ -473,13 +716,18 @@ export default function IronMap() {
       <section id="download" style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg, textAlign: "center", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 500, background: `radial-gradient(ellipse, ${C.redGlow} 0%, transparent 70%)`, pointerEvents: "none" }} />
         <Reveal><h2 style={{ fontSize: "clamp(36px,5vw,72px)", fontWeight: 800, letterSpacing: -3, lineHeight: 0.95, marginBottom: 16, position: "relative" }}>Ready to train<br /><span style={{ color: C.red }}>smarter?</span></h2></Reveal>
-        <Reveal delay={0.1}><p style={{ fontSize: 16, color: C.muted2, maxWidth: 440, margin: "0 auto 40px", lineHeight: 1.75, position: "relative" }}>IronMap is free on iOS. Download from TestFlight and start training with the equipment you actually have.</p></Reveal>
+        <Reveal delay={0.1}><p style={{ fontSize: 16, color: C.muted2, maxWidth: 440, margin: "0 auto 40px", lineHeight: 1.75, position: "relative" }}>Free on iOS and Android. Start training with the equipment you actually have.</p></Reveal>
         <Reveal delay={0.2}>
-          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", position: "relative" }}>
-            <a href="https://testflight.apple.com/join/YOUR_LINK" className="btn-primary" style={{ fontSize: 16, padding: "16px 36px" }}>🍎 Download on TestFlight</a>
+          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", alignItems: "center", position: "relative" }}>
+            <a href="https://apps.apple.com/app/ironmap-your-gym-your-tribe/id6760124588" target="_blank" rel="noopener noreferrer">
+              <img src="/app-store-badge.svg" alt="Download on the App Store" style={{ height: 48, width: "auto", display: "block" }} />
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.ironmap.app" target="_blank" rel="noopener noreferrer">
+              <img src="/google-play-badge.svg" alt="Get it on Google Play" style={{ height: 48, width: "auto", display: "block" }} />
+            </a>
           </div>
         </Reveal>
-        <Reveal delay={0.3}><div style={{ marginTop: 32, fontSize: 12, color: C.muted, position: "relative" }}>Free during beta · iOS · Built in Bangkok 🇹🇭</div></Reveal>
+        <Reveal delay={0.3}><div style={{ marginTop: 24, fontSize: 12, color: C.muted, position: "relative" }}>Free · iOS & Android · Built in Bangkok 🇹🇭</div></Reveal>
       </section>
 
       {/* FOOTER */}

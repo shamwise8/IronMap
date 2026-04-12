@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/eula", "destination": "/eula.html" },
+    { "source": "/import", "destination": "/import.html" },
+    { "source": "/seeker", "destination": "/seeker.html" },
+    { "source": "/eula-full", "destination": "/eula-full.html" }
+  ]
+}
