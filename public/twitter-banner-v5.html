@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1500" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900&family=JetBrains+Mono:wght@600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1500px;
+    height: 500px;
+    overflow: hidden;
+    background: #0F0F0F;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    color: #F5F5F5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .banner {
+    width: 1500px;
+    height: 500px;
+    background: #0F0F0F;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* dot grid */
+  .banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, #1E1E1E 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    pointer-events: none;
+  }
+
+  /* top-right red glow */
+  .glow-tr {
+    position: absolute;
+    top: -140px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(232,49,26,0.22) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* glow behind phones */
+  .glow-phones {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 620px;
+    height: 620px;
+    background: radial-gradient(ellipse, rgba(232,49,26,0.22) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* accent bottom line */
+  .bottom-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, #E8311A 30%, #E8311A 70%, transparent 100%);
+  }
+
+  /*
+   * VERTICAL ORDER (top → bottom):
+   *   y=28   Logo row
+   *   y=84   Tagline ("Your gym. Your program.")
+   *   y=182  COPY → PASTE → TRAIN box
+   *   y=279  Feature pills
+   *   y=305  — 30px breathing space —
+   *   y=335  STORE BUTTONS (App Store → Google Play → Solana dApp)  ← MOVED HERE
+   *   y=367  — 35px breathing space —
+   *   y=402
+   *
+   * The store row is pulled OUT of the left-column flex flow and
+   * placed as an absolutely-positioned element at a fixed coordinate.
+   * Nothing else in the layout shifts.
+   *
+   * HORIZONTAL: store row centered in the left content zone (x=215–870).
+   * Center x = (215+870)/2 = 542 → left: 542px; transform: translateX(-50%)
+   * Left edge lands at ~x=393 — safely right of profile-pic zone (x≤200).
+   */
+
+  /* ── LEFT COLUMN (logo, tagline, flow, pills only — store row removed) ── */
+  .left {
+    position: absolute;
+    left: 215px;
+    top: 28px;
+    width: 530px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Logo row — y=28 */
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 8px;
+  }
+  .logo-row img {
+    width: 48px;
+    height: 48px;
+    border-radius: 11px;
+  }
+  .app-name {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: #F5F5F5;
+    line-height: 1;
+  }
+
+  /* Tagline — y=84 */
+  .tagline {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.07;
+    letter-spacing: -1.8px;
+    color: #F5F5F5;
+    margin-bottom: 12px;
+  }
+  .tagline .red { color: #E8311A; }
+
+  /* COPY → PASTE → TRAIN — y=182 */
+  .flow {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 10px 20px;
+    gap: 0;
+    margin-bottom: 10px;
+    width: fit-content;
+  }
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 84px;
+  }
+  .flow-step .icon { font-size: 20px; line-height: 1; }
+  .flow-step .label {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #C0C0C0;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .flow-step.active .label { color: #E8311A; }
+  .flow-step .sub {
+    font-size: 9px;
+    color: #4A4A4A;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.3;
+  }
+  .flow-arrow {
+    color: #2E2E2E;
+    font-size: 16px;
+    margin: 0 4px;
+    padding-bottom: 16px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  /* Pills — y=279 */
+  .pills {
+    display: flex;
+    gap: 7px;
+    flex-wrap: nowrap;
+  }
+  .pill {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #141414;
+    border: 1px solid #272727;
+    color: #888;
+    white-space: nowrap;
+  }
+
+  /*
+   * Store row — ABSOLUTELY POSITIONED at y=335
+   * Extracted from left-column flow so nothing above/below shifts.
+   *
+   * top: 335px     = pills_bottom(305) + 30px breathing above
+   * left: 542px    = center of left content zone (x=215 to x=870)
+   * transform      = centers the row on that x coordinate
+   *
+   * Movement summary vs. v4:
+   *   FROM: inside .left flex column, margin-top: 30px → rendered at y≈393
+   *   TO:   position: absolute; top: 335px → y=335 (58px higher, above profile pic)
+   */
+  .store-row {
+    position: absolute;
+    top: 335px;
+    left: 542px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 3;
+  }
+
+  .store-badge img {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
+
+  /* Solana pill — 32px height, text "Solana dApp" */
+  .sol-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 11px;
+    height: 32px;
+    background: linear-gradient(90deg, #9945FF 0%, #14F195 100%);
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+
+  /* ── RIGHT: PHONES — identical to v4, untouched ── */
+  .right {
+    position: absolute;
+    right: 80px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .phone-wrap { position: relative; flex-shrink: 0; }
+  .phone-wrap:first-child { transform: translateY(8px); }
+  .phone-wrap:last-child  { transform: translateY(-8px); }
+
+  .phone {
+    width: 248px;
+    height: 416px;
+    border-radius: 32px;
+    border: 2px solid #2A2A2A;
+    overflow: hidden;
+    background: #111;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.9),
+      inset 0 0 0 1px rgba(255,255,255,0.04);
+  }
+  .phone-wrap:last-child .phone {
+    border-color: rgba(232,49,26,0.45);
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.9),
+      0 0 40px rgba(232,49,26,0.12),
+      inset 0 0 0 1px rgba(232,49,26,0.08);
+  }
+  .phone img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .phone-label {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #E8311A;
+    margin-top: 7px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="glow-tr"></div>
+  <div class="glow-phones"></div>
+
+  <!-- LEFT COLUMN: logo, tagline, flow, pills (store row removed from flow) -->
+  <div class="left">
+
+    <!-- y=28: Logo -->
+    <div class="logo-row">
+      <img src="/favicon.png" alt="IronMap" />
+      <span class="app-name">IronMap</span>
+    </div>
+
+    <!-- y=84: Tagline -->
+    <div class="tagline">
+      Your gym.<br>
+      Your <span class="red">program.</span>
+    </div>
+
+    <!-- y=182: COPY→PASTE→TRAIN -->
+    <div class="flow">
+      <div class="flow-step">
+        <div class="icon">📋</div>
+        <div class="label">Copy</div>
+        <div class="sub">any program</div>
+      </div>
+      <div class="flow-arrow">›</div>
+      <div class="flow-step active">
+        <div class="icon">⚡</div>
+        <div class="label">Paste</div>
+        <div class="sub">AI detects it</div>
+      </div>
+      <div class="flow-arrow">›</div>
+      <div class="flow-step">
+        <div class="icon">🏋️</div>
+        <div class="label">Train</div>
+        <div class="sub">start in seconds</div>
+      </div>
+    </div>
+
+    <!-- y=279: Pills -->
+    <div class="pills">
+      <span class="pill">Equipment-filtered</span>
+      <span class="pill">Smart progression</span>
+      <span class="pill">7 Templates</span>
+    </div>
+
+  </div><!-- /left -->
+
+  <!--
+    STORE ROW — absolutely positioned, extracted from left-column flow.
+    y=335: 30px below pills bottom (~y=305). Left edge ~x=393, clear of profile pic (x≤200).
+    Order: App Store → Google Play → Solana dApp
+    Export: 1500×500 px PNG, 99% opacity.
+  -->
+  <div class="store-row">
+    <div class="store-badge">
+      <img src="/app-store-badge.svg" alt="Download on the App Store" />
+    </div>
+    <div class="store-badge">
+      <img src="/google-play-badge.svg" alt="Get it on Google Play" />
+    </div>
+    <div class="sol-pill">
+      <svg width="12" height="10" viewBox="0 0 101 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100.48 69.3817L83.8068 86.8015C83.4444 87.1799 83.0058 87.4816 82.5185 87.6878C82.0312 87.894 81.5055 88.0003 80.9743 88H1.93563C1.55849 88 1.18957 87.8926 0.874202 87.6912C0.558829 87.4897 0.31074 87.2029 0.160416 86.8659C0.0100923 86.529 -0.0359181 85.7945 0.0280382 85.7945C0.0919944 85.4324 0.263131 85.0964 0.520422 84.8278L17.2061 67.408C17.5676 67.0306 18.0047 66.7295 18.4904 66.5234C18.9762 66.3172 19.5002 66.2104 20.0301 66.2095H99.0644C99.4415 66.2095 99.8104 66.3169 100.126 66.5183C100.441 66.7198 100.689 67.0067 100.84 67.3436C100.99 67.6806 101.036 68.0529 100.972 68.415C100.908 68.7771 100.737 69.1131 100.48 69.3817ZM83.8068 34.3032C83.4444 33.9248 83.0058 33.6231 82.5185 33.4169C82.0312 33.2108 81.5055 33.1045 80.9743 33.1048H1.93563C1.55849 33.1048 1.18957 33.2121 0.874202 33.4136C0.558829 33.6151 0.31074 33.9019 0.160416 34.2388C0.0100923 34.5758 -0.0359181 34.9482 0.0280382 35.3103C0.0919944 35.6723 0.263131 36.0083 0.520422 36.277L17.2061 53.6968C17.5676 54.0742 18.0047 54.3752 18.4904 54.5814C18.9762 54.7875 19.5002 54.8944 20.0301 54.8952H99.0644C99.4415 54.8952 99.8104 54.7879 100.126 54.5864C100.441 54.3849 100.689 54.0981 100.84 53.7612C100.99 53.4242 101.036 53.0518 100.972 52.6897C100.908 52.3277 100.737 51.9917 100.48 51.723L83.8068 34.3032ZM1.93563 21.7905H80.9743C81.5055 21.7907 82.0312 21.6845 82.5185 21.4783C83.0058 21.2721 83.4444 20.9704 83.8068 20.592L100.48 3.17219C100.737 2.90357 100.908 2.56758 100.972 2.2055C101.036 1.84342 100.99 1.47103 100.84 1.13408C100.689 0.79713 100.441 0.510296 100.126 0.308823C99.8104 0.107349 99.4415 1.24074e-05 99.0644 0L20.0301 0C19.5002 0.000878397 18.9762 0.107699 18.4904 0.313848C18.0047 0.519998 17.5676 0.821087 17.2061 1.19848L0.524723 18.6183C0.267681 18.8866 0.0966198 19.2223 0.0325185 19.5839C-0.0315829 19.9456 0.0140624 20.3177 0.163856 20.6545C0.31365 20.9913 0.561081 21.2781 0.875804 21.4799C1.19053 21.6817 1.55886 21.7896 1.93563 21.7905Z" fill="white"/>
+      </svg>
+      Solana dApp
+    </div>
+  </div>
+
+  <!-- RIGHT: phones — identical to v4, not touched -->
+  <div class="right">
+    <div class="phone-wrap">
+      <div class="phone">
+        <img src="/xbanner2.jpg" alt="Paste" />
+      </div>
+      <div class="phone-label">Paste</div>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone">
+        <img src="/xbanner1.jpg" alt="Train" />
+      </div>
+      <div class="phone-label">Train</div>
+    </div>
+  </div>
+
+  <div class="bottom-line"></div>
+</div>
+</body>
+</html>

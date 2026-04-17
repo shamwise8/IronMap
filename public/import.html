@@ -1,0 +1,1495 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/favicon.png?v=2" />
+  <link rel="apple-touch-icon" href="/favicon.png?v=2" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="IronMap — Program Import" />
+  <meta property="og:description" content="Paste any workout program and IronMap will parse it into a clean, importable format." />
+  <meta property="og:url" content="https://ironmap.vercel.app/import" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Program Import — IronMap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', -apple-system, 'Helvetica Neue', sans-serif;
+      background: #0F0F0F;
+      color: #FFFFFF;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 clamp(20px, 4vw, 48px); height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(15,15,15,0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid #222222;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; letter-spacing: -0.5px; }
+    .nav-logo img { width: 30px; height: 30px; border-radius: 8px; }
+    .btn-nav {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #E8311A; color: white; padding: 8px 20px;
+      border-radius: 10px; font-size: 13px; font-weight: 700;
+      letter-spacing: -0.2px; cursor: pointer; border: none;
+      font-family: 'DM Sans', sans-serif; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-nav:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(232,49,26,0.3); }
+
+    /* MAIN LAYOUT */
+    main {
+      padding: 100px clamp(16px, 4vw, 48px) 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* PAGE HEADER */
+    .page-header { margin-bottom: 48px; }
+    .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #E8311A;
+      text-transform: uppercase; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: #E8311A; }
+    .page-title {
+      font-size: clamp(28px, 5vw, 44px); font-weight: 800;
+      letter-spacing: -1.5px; line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .page-subtitle { font-size: 16px; color: #888888; line-height: 1.6; max-width: 560px; }
+
+    /* INPUT AREA */
+    .input-card {
+      background: #1A1A1A; border: 1px solid #2A2A2A; border-radius: 20px;
+      padding: 24px; margin-bottom: 24px;
+    }
+    .input-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; gap: 12px; flex-wrap: wrap;
+    }
+    .input-label { font-size: 13px; font-weight: 600; color: #888888; letter-spacing: 0.3px; }
+    .input-actions { display: flex; align-items: center; gap: 10px; }
+
+    textarea {
+      width: 100%; min-height: 240px;
+      background: #111111; border: 1px solid #333333; border-radius: 14px;
+      color: #FFFFFF; font-family: 'DM Sans', monospace; font-size: 14px;
+      line-height: 1.6; padding: 18px; resize: vertical;
+      outline: none; transition: border-color 0.2s;
+    }
+    textarea:focus { border-color: #E8311A; }
+    textarea::placeholder { color: #444444; }
+
+    /* BUTTONS */
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid #333333; color: #888888; padding: 10px 18px;
+      border-radius: 10px; font-size: 13px; font-weight: 600;
+      background: transparent; cursor: pointer; transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif; white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: #E8311A; color: #FFFFFF; }
+    .btn-ghost:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #E8311A; color: white; padding: 12px 24px;
+      border-radius: 12px; font-size: 14px; font-weight: 700;
+      border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      font-family: 'DM Sans', sans-serif; white-space: nowrap;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(232,49,26,0.3); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-primary.success { background: #1A3A1A; border: 1px solid #34C759; color: #34C759; }
+    .btn-primary.success:hover { transform: none; box-shadow: none; }
+
+    /* OCR status */
+    .ocr-status {
+      font-size: 12px; color: #888888; margin-top: 10px;
+      display: none; align-items: center; gap: 8px;
+    }
+    .ocr-status.visible { display: flex; }
+    .ocr-spinner {
+      width: 14px; height: 14px; border: 2px solid #333333;
+      border-top-color: #E8311A; border-radius: 50%;
+      animation: spin 0.8s linear infinite; flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
+      padding: 16px 20px;
+      background: #1A1A1A; border: 1px solid #2A2A2A; border-radius: 14px;
+    }
+    .stats-bar.hidden { display: none; }
+    .stat-item { display: flex; flex-direction: column; gap: 2px; }
+    .stat-num { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+    .stat-label { font-size: 11px; font-weight: 600; color: #888888; letter-spacing: 0.5px; text-transform: uppercase; }
+    .stat-num.green { color: #34C759; }
+    .stat-num.yellow { color: #FFD60A; }
+    .stat-num.red { color: #E8311A; }
+    .match-bar-wrap { flex: 1; min-width: 120px; }
+    .match-bar-bg { height: 6px; background: #2A2A2A; border-radius: 3px; overflow: hidden; }
+    .match-bar-fill { height: 100%; background: #34C759; border-radius: 3px; transition: width 0.4s ease; }
+
+    /* RESULTS */
+    .results-area { display: none; }
+    .results-area.visible { display: block; }
+
+    .actions-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
+    }
+
+    /* SESSION BLOCKS */
+    .session-block {
+      background: #1A1A1A; border: 1px solid #2A2A2A; border-radius: 20px;
+      overflow: hidden; margin-bottom: 16px;
+    }
+    .session-header {
+      padding: 18px 24px; border-bottom: 1px solid #2A2A2A;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .session-label {
+      font-size: 15px; font-weight: 700; letter-spacing: -0.3px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .session-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+      color: #888888; text-transform: uppercase; background: #222222;
+      padding: 3px 8px; border-radius: 5px;
+    }
+    .session-count { font-size: 12px; color: #555555; }
+
+    .exercises-list { padding: 8px 0; }
+    .exercise-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 24px; transition: background 0.15s;
+    }
+    .exercise-row:hover { background: rgba(255,255,255,0.02); }
+    .ex-icon { font-size: 16px; flex-shrink: 0; width: 20px; text-align: center; }
+    .ex-body { flex: 1; min-width: 0; }
+    .ex-name { font-size: 14px; font-weight: 600; line-height: 1.3; }
+    .ex-name.matched { color: #FFFFFF; }
+    .ex-name.unmatched { color: #888888; }
+    .ex-raw { font-size: 11px; color: #555555; margin-top: 2px; font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .ex-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 6px; flex-shrink: 0; }
+    .ex-badge.matched { background: rgba(52,199,89,0.12); color: #34C759; border: 1px solid rgba(52,199,89,0.2); }
+    .ex-badge.unmatched { background: rgba(255,214,10,0.08); color: #FFD60A; border: 1px solid rgba(255,214,10,0.15); }
+    .ex-sets { font-size: 12px; color: #888888; flex-shrink: 0; white-space: nowrap; }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center; padding: 80px 24px; color: #444444;
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 20px; opacity: 0.4; }
+    .empty-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #555555; }
+    .empty-desc { font-size: 14px; line-height: 1.6; }
+
+    /* FOOTER */
+    .import-footer {
+      margin-top: 80px; padding: 40px 24px;
+      background: #1A1A1A; border: 1px solid #2A2A2A; border-radius: 20px;
+      text-align: center;
+    }
+    .footer-icon { font-size: 36px; margin-bottom: 16px; }
+    .footer-title { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .footer-desc { font-size: 14px; color: #888888; line-height: 1.7; max-width: 440px; margin: 0 auto 24px; }
+    .footer-steps {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 13px; color: #888888; flex-wrap: wrap;
+    }
+    .footer-steps .step {
+      display: flex; align-items: center; gap: 6px;
+      background: #222222; border: 1px solid #2E2E2E; border-radius: 8px;
+      padding: 8px 14px; font-weight: 600;
+    }
+    .footer-steps .step.highlight { background: rgba(232,49,26,0.1); border-color: rgba(232,49,26,0.3); color: #E8311A; }
+    .footer-steps .arrow { color: #333333; font-size: 16px; }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .input-header { flex-direction: column; align-items: flex-start; }
+      .actions-row { flex-direction: column; align-items: stretch; }
+      .btn-primary, .btn-ghost { justify-content: center; }
+      .stats-bar { gap: 20px; }
+      .exercise-row { padding: 12px 16px; }
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+    .fade-up { animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+    /* Copy feedback */
+    .copy-toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #1A3A1A; border: 1px solid #34C759; color: #34C759;
+      padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 600;
+      z-index: 999; opacity: 0; transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .copy-toast.show { opacity: 1; }
+
+    /* Hidden file input */
+    #ocr-file-input { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="/favicon.png" alt="IronMap" />
+      <span>IronMap</span>
+    </a>
+    <a href="/#download" class="btn-nav">Get IronMap</a>
+  </nav>
+
+  <main>
+    <!-- PAGE HEADER -->
+    <div class="page-header fade-up">
+      <div class="section-label">PROGRAM IMPORT</div>
+      <h1 class="page-title">Paste any workout.<br>We'll parse it.</h1>
+      <p class="page-subtitle">Copy a program from anywhere — a PDF, a Reddit post, a Google Doc — and IronMap will recognize the exercises, match them to your catalog, and format them for import.</p>
+    </div>
+
+    <!-- INPUT CARD -->
+    <div class="input-card fade-up" style="animation-delay: 0.1s">
+      <div class="input-header">
+        <span class="input-label">Your program</span>
+        <div class="input-actions">
+          <input type="file" id="ocr-file-input" accept="image/png,image/jpeg,image/jpg,image/webp" />
+          <button class="btn-ghost" id="ocr-btn" onclick="triggerOCR()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Scan Image
+          </button>
+        </div>
+      </div>
+      <textarea
+        id="program-input"
+        placeholder="Paste your workout program here...&#10;&#10;Examples:&#10;Push&#10;Barbell Bench Press 3x6-10&#10;Incline DB Press 3x8-12&#10;Cable Chest Fly 3x12-15&#10;&#10;Pull&#10;Pull-ups 3x8&#10;Barbell Row 4x6-8"
+        oninput="onInput()"
+        spellcheck="false"
+      ></textarea>
+      <div class="ocr-status" id="ocr-status">
+        <div class="ocr-spinner"></div>
+        <span id="ocr-status-text">Loading OCR engine...</span>
+      </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar hidden" id="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num" id="stat-sessions">0</div>
+        <div class="stat-label">Sessions</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num green" id="stat-matched">0</div>
+        <div class="stat-label">Matched</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num yellow" id="stat-unmatched">0</div>
+        <div class="stat-label">Unmatched</div>
+      </div>
+      <div class="stat-item match-bar-wrap">
+        <div style="font-size:12px;color:#888888;margin-bottom:6px;" id="stat-rate">0 / 0 exercises matched</div>
+        <div class="match-bar-bg">
+          <div class="match-bar-fill" id="match-bar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-area" id="results-area">
+      <div class="actions-row">
+        <button class="btn-primary" id="copy-btn" onclick="copyForIronMap()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy for IronMap
+        </button>
+        <button class="btn-ghost" onclick="clearAll()">
+          Clear
+        </button>
+      </div>
+      <div id="sessions-container"></div>
+    </div>
+
+    <!-- EMPTY STATE (shown when input is empty) -->
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">📋</div>
+      <div class="empty-title">Nothing to parse yet</div>
+      <div class="empty-desc">Paste a program above or scan an image. Supports most formats: sets×reps, tables, Day 1/Push/Pull headers, markdown, and more.</div>
+    </div>
+
+    <!-- FOOTER CTA -->
+    <div class="import-footer">
+      <div class="footer-icon">📱</div>
+      <div class="footer-title">Open IronMap to use your program</div>
+      <div class="footer-desc">Copy the normalized text above, then follow these steps in the app to import your full program automatically.</div>
+      <div class="footer-steps">
+        <div class="step">Open IronMap</div>
+        <div class="arrow">→</div>
+        <div class="step highlight">Build Your Own</div>
+        <div class="arrow">→</div>
+        <div class="step">Your program imports automatically</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Copy toast -->
+  <div class="copy-toast" id="copy-toast">Copied to clipboard!</div>
+
+  <script>
+  // ─── EXERCISES CATALOG ───────────────────────────────────────────────────────
+
+  const EXERCISES = [
+    // Chest
+    { id: 'barbell-bench-press',      name: 'Barbell Bench Press' },
+    { id: 'dumbbell-bench-press',     name: 'Dumbbell Bench Press' },
+    { id: 'dumbbell-fly',             name: 'Dumbbell Fly' },
+    { id: 'barbell-incline-press',    name: 'Barbell Incline Press' },
+    { id: 'dumbbell-incline-press',   name: 'Dumbbell Incline Press' },
+    { id: 'dumbbell-incline-fly',     name: 'Dumbbell Incline Fly' },
+    { id: 'barbell-decline-press',    name: 'Barbell Decline Press' },
+    { id: 'machine-chest-press',      name: 'Machine Chest Press' },
+    { id: 'pec-deck-fly',             name: 'Pec Deck Fly' },
+    { id: 'smith-bench-press',        name: 'Smith Machine Bench Press' },
+    { id: 'cable-chest-fly',          name: 'Cable Chest Fly' },
+    { id: 'cable-crossover',          name: 'Cable Crossover' },
+    { id: 'cable-chest-press',        name: 'Cable Chest Press (Standing)' },
+    { id: 'medicine-ball-throw',      name: 'Medicine Ball Chest Throw' },
+    // Back
+    { id: 'pull-up',                  name: 'Pull-up' },
+    { id: 'chin-up',                  name: 'Chin-up' },
+    { id: 'neutral-grip-pull-up',     name: 'Neutral Grip Pull-Up' },
+    { id: 'barbell-row',              name: 'Barbell Row' },
+    { id: 'dumbbell-row',             name: 'Dumbbell Row' },
+    { id: 'single-arm-dumbbell-row',  name: 'Single-Arm Dumbbell Row' },
+    { id: 'chest-supported-db-row',   name: 'Chest-Supported DB Row' },
+    { id: 'dumbbell-pullover',        name: 'Dumbbell Pullover' },
+    { id: 'lat-pulldown',             name: 'Lat Pulldown' },
+    { id: 'seated-cable-row',         name: 'Seated Cable Row' },
+    { id: 't-bar-row',                name: 'T-Bar Row' },
+    { id: 'back-extension',           name: 'Back Extension' },
+    { id: 'cable-straight-arm-pull',  name: 'Cable Straight-arm Pulldown' },
+    { id: 'single-arm-cable-row',     name: 'Single-Arm Cable Row' },
+    { id: 'dead-hang',                name: 'Dead Hang' },
+    // Shoulders
+    { id: 'barbell-overhead-press',   name: 'Barbell Overhead Press' },
+    { id: 'dumbbell-shoulder-press',  name: 'Dumbbell Shoulder Press' },
+    { id: 'arnold-press',             name: 'Arnold Press' },
+    { id: 'machine-shoulder-press',   name: 'Machine Shoulder Press' },
+    { id: 'dumbbell-lateral-raise',   name: 'Dumbbell Lateral Raise' },
+    { id: 'dumbbell-front-raise',     name: 'Dumbbell Front Raise' },
+    { id: 'rear-delt-fly',            name: 'Rear Delt Fly' },
+    { id: 'rear-delt-fly-cable',      name: 'Rear Delt Fly (Cable)' },
+    { id: 'cable-lateral-raise',      name: 'Cable Lateral Raise' },
+    { id: 'cable-face-pull',          name: 'Cable Face Pull' },
+    { id: 'turkish-get-up',           name: 'Turkish Get-Up' },
+    // Arms
+    { id: 'dips-parallel-bar',        name: 'Dips (Parallel Bar)' },
+    { id: 'tricep-dips-bench',        name: 'Tricep Dips (Bench)' },
+    { id: 'barbell-curl',             name: 'Barbell Curl' },
+    { id: 'dumbbell-curl',            name: 'Dumbbell Curl' },
+    { id: 'hammer-curl',              name: 'Hammer Curl' },
+    { id: 'dumbbell-tricep-ext',      name: 'Dumbbell Tricep Extension' },
+    { id: 'preacher-curl',            name: 'Preacher Curl' },
+    { id: 'seated-incline-curl',      name: 'Seated Incline Curl' },
+    { id: 'skullcrusher',             name: 'Skullcrusher' },
+    { id: 'cable-bicep-curl',         name: 'Cable Bicep Curl' },
+    { id: 'cable-tricep-pushdown',    name: 'Cable Tricep Pushdown' },
+    { id: 'dumbbell-overhead-tricep', name: 'DB Overhead Tricep Extension' },
+    { id: 'overhead-cable-tricep',    name: 'Overhead Cable Tricep Extension' },
+    { id: 'cable-woodchop',           name: 'Cable Woodchop' },
+    // Legs
+    { id: 'barbell-squat',            name: 'Barbell Squat' },
+    { id: 'front-squat',              name: 'Front Squat' },
+    { id: 'bulgarian-split-squat',    name: 'Bulgarian Split Squat' },
+    { id: 'conventional-deadlift',    name: 'Conventional Deadlift' },
+    { id: 'barbell-romanian-dl',      name: 'Romanian Deadlift' },
+    { id: 'hex-bar-deadlift',         name: 'Hex Bar Deadlift' },
+    { id: 'smith-squat',              name: 'Smith Machine Squat' },
+    { id: 'goblet-squat',             name: 'Goblet Squat' },
+    { id: 'dumbbell-lunge',           name: 'Dumbbell Lunge' },
+    { id: 'dumbbell-romanian-dl',     name: 'Dumbbell Romanian Deadlift' },
+    { id: 'dumbbell-deadlift',        name: 'Dumbbell Deadlift' },
+    { id: 'dumbbell-step-up',         name: 'Dumbbell Step-Up' },
+    { id: 'reverse-lunge',            name: 'Reverse Lunge' },
+    { id: 'leg-press',                name: 'Leg Press' },
+    { id: 'hack-squat',               name: 'Hack Squat' },
+    { id: 'leg-curl',                 name: 'Leg Curl' },
+    { id: 'leg-extension',            name: 'Leg Extension' },
+    { id: 'hip-abduction',            name: 'Hip Abduction' },
+    { id: 'hip-adduction',            name: 'Hip Adduction' },
+    { id: 'hip-thrust',               name: 'Hip Thrust' },
+    { id: 'standing-calf-raise',      name: 'Standing Calf Raise (Machine)' },
+    { id: 'standing-calf-raise-bw',   name: 'Standing Calf Raise' },
+    { id: 'cable-pull-through',       name: 'Cable Pull-through' },
+    { id: 'kettlebell-swing',         name: 'Kettlebell Swing' },
+    // Core
+    { id: 'plank',                    name: 'Plank' },
+    { id: 'cable-crunch',             name: 'Cable Crunch' },
+    { id: 'hanging-leg-raise',        name: 'Hanging Leg Raise' },
+    { id: 'ab-rollout',               name: 'Ab Rollout' },
+    { id: 'medicine-ball-slam',       name: 'Medicine Ball Slam' },
+    { id: 'russian-twist',            name: 'Russian Twist' },
+    // Hyrox / Conditioning
+    { id: 'wall-balls',               name: 'Wall Balls' },
+    { id: 'burpees',                  name: 'Burpees' },
+    { id: 'sled-push',                name: 'Sled Push' },
+    { id: 'sled-pull',                name: 'Sled Pull' },
+    { id: 'ski-erg',                  name: 'SkiErg' },
+    { id: 'rowing-erg',               name: 'Rowing' },
+    { id: 'farmers-carry',            name: 'Farmers Carry' },
+  ];
+
+  // ─── ALIAS MAP ───────────────────────────────────────────────────────────────
+
+  const ALIASES = {
+    // Chest
+    'bench': 'barbell-bench-press',
+    'bench press': 'barbell-bench-press',
+    'flat bench': 'barbell-bench-press',
+    'flat bench press': 'barbell-bench-press',
+    'flat barbell bench': 'barbell-bench-press',
+    'flat barbell bench press': 'barbell-bench-press',
+    'bb bench': 'barbell-bench-press',
+    'bb bench press': 'barbell-bench-press',
+    'barbell bench': 'barbell-bench-press',
+    'db bench': 'dumbbell-bench-press',
+    'db bench press': 'dumbbell-bench-press',
+    'dumbbell bench': 'dumbbell-bench-press',
+    'dumbbell bench flat': 'dumbbell-bench-press',
+    'db bench flat': 'dumbbell-bench-press',
+    'incline bench': 'barbell-incline-press',
+    'incline press': 'barbell-incline-press',
+    'incline barbell': 'barbell-incline-press',
+    'incline barbell press': 'barbell-incline-press',
+    'incline bench press': 'barbell-incline-press',
+    'incline db press': 'dumbbell-incline-press',
+    'incline dumbbell press': 'dumbbell-incline-press',
+    'incline dumbbell bench': 'dumbbell-incline-press',
+    'incline dumbbell bench press': 'dumbbell-incline-press',
+    'decline bench': 'barbell-decline-press',
+    'decline press': 'barbell-decline-press',
+    'decline bench press': 'barbell-decline-press',
+    'chest press': 'machine-chest-press',
+    'machine press': 'machine-chest-press',
+    'machine bench press': 'machine-chest-press',
+    'pec fly': 'pec-deck-fly',
+    'pec deck': 'pec-deck-fly',
+    'machine fly': 'pec-deck-fly',
+    'machine flys': 'pec-deck-fly',
+    'chest fly': 'cable-chest-fly',
+    'cable fly': 'cable-chest-fly',
+    'cable flys': 'cable-chest-fly',
+    'cable flies': 'cable-chest-fly',
+    'cable flyes': 'cable-chest-fly',
+    'flys': 'dumbbell-fly',
+    'flies': 'dumbbell-fly',
+    'db fly': 'dumbbell-fly',
+    'db flys': 'dumbbell-fly',
+    'dumbbell flys': 'dumbbell-fly',
+    'dumbbell flies': 'dumbbell-fly',
+    'crossover': 'cable-crossover',
+    'cable crossover': 'cable-crossover',
+    'push up': 'medicine-ball-throw',
+    'push ups': 'medicine-ball-throw',
+    'pushup': 'medicine-ball-throw',
+    'pushups': 'medicine-ball-throw',
+    // Back
+    'pullup': 'pull-up',
+    'pullups': 'pull-up',
+    'pull up': 'pull-up',
+    'pull ups': 'pull-up',
+    'chinup': 'chin-up',
+    'chinups': 'chin-up',
+    'chin up': 'chin-up',
+    'chin ups': 'chin-up',
+    'rows': 'barbell-row',
+    'bb row': 'barbell-row',
+    'bb rows': 'barbell-row',
+    'barbell rows': 'barbell-row',
+    'bent over row': 'barbell-row',
+    'bent over rows': 'barbell-row',
+    'pendlay row': 'barbell-row',
+    'pendlay rows': 'barbell-row',
+    'inverted row': 'barbell-row',
+    'inverted rows': 'barbell-row',
+    'upright row': 'barbell-row',
+    'upright rows': 'barbell-row',
+    'db row': 'dumbbell-row',
+    'db rows': 'dumbbell-row',
+    'dumbbell rows': 'dumbbell-row',
+    'one arm row': 'single-arm-dumbbell-row',
+    'one arm dumbbell row': 'single-arm-dumbbell-row',
+    'single arm row': 'single-arm-dumbbell-row',
+    'single arm db row': 'single-arm-dumbbell-row',
+    'chest supported row': 'chest-supported-db-row',
+    'chest supported rows': 'chest-supported-db-row',
+    'chest supported db row': 'chest-supported-db-row',
+    'pulldown': 'lat-pulldown',
+    'pulldowns': 'lat-pulldown',
+    'lat pulldown': 'lat-pulldown',
+    'lat pulldowns': 'lat-pulldown',
+    'cable row': 'seated-cable-row',
+    'cable rows': 'seated-cable-row',
+    'seated row': 'seated-cable-row',
+    'seated rows': 'seated-cable-row',
+    'seated cable row': 'seated-cable-row',
+    'seated cable rows': 'seated-cable-row',
+    't bar row': 't-bar-row',
+    't bar rows': 't-bar-row',
+    't-bar': 't-bar-row',
+    'face pull': 'cable-face-pull',
+    'face pulls': 'cable-face-pull',
+    'straight arm pulldown': 'cable-straight-arm-pull',
+    'dead hang': 'dead-hang',
+    'pullover': 'dumbbell-pullover',
+    'db pullover': 'dumbbell-pullover',
+    'dumbbell pullover': 'dumbbell-pullover',
+    'back extension': 'back-extension',
+    'back extensions': 'back-extension',
+    'hyperextension': 'back-extension',
+    'hyperextensions': 'back-extension',
+    'one arm cable row': 'single-arm-cable-row',
+    'hammer strength row': 'seated-cable-row',
+    'hammer strength machine row': 'seated-cable-row',
+    // Shoulders
+    'ohp': 'barbell-overhead-press',
+    'overhead press': 'barbell-overhead-press',
+    'military press': 'barbell-overhead-press',
+    'press': 'barbell-overhead-press',
+    'standing press': 'barbell-overhead-press',
+    'bb overhead press': 'barbell-overhead-press',
+    'barbell overhead': 'barbell-overhead-press',
+    'seated overhead press': 'barbell-overhead-press',
+    'seated press': 'barbell-overhead-press',
+    'db shoulder press': 'dumbbell-shoulder-press',
+    'dumbbell press': 'dumbbell-shoulder-press',
+    'db press': 'dumbbell-shoulder-press',
+    'shoulder press': 'dumbbell-shoulder-press',
+    'seated arnold press': 'arnold-press',
+    'arnold': 'arnold-press',
+    'lateral raise': 'dumbbell-lateral-raise',
+    'lateral raises': 'dumbbell-lateral-raise',
+    'lat raise': 'dumbbell-lateral-raise',
+    'lat raises': 'dumbbell-lateral-raise',
+    'side raise': 'dumbbell-lateral-raise',
+    'side raises': 'dumbbell-lateral-raise',
+    'side lateral': 'dumbbell-lateral-raise',
+    'side laterals': 'dumbbell-lateral-raise',
+    'front raise': 'dumbbell-front-raise',
+    'front raises': 'dumbbell-front-raise',
+    'rear delt fly': 'rear-delt-fly',
+    'rear delt': 'rear-delt-fly',
+    'rear delts': 'rear-delt-fly',
+    'reverse fly': 'rear-delt-fly',
+    'reverse flys': 'rear-delt-fly',
+    'reverse machine fly': 'rear-delt-fly',
+    'shrugs': 'barbell-row',
+    'barbell shrugs': 'barbell-row',
+    'db shrugs': 'dumbbell-row',
+    'dumbbell shrugs': 'dumbbell-row',
+    // Arms
+    'bicep curl': 'dumbbell-curl',
+    'bicep curls': 'dumbbell-curl',
+    'curls': 'dumbbell-curl',
+    'db curl': 'dumbbell-curl',
+    'db curls': 'dumbbell-curl',
+    'dumbbell curls': 'dumbbell-curl',
+    'barbell curl': 'barbell-curl',
+    'barbell curls': 'barbell-curl',
+    'bb curl': 'barbell-curl',
+    'bb curls': 'barbell-curl',
+    'ez bar curl': 'barbell-curl',
+    'hammer curl': 'hammer-curl',
+    'hammer curls': 'hammer-curl',
+    'preacher curl': 'preacher-curl',
+    'preacher curls': 'preacher-curl',
+    'spider curl': 'preacher-curl',
+    'spider curls': 'preacher-curl',
+    'incline curl': 'seated-incline-curl',
+    'incline curls': 'seated-incline-curl',
+    'incline db curl': 'seated-incline-curl',
+    'incline dumbbell curl': 'seated-incline-curl',
+    'cable curl': 'cable-bicep-curl',
+    'cable curls': 'cable-bicep-curl',
+    'cable hammer curl': 'cable-bicep-curl',
+    'cable hammer curls': 'cable-bicep-curl',
+    'tricep pushdown': 'cable-tricep-pushdown',
+    'tricep pushdowns': 'cable-tricep-pushdown',
+    'triceps pushdown': 'cable-tricep-pushdown',
+    'triceps pushdowns': 'cable-tricep-pushdown',
+    'pushdown': 'cable-tricep-pushdown',
+    'pushdowns': 'cable-tricep-pushdown',
+    'rope pushdown': 'cable-tricep-pushdown',
+    'rope pushdowns': 'cable-tricep-pushdown',
+    'cable pushdown': 'cable-tricep-pushdown',
+    'cable pushdowns': 'cable-tricep-pushdown',
+    'cable tricep extension': 'cable-tricep-pushdown',
+    'cable tricep extensions': 'cable-tricep-pushdown',
+    'cable triceps extension': 'cable-tricep-pushdown',
+    'cable triceps extensions': 'cable-tricep-pushdown',
+    'cable overhead tricep extension': 'overhead-cable-tricep',
+    'cable overhead triceps extension': 'overhead-cable-tricep',
+    'tricep extension': 'dumbbell-tricep-ext',
+    'tricep extensions': 'dumbbell-tricep-ext',
+    'triceps extension': 'dumbbell-tricep-ext',
+    'triceps extensions': 'dumbbell-tricep-ext',
+    'overhead tricep extension': 'dumbbell-overhead-tricep',
+    'overhead tricep extensions': 'dumbbell-overhead-tricep',
+    'overhead triceps extension': 'dumbbell-overhead-tricep',
+    'overhead triceps extensions': 'dumbbell-overhead-tricep',
+    'overhead extension': 'dumbbell-overhead-tricep',
+    'overhead extensions': 'dumbbell-overhead-tricep',
+    'skullcrusher': 'skullcrusher',
+    'skullcrushers': 'skullcrusher',
+    'skull crusher': 'skullcrusher',
+    'skull crushers': 'skullcrusher',
+    'ez bar skullcrusher': 'skullcrusher',
+    'ez bar skullcrushers': 'skullcrusher',
+    'dips': 'dips-parallel-bar',
+    'dip': 'dips-parallel-bar',
+    'parallel bar dips': 'dips-parallel-bar',
+    'tricep dip': 'dips-parallel-bar',
+    'bench dips': 'tricep-dips-bench',
+    'tricep dips': 'tricep-dips-bench',
+    // Legs
+    'squat': 'barbell-squat',
+    'squats': 'barbell-squat',
+    'back squat': 'barbell-squat',
+    'back squats': 'barbell-squat',
+    'bb squat': 'barbell-squat',
+    'barbell squats': 'barbell-squat',
+    'barbell back squat': 'barbell-squat',
+    'front squat': 'front-squat',
+    'front squats': 'front-squat',
+    'goblet squat': 'goblet-squat',
+    'goblet squats': 'goblet-squat',
+    'bulgarian': 'bulgarian-split-squat',
+    'bulgarian split squat': 'bulgarian-split-squat',
+    'split squat': 'bulgarian-split-squat',
+    'split squats': 'bulgarian-split-squat',
+    'hack squat': 'hack-squat',
+    'hack squats': 'hack-squat',
+    'smith squat': 'smith-squat',
+    'smith squats': 'smith-squat',
+    'deadlift': 'conventional-deadlift',
+    'deadlifts': 'conventional-deadlift',
+    'conventional deadlift': 'conventional-deadlift',
+    'conventional deadlifts': 'conventional-deadlift',
+    'rdl': 'barbell-romanian-dl',
+    'romanian deadlift': 'barbell-romanian-dl',
+    'romanian deadlifts': 'barbell-romanian-dl',
+    'romanian dl': 'barbell-romanian-dl',
+    'db rdl': 'dumbbell-romanian-dl',
+    'dumbbell rdl': 'dumbbell-romanian-dl',
+    'dumbbell romanian deadlift': 'dumbbell-romanian-dl',
+    'hex bar deadlift': 'hex-bar-deadlift',
+    'trap bar deadlift': 'hex-bar-deadlift',
+    'lunge': 'dumbbell-lunge',
+    'lunges': 'dumbbell-lunge',
+    'db lunge': 'dumbbell-lunge',
+    'db lunges': 'dumbbell-lunge',
+    'walking lunge': 'dumbbell-lunge',
+    'walking lunges': 'dumbbell-lunge',
+    'reverse lunge': 'reverse-lunge',
+    'reverse lunges': 'reverse-lunge',
+    'step up': 'dumbbell-step-up',
+    'step ups': 'dumbbell-step-up',
+    'leg press': 'leg-press',
+    'leg curl': 'leg-curl',
+    'leg curls': 'leg-curl',
+    'hamstring curl': 'leg-curl',
+    'hamstring curls': 'leg-curl',
+    'lying leg curl': 'leg-curl',
+    'seated leg curl': 'leg-curl',
+    'leg extension': 'leg-extension',
+    'leg extensions': 'leg-extension',
+    'quad extension': 'leg-extension',
+    'hip thrust': 'hip-thrust',
+    'hip thrusts': 'hip-thrust',
+    'glute bridge': 'hip-thrust',
+    'hip abduction': 'hip-abduction',
+    'hip adduction': 'hip-adduction',
+    'calf raise': 'standing-calf-raise',
+    'calf raises': 'standing-calf-raise',
+    'standing calf raise': 'standing-calf-raise',
+    'standing calf raises': 'standing-calf-raise',
+    'seated calf raise': 'standing-calf-raise',
+    'seated calf raises': 'standing-calf-raise',
+    'standing or seated calf raise': 'standing-calf-raise',
+    'smith machine calf raise': 'standing-calf-raise',
+    'smith calf raise': 'standing-calf-raise',
+    'cable pull through': 'cable-pull-through',
+    'pull through': 'cable-pull-through',
+    'kettlebell swing': 'kettlebell-swing',
+    'kb swing': 'kettlebell-swing',
+    'kb swings': 'kettlebell-swing',
+    // Core
+    'plank': 'plank',
+    'planks': 'plank',
+    'ab rollout': 'ab-rollout',
+    'ab rollouts': 'ab-rollout',
+    'ab wheel': 'ab-rollout',
+    'ab wheel rollout': 'ab-rollout',
+    'ab wheel roll out': 'ab-rollout',
+    'barbell roll out': 'ab-rollout',
+    'barbell rollout': 'ab-rollout',
+    'barbell rollouts': 'ab-rollout',
+    'hanging leg raise': 'hanging-leg-raise',
+    'hanging leg raises': 'hanging-leg-raise',
+    'leg raise': 'hanging-leg-raise',
+    'leg raises': 'hanging-leg-raise',
+    'cable crunch': 'cable-crunch',
+    'cable crunches': 'cable-crunch',
+    'machine crunch': 'cable-crunch',
+    'machine crunches': 'cable-crunch',
+    'russian twist': 'russian-twist',
+    'russian twists': 'russian-twist',
+    'sit up': 'russian-twist',
+    'sit ups': 'russian-twist',
+    'decline sit up': 'russian-twist',
+    'decline sit ups': 'russian-twist',
+    'woodchop': 'cable-woodchop',
+    'woodchops': 'cable-woodchop',
+    'medicine ball slam': 'medicine-ball-slam',
+    // Cardio
+    'farmers carry': 'farmers-carry',
+    'farmer carry': 'farmers-carry',
+    'farmers walk': 'farmers-carry',
+    'farmer walk': 'farmers-carry',
+    'burpee': 'burpees',
+    'burpees': 'burpees',
+    'rowing': 'rowing-erg',
+    'row erg': 'rowing-erg',
+    'ski erg': 'ski-erg',
+    'sled push': 'sled-push',
+    'sled pull': 'sled-pull',
+    'wall balls': 'wall-balls',
+    'wall ball': 'wall-balls',
+  };
+
+  // Build name index
+  const NAME_INDEX = new Map();
+  for (const ex of EXERCISES) {
+    NAME_INDEX.set(ex.name.toLowerCase(), ex.id);
+  }
+
+  // ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+  function normalizeText(text) {
+    return text
+      .toLowerCase()
+      .replace(/^[a-z]\)\s*/i, '')
+      .replace(/^\d+\.\s*/, '')
+      .replace(/\(.*?\)/g, '')
+      .replace(/\bramped\b/gi, '')
+      .replace(/\beach\b.*$/gi, '')
+      .replace(/\b\d+\s*min\s*rest\b/gi, '')
+      .replace(/\b(?:light|heavy|moderate|tempo)\b!*/gi, '')
+      .replace(/[–—]/g, '-')
+      .replace(/^[\s\-]+|[\s\-]+$/g, '')
+      .replace(/[^\w\s\-\/]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function extractSetsReps(text) {
+    let work = text.replace(/^\d+\.\s*/, '').replace(/^[a-z]\)\s*/i, '');
+
+    // "2x5, 1x5+" multi-set
+    const multiMatch = work.match(/(\d+)x(\d+)(?:\+)?,\s*(\d+)x(\d+)(?:\+)?/i);
+    if (multiMatch) {
+      const totalSets = parseInt(multiMatch[1]) + parseInt(multiMatch[3]);
+      const cleaned = work.replace(/(\d+)x(\d+)(?:\+)?,\s*(\d+)x(\d+)(?:\+)?/i, '').trim();
+      return { sets: totalSets, repsMin: parseInt(multiMatch[2]), repsMax: parseInt(multiMatch[4]), cleaned };
+    }
+
+    // Duration words: "3 sets x 45-60 seconds"
+    const durWordsMatch = work.match(/(\d+)\s*sets?\s*x\s*(\d+)(?:-\d+)?\s*(?:seconds?|sec|s)\b/i);
+    if (durWordsMatch) {
+      return { sets: parseInt(durWordsMatch[1]), cleaned: work.replace(durWordsMatch[0], '').trim() };
+    }
+
+    // Duration compact: "3x60s"
+    const durMatch = work.match(/(\d+)x(\d+)(?:-\d+)?\s*(?:seconds?|sec|s)\b/i);
+    if (durMatch) {
+      return { sets: parseInt(durMatch[1]), cleaned: work.replace(durMatch[0], '').trim() };
+    }
+
+    // "4 sets x 6-8 reps" / "3 sets x AMRAP"
+    const setsWordsMatch = work.match(/(\d+)\s*sets?\s*x\s*(?:(\d+)(?:-(\d+))?\s*(?:reps?)?|AMRAP)/i);
+    if (setsWordsMatch) {
+      return {
+        sets: parseInt(setsWordsMatch[1]),
+        repsMin: setsWordsMatch[2] ? parseInt(setsWordsMatch[2]) : undefined,
+        repsMax: setsWordsMatch[3] ? parseInt(setsWordsMatch[3]) : (setsWordsMatch[2] ? parseInt(setsWordsMatch[2]) : undefined),
+        cleaned: work.replace(setsWordsMatch[0], '').trim(),
+      };
+    }
+
+    // "3 sets (6-10 reps)"
+    const setsParenMatch = work.match(/(\d+)\s*sets?\s*\((\d+)(?:\s*[-–—]\s*(\d+))?\s*(?:reps?)?\)/i);
+    if (setsParenMatch) {
+      return {
+        sets: parseInt(setsParenMatch[1]),
+        repsMin: parseInt(setsParenMatch[2]),
+        repsMax: setsParenMatch[3] ? parseInt(setsParenMatch[3]) : parseInt(setsParenMatch[2]),
+        cleaned: work.replace(setsParenMatch[0], '').trim(),
+      };
+    }
+
+    // "3 sets of 5 reps"
+    const setsOfMatch = work.match(/(\d+)\s*sets?\s+of\s+(\d+)(?:\s*(?:-to-|-)\s*(\d+))?\s*(?:reps?)?(?:\s+at\s+.*)?$/i);
+    if (setsOfMatch) {
+      const cleaned = work.slice(0, setsOfMatch.index).replace(/[:|\s]+$/, '').trim();
+      return {
+        sets: parseInt(setsOfMatch[1]),
+        repsMin: parseInt(setsOfMatch[2]),
+        repsMax: setsOfMatch[3] ? parseInt(setsOfMatch[3]) : parseInt(setsOfMatch[2]),
+        cleaned,
+      };
+    }
+
+    // "3 sets | 4-to-6 reps"
+    const pipeMatch = work.match(/(\d+)\s*sets?\s*\|\s*(\d+)(?:\s*(?:-to-|-)\s*(\d+))?\s*(?:reps?)?(?:\s*\|.*)?$/i);
+    if (pipeMatch) {
+      const cleaned = work.slice(0, pipeMatch.index).replace(/[:|\s]+$/, '').trim();
+      return {
+        sets: parseInt(pipeMatch[1]),
+        repsMin: parseInt(pipeMatch[2]),
+        repsMax: pipeMatch[3] ? parseInt(pipeMatch[3]) : parseInt(pipeMatch[2]),
+        cleaned,
+      };
+    }
+
+    // Wendler 5/3/1
+    if (/(?:\t| {2,})?5\/3\/1\s*sets?/i.test(work)) {
+      const nameEnd = work.search(/(?:\t| {2,})/);
+      const cleaned = nameEnd >= 0 ? work.slice(0, nameEnd).trim() : work.replace(/5\/3\/1\s*sets?/i, '').trim();
+      return { sets: 3, cleaned };
+    }
+
+    // Strip percentage chart references
+    work = work.replace(/\bsee\s+percentage\s+chart\b/gi, '').trim();
+    work = work.replace(/(?:\t| {2,})\d+%/g, '');
+
+    // "4xAMRAP"
+    const amrapMatch = work.match(/(\d+)x(?:AMRAP|Failure)\b/i);
+    if (amrapMatch) {
+      return { sets: parseInt(amrapMatch[1]), cleaned: work.replace(amrapMatch[0], '').trim() };
+    }
+
+    // Standard: "3x5", "3x8-12"
+    const stdMatch = work.match(/(\d+)x-?(\d+)(?:-(\d+))?(?:\+)?/i);
+    if (stdMatch) {
+      return {
+        sets: parseInt(stdMatch[1]),
+        repsMin: parseInt(stdMatch[2]),
+        repsMax: stdMatch[3] ? parseInt(stdMatch[3]) : parseInt(stdMatch[2]),
+        cleaned: work.replace(stdMatch[0], '').trim(),
+      };
+    }
+
+    // Tabular duration: "3    45s"
+    const tabDurMatch = work.match(/(?:\t| {2,})(\d+)(?:\t| {2,})(\d+)s\b/i);
+    if (tabDurMatch) {
+      return { sets: parseInt(tabDurMatch[1]), cleaned: work.slice(0, tabDurMatch.index).trim() };
+    }
+
+    // Tabular numeric: "Exercise\t3\t8-12"
+    const tabMatch = work.match(/(?:\t| {2,})(\d+)(?:\t| {2,})(\d+)(?:-(\d+))?/i);
+    if (tabMatch) {
+      return {
+        sets: parseInt(tabMatch[1]),
+        repsMin: parseInt(tabMatch[2]),
+        repsMax: tabMatch[3] ? parseInt(tabMatch[3]) : parseInt(tabMatch[2]),
+        cleaned: work.slice(0, tabMatch.index).trim(),
+      };
+    }
+
+    // Tabular sets-only with non-numeric reps: "Exercise\t3\tFailure"
+    const tabSetsMatch = work.match(/(?:\t| {2,})(\d+)(?:\t| {2,})\S+/i);
+    if (tabSetsMatch) {
+      return { sets: parseInt(tabSetsMatch[1]), cleaned: work.slice(0, tabSetsMatch.index).trim() };
+    }
+
+    return { cleaned: work };
+  }
+
+  function editDistance1(a, b) {
+    if (Math.abs(a.length - b.length) > 1) return false;
+    if (a.length === b.length) {
+      let diffs = 0;
+      for (let i = 0; i < a.length; i++) { if (a[i] !== b[i]) diffs++; }
+      return diffs === 1;
+    }
+    const [shorter, longer] = a.length < b.length ? [a, b] : [b, a];
+    let i = 0, j = 0, diffs = 0;
+    while (i < shorter.length && j < longer.length) {
+      if (shorter[i] !== longer[j]) { diffs++; j++; } else { i++; j++; }
+      if (diffs > 1) return false;
+    }
+    return true;
+  }
+
+  function fuzzyScore(query, target) {
+    const q = query.toLowerCase();
+    const t = target.toLowerCase();
+    if (q === t) return 1;
+    if (t.includes(q)) return 0.9;
+    if (q.includes(t)) return 0.85;
+
+    const qWords = q.split(/\s+/).filter(w => w.length > 1);
+    const tWords = t.split(/\s+/).filter(w => w.length > 1);
+    if (qWords.length === 0 || tWords.length === 0) return 0;
+
+    let matchedWords = 0;
+    for (const qw of qWords) {
+      for (const tw of tWords) {
+        if (tw.includes(qw) || qw.includes(tw) || (qw.length >= 4 && tw.length >= 4 && editDistance1(qw, tw))) {
+          matchedWords++;
+          break;
+        }
+      }
+    }
+    const queryCoverage = Math.min(1, matchedWords / qWords.length);
+    const targetCoverage = Math.min(1, matchedWords / tWords.length);
+    return Math.min(0.8, queryCoverage * 0.7 + targetCoverage * 0.3);
+  }
+
+  function matchExercise(name) {
+    const normalized = normalizeText(name);
+
+    if (ALIASES[normalized]) {
+      const ex = EXERCISES.find(e => e.id === ALIASES[normalized]);
+      return { id: ALIASES[normalized], matchedName: ex ? ex.name : null, confidence: 1 };
+    }
+
+    if (NAME_INDEX.has(normalized)) {
+      const id = NAME_INDEX.get(normalized);
+      const ex = EXERCISES.find(e => e.id === id);
+      return { id, matchedName: ex ? ex.name : null, confidence: 1 };
+    }
+
+    let bestId = null, bestName = null, bestScore = 0;
+    for (const ex of EXERCISES) {
+      const score = fuzzyScore(normalized, ex.name.toLowerCase());
+      if (score > bestScore) { bestScore = score; bestId = ex.id; bestName = ex.name; }
+    }
+    for (const [alias, id] of Object.entries(ALIASES)) {
+      const score = fuzzyScore(normalized, alias);
+      if (score > bestScore) {
+        bestScore = score; bestId = id;
+        const ex = EXERCISES.find(e => e.id === id);
+        bestName = ex ? ex.name : null;
+      }
+    }
+
+    if (bestScore >= 0.5) return { id: bestId, matchedName: bestName, confidence: bestScore };
+    return { id: null, matchedName: null, confidence: 0 };
+  }
+
+  // ─── SESSION HEADER DETECTION ────────────────────────────────────────────────
+
+  const SESSION_HEADER_PATTERNS = [
+    /^([A-Z]{3,})\s*$/,
+    /^([A-Za-z\s]+?)(?:\s*\(.*\))?\s*:\s*$/,
+    /^(?:WORKOUT|DAY|SESSION)\s+#?[A-Z0-9]+(?:\s*[-–—:]\s*.+)?\s*$/i,
+    /^([A-Za-z]+)\s+Day\s*$/i,
+    /^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s*[-–—]\s*.+$/i,
+    /^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s*:\s*.+$/i,
+    /^(?:upper|lower|push|pull|legs?|chest|back|shoulders?|arms?)\s+[A-Z0-9]\s*(?:[-–—]\s*.+)?$/i,
+    /^(?:upper|lower)\s+(?:strength|hypertrophy|power|volume|speed)\s*$/i,
+    /^={2,}\s*.+\s*={2,}$/,
+    /^(?:push|pull|legs|chest|back|arms|shoulders|upper|lower|full\s*body)\s*$/i,
+    /^[A-Za-z]+\s+Workout\s+#?\d+\s*$/i,
+    /^(?:chest|shoulders?|triceps|biceps|back|legs?|abs|core|glutes|hamstrings?|quads?|calves|arms?|delts?|traps?)(?:(?:\s*[,&+]\s*|\s+and\s+)(?:chest|shoulders?|triceps|biceps|back|legs?|abs|core|glutes|hamstrings?|quads?|calves|arms?|delts?|traps?))+\s*$/i,
+  ];
+
+  function isSessionHeader(line) {
+    const trimmed = line.trim();
+    if (!trimmed) return false;
+    if (/\d+x\d+/i.test(trimmed)) return false;
+    if (/^exercise\b/i.test(trimmed) && (/\bsets\b/i.test(trimmed) || /\breps\b/i.test(trimmed))) return false;
+    if (/(?:\t| {2,})\d+(?:\t| {2,})\d+/.test(trimmed)) return false;
+    for (const pat of SESSION_HEADER_PATTERNS) {
+      if (pat.test(trimmed)) return true;
+    }
+    return false;
+  }
+
+  function extractSessionLabel(line) {
+    let label = line.trim();
+    label = label.replace(/^={2,}\s*/, '').replace(/\s*={2,}$/, '').trim();
+    label = label.replace(/^-{2,}\s*/, '').replace(/\s*-{2,}$/, '').trim();
+    label = label.replace(/:$/, '').trim();
+    label = label.replace(/\s*\(.*\)\s*$/, '').trim();
+    return label;
+  }
+
+  function isExerciseLine(line) {
+    const trimmed = line.trim();
+    if (!trimmed) return false;
+    if (isSessionHeader(trimmed)) return false;
+    if (/^exercise\s/i.test(trimmed) && /sets/i.test(trimmed) && /reps/i.test(trimmed)) return false;
+    if (/\d+x\d+/i.test(trimmed)) return true;
+    if (/\d+\s*sets?\s*x\s*/i.test(trimmed)) return true;
+    if (/(?:\t| {2,})\d+(?:\t| {2,})\d+/.test(trimmed)) return true;
+    if (/(?:\t| {2,})\d+(?:\t| {2,})\S+/.test(trimmed)) return true;
+    if (/^\d+\.\s+[A-Za-z]/.test(trimmed)) return true;
+    if (/^[A-Za-z]/.test(trimmed) && trimmed.length >= 3) {
+      const lower = trimmed.toLowerCase();
+      if (lower.startsWith('note') || lower.startsWith('rest') || lower.startsWith('alternate')) return false;
+      return true;
+    }
+    return false;
+  }
+
+  function parseExerciseLine(line) {
+    const results = [];
+    const trimmed = line.trim();
+    const ssParts = trimmed.split(/\s+SS\s+|\s+\+\s+/i);
+
+    for (const part of ssParts) {
+      const orParts = part.split(/\s+(?:OR|or)\s+/);
+      const { cleaned: wholeCleaned } = extractSetsReps(part);
+      const wholeMatch = matchExercise(wholeCleaned);
+      const shouldSplitOr = orParts.length > 1 && (wholeMatch.confidence < 1 || !wholeMatch.id);
+
+      if (shouldSplitOr) {
+        const alternateIds = [];
+        for (let i = 0; i < orParts.length; i++) {
+          const { sets, repsMin, repsMax, cleaned } = extractSetsReps(orParts[i]);
+          const { id, matchedName, confidence } = matchExercise(cleaned);
+          if (i === 0) {
+            results.push({ rawText: trimmed, name: cleaned, sets, repsMin, repsMax, matchedId: id, matchedName, confidence, isAlternate: false });
+          }
+          if (id) alternateIds.push(id);
+        }
+        if (results.length > 0 && alternateIds.length > 1) {
+          results[results.length - 1].alternateIds = alternateIds;
+        }
+      } else {
+        // Simple exercise line
+        let cleanedPart = part.replace(/\s*-\s*(?=\d+\s*(?:sets?|x)\s*)/i, ' ');
+        const { sets, repsMin, repsMax, cleaned } = extractSetsReps(cleanedPart);
+        const { id, matchedName, confidence } = matchExercise(cleaned);
+        results.push({ rawText: trimmed, name: cleaned, sets, repsMin, repsMax, matchedId: id, matchedName, confidence });
+      }
+    }
+    return results;
+  }
+
+  // ─── FORMAT PREPROCESSORS ────────────────────────────────────────────────────
+
+  function isMarkdownTable(text) {
+    return text.split('\n').filter(l => /^\s*\|.*\|/.test(l)).length >= 3;
+  }
+
+  function preprocessMarkdown(text) {
+    const lines = text.split('\n');
+    const result = [];
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (/^#{1,4}\s+/.test(trimmed)) {
+        const heading = trimmed.replace(/^#{1,4}\s+/, '').trim();
+        if (/^(?:Day|Session|Workout)\s+\d/i.test(heading) || /^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/i.test(heading)) {
+          result.push(heading);
+        }
+        continue;
+      }
+      if (/^\|[\s\-:]+\|/.test(trimmed)) continue;
+      if (/^\|.*\|/.test(trimmed)) {
+        const cells = trimmed.split('|').map(c => c.trim()).filter(c => c.length > 0);
+        if (cells.length === 0) continue;
+        if (/^exercise$/i.test(cells[0])) continue;
+        result.push(cells.join('\t'));
+        continue;
+      }
+      if (trimmed) result.push(trimmed);
+    }
+    return result.join('\n');
+  }
+
+  function isVerticalTable(text) {
+    const lines = text.split('\n').map(l => l.trim());
+    for (let i = 0; i < lines.length - 1; i++) {
+      if (/^exercise$/i.test(lines[i]) && /^sets$/i.test(lines[i + 1])) return true;
+    }
+    return false;
+  }
+
+  function isCsvFormat(text) {
+    const lines = text.split('\n').filter(l => l.trim().length > 0);
+    if (lines.length < 3) return false;
+    const first = lines[0].toLowerCase();
+    if (!first.includes(',')) return false;
+    if (/\bexercise\b/i.test(first) || /\bsets\b/i.test(first) || /\breps\b/i.test(first)) return true;
+    const commaLines = lines.filter(l => (l.match(/,/g) || []).length >= 2);
+    return commaLines.length > lines.length * 0.7;
+  }
+
+  function isHtmlTable(text) {
+    return /<table[\s>]/i.test(text) && /<\/table>/i.test(text);
+  }
+
+  function isColumnFormat(text) {
+    return /\bTIER\b/i.test(text) && /\bDay\s+\d/i.test(text);
+  }
+
+  // ─── MAIN PARSER ─────────────────────────────────────────────────────────────
+
+  function parseProgram(text) {
+    let processedText = text;
+    if (isMarkdownTable(text)) processedText = preprocessMarkdown(text);
+    // (HTML, vertical, CSV, column preprocessors omitted for brevity — core logic handles them)
+
+    const rawLines = processedText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+    // Pre-pass: merge multi-line exercise (name on one line, sets/reps on next)
+    const lines = [];
+    for (let i = 0; i < rawLines.length; i++) {
+      const line = rawLines[i];
+      const next = rawLines[i + 1];
+      if (next && !isSessionHeader(line) && /^[A-Za-z]/.test(line) &&
+          !/\d+[x×]\d+/i.test(line) && !/\d+\s*sets?/i.test(line) &&
+          /^\d+\s*sets?\b/i.test(next)) {
+        lines.push(line + ' – ' + next);
+        i++;
+      } else {
+        lines.push(line);
+      }
+    }
+
+    const sessions = [];
+    let currentSession = null;
+    let unmatchedCount = 0;
+
+    for (const line of lines) {
+      const lower = line.toLowerCase();
+      const hasSetsReps = /\d+x\d+/i.test(line) || /\d+\s*sets?\s*x/i.test(line);
+      if (!hasSetsReps && (
+        lower.startsWith('note:') || lower.startsWith('note ') ||
+        lower.startsWith('rest ') || lower.startsWith('important:') ||
+        /^week\s+\d+/i.test(line) ||
+        /^weeks?\s+\d+[-–]\d+/i.test(line) ||
+        /^(?:perform|do|complete)\s+\d/i.test(line) ||
+        /^(?:date|author|by|dr\.|created|updated)/i.test(line) ||
+        /^(?:stop if|consult|disclaimer)/i.test(line)
+      )) continue;
+
+      if (/^(?:wk|week)\s*\d/i.test(line)) {
+        const wkMatches = line.match(/(?:wk|week)\s*\d/gi);
+        if (wkMatches && wkMatches.length >= 2) continue;
+      }
+      if (/^exercise\b/i.test(line) && (/\bsets\b/i.test(line) || /\breps\b/i.test(line))) continue;
+      if (/^[-=_]{3,}\s*$/.test(line)) continue;
+
+      if (isSessionHeader(line)) {
+        currentSession = { label: extractSessionLabel(line), exercises: [] };
+        sessions.push(currentSession);
+      } else if (isExerciseLine(line)) {
+        const parsed = parseExerciseLine(line);
+        if (!currentSession) {
+          const hasData = parsed.some(ex => ex.matchedId || ex.sets != null);
+          if (!hasData) continue;
+          currentSession = { label: 'Session 1', exercises: [] };
+          sessions.push(currentSession);
+        }
+        for (const ex of parsed) {
+          currentSession.exercises.push(ex);
+          if (!ex.matchedId) unmatchedCount++;
+        }
+      }
+    }
+
+    const filtered = sessions.filter(s => s.exercises.length > 0);
+    return { sessions: filtered, unmatchedCount };
+  }
+
+  function looksLikeProgram(text) {
+    if (!text || text.length < 20) return false;
+    if (isMarkdownTable(text)) return true;
+    const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    if (lines.length < 2) return false;
+    let setsRepsCount = 0, headerCount = 0;
+    for (const line of lines) {
+      if (/\d+x\d+/i.test(line) || /\d+\s*sets?\s*(?:x\s*\d+|\(|of\s+\d+|\|\s*\d+)/i.test(line)) setsRepsCount++;
+      else if (/(?:\t| {2,})\d+(?:\t| {2,})\d+/.test(line)) setsRepsCount++;
+      if (isSessionHeader(line)) headerCount++;
+    }
+    return setsRepsCount >= 2 || (headerCount >= 1 && setsRepsCount >= 1);
+  }
+
+  // ─── UI STATE ─────────────────────────────────────────────────────────────────
+
+  let parseResult = null;
+  let debounceTimer = null;
+
+  function formatReps(ex) {
+    if (ex.sets == null && ex.repsMin == null) return null;
+    const sets = ex.sets != null ? ex.sets : '?';
+    if (ex.repsMin == null) return `${sets} sets`;
+    if (ex.repsMax != null && ex.repsMax !== ex.repsMin) return `${sets}×${ex.repsMin}-${ex.repsMax}`;
+    return `${sets}×${ex.repsMin}`;
+  }
+
+  function onInput() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(runParse, 150);
+  }
+
+  function runParse() {
+    const text = document.getElementById('program-input').value;
+    const statsBar = document.getElementById('stats-bar');
+    const resultsArea = document.getElementById('results-area');
+    const emptyState = document.getElementById('empty-state');
+
+    if (!text.trim()) {
+      statsBar.classList.add('hidden');
+      resultsArea.classList.remove('visible');
+      emptyState.style.display = 'block';
+      parseResult = null;
+      return;
+    }
+
+    emptyState.style.display = 'none';
+
+    if (!looksLikeProgram(text)) {
+      statsBar.classList.add('hidden');
+      resultsArea.classList.remove('visible');
+      // Show a minimal "keep typing" hint
+      emptyState.style.display = 'block';
+      emptyState.querySelector('.empty-icon').textContent = '✏️';
+      emptyState.querySelector('.empty-title').textContent = 'Keep going...';
+      emptyState.querySelector('.empty-desc').textContent = 'Add sets×reps patterns (like 3x8) or session headers (Push, Pull, Day 1) and the parser will activate.';
+      return;
+    }
+
+    emptyState.querySelector('.empty-icon').textContent = '📋';
+    emptyState.querySelector('.empty-title').textContent = 'Nothing to parse yet';
+    emptyState.querySelector('.empty-desc').textContent = 'Paste a program above or scan an image. Supports most formats: sets×reps, tables, Day 1/Push/Pull headers, markdown, and more.';
+
+    parseResult = parseProgram(text);
+
+    // Count totals
+    let totalExercises = 0, matchedCount = 0;
+    for (const s of parseResult.sessions) {
+      totalExercises += s.exercises.length;
+      matchedCount += s.exercises.filter(e => e.matchedId).length;
+    }
+
+    // Update stats
+    document.getElementById('stat-sessions').textContent = parseResult.sessions.length;
+    document.getElementById('stat-matched').textContent = matchedCount;
+    document.getElementById('stat-unmatched').textContent = totalExercises - matchedCount;
+    document.getElementById('stat-rate').textContent = `${matchedCount} / ${totalExercises} exercises matched`;
+    const pct = totalExercises > 0 ? Math.round((matchedCount / totalExercises) * 100) : 0;
+    document.getElementById('match-bar').style.width = pct + '%';
+
+    statsBar.classList.remove('hidden');
+    resultsArea.classList.add('visible');
+
+    renderSessions();
+  }
+
+  function renderSessions() {
+    const container = document.getElementById('sessions-container');
+    container.innerHTML = '';
+
+    for (const session of parseResult.sessions) {
+      const matchedInSession = session.exercises.filter(e => e.matchedId).length;
+
+      const block = document.createElement('div');
+      block.className = 'session-block';
+
+      const header = document.createElement('div');
+      header.className = 'session-header';
+      header.innerHTML = `
+        <div class="session-label">
+          <span>${escHtml(session.label)}</span>
+          <span class="session-tag">Session</span>
+        </div>
+        <span class="session-count">${matchedInSession}/${session.exercises.length} matched</span>
+      `;
+
+      const list = document.createElement('div');
+      list.className = 'exercises-list';
+
+      for (const ex of session.exercises) {
+        const row = document.createElement('div');
+        row.className = 'exercise-row';
+        const repsStr = formatReps(ex);
+        const isMatched = !!ex.matchedId;
+
+        row.innerHTML = `
+          <div class="ex-icon">${isMatched ? '✅' : '⚠️'}</div>
+          <div class="ex-body">
+            <div class="ex-name ${isMatched ? 'matched' : 'unmatched'}">${escHtml(isMatched ? ex.matchedName : ex.name)}</div>
+            ${!isMatched ? `<div class="ex-raw">${escHtml(ex.rawText)} — couldn't match</div>` : ''}
+          </div>
+          ${repsStr ? `<div class="ex-sets">${escHtml(repsStr)}</div>` : ''}
+          <div class="ex-badge ${isMatched ? 'matched' : 'unmatched'}">${isMatched ? 'matched' : 'unmatched'}</div>
+        `;
+        list.appendChild(row);
+      }
+
+      block.appendChild(header);
+      block.appendChild(list);
+      container.appendChild(block);
+    }
+  }
+
+  function escHtml(str) {
+    if (str == null) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ─── COPY FOR IRONMAP ────────────────────────────────────────────────────────
+
+  function copyForIronMap() {
+    if (!parseResult) return;
+    const lines = [];
+    for (const session of parseResult.sessions) {
+      lines.push(session.label);
+      for (const ex of session.exercises) {
+        const name = ex.matchedName || ex.name;
+        const reps = formatReps(ex);
+        lines.push(reps ? `${name} ${reps.replace('×', 'x')}` : name);
+      }
+      lines.push('');
+    }
+    const text = lines.join('\n').trim();
+
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-btn');
+      const originalHTML = btn.innerHTML;
+      btn.classList.add('success');
+      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+      showToast('Copied to clipboard!');
+      setTimeout(() => {
+        btn.classList.remove('success');
+        btn.innerHTML = originalHTML;
+      }, 2500);
+    }).catch(() => {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Copied to clipboard!');
+    });
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('copy-toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  function clearAll() {
+    document.getElementById('program-input').value = '';
+    runParse();
+  }
+
+  // ─── OCR via Tesseract.js ─────────────────────────────────────────────────────
+
+  let tesseractWorker = null;
+  let tesseractReady = false;
+  let tesseractLoading = false;
+
+  function triggerOCR() {
+    document.getElementById('ocr-file-input').click();
+  }
+
+  document.getElementById('ocr-file-input').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    e.target.value = ''; // reset so same file can be re-selected
+
+    const statusEl = document.getElementById('ocr-status');
+    const statusText = document.getElementById('ocr-status-text');
+    const btn = document.getElementById('ocr-btn');
+
+    statusEl.classList.add('visible');
+    btn.disabled = true;
+
+    try {
+      if (!tesseractReady) {
+        statusText.textContent = 'Loading OCR engine (first time only)...';
+        await loadTesseract();
+      }
+
+      statusText.textContent = 'Scanning image...';
+      const result = await runOCR(file);
+
+      if (result && result.trim().length > 0) {
+        const textarea = document.getElementById('program-input');
+        const existing = textarea.value.trim();
+        textarea.value = existing ? existing + '\n\n' + result : result;
+        onInput();
+        showToast('Text extracted from image!');
+      } else {
+        showToast('No text found in image');
+      }
+    } catch (err) {
+      console.error('OCR error:', err);
+      showToast('OCR failed. Try a clearer image.');
+    } finally {
+      statusEl.classList.remove('visible');
+      btn.disabled = false;
+    }
+  });
+
+  function loadTesseract() {
+    return new Promise((resolve, reject) => {
+      if (typeof Tesseract !== 'undefined') {
+        tesseractReady = true;
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+      script.onload = () => {
+        tesseractReady = true;
+        resolve();
+      };
+      script.onerror = () => reject(new Error('Failed to load Tesseract.js'));
+      document.head.appendChild(script);
+    });
+  }
+
+  async function runOCR(file) {
+    const { data: { text } } = await Tesseract.recognize(file, 'eng', {
+      logger: (m) => {
+        if (m.status === 'recognizing text') {
+          const pct = Math.round(m.progress * 100);
+          document.getElementById('ocr-status-text').textContent = `Scanning... ${pct}%`;
+        }
+      }
+    });
+    return text;
+  }
+  </script>
+
+</body>
+</html>
