@@ -44,6 +44,7 @@ const FEATURES = [
 export default function IronMap() {
   const [timer, setTimer] = useState(147);
   const [activeTrigger, setActiveTrigger] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setTimer(s => s > 0 ? s - 1 : 180), 1000);
@@ -98,6 +99,9 @@ export default function IronMap() {
           .split-grid { grid-template-columns:1fr !important; gap:48px !important; }
           .pricing-grid { grid-template-columns:1fr !important; max-width:400px !important; }
           .nav-links { display:none !important; }
+          .nav-cta { display:none !important; }
+          .nav-hamburger { display:flex !important; }
+          .hero-store-badge { height:26px !important; }
           .section-label { justify-content:center; }
           .footer-inner { flex-direction:column; text-align:center; }
           .footer-links { justify-content:center; }
@@ -127,21 +131,41 @@ export default function IronMap() {
             <a key={href} href={href} className="nav-link">{label}</a>
           ))}
         </div>
-        <a href="#download" className="btn-primary" style={{ padding: "8px 20px", fontSize: 13, borderRadius: 10 }}>Get IronMap</a>
+        <a href="#download" className="btn-primary nav-cta" style={{ padding: "8px 20px", fontSize: 13, borderRadius: 10 }}>Get IronMap</a>
+        <button
+          className="nav-hamburger"
+          aria-label="Open menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(o => !o)}
+          style={{ display: "none", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, width: 40, height: 40, padding: 0, cursor: "pointer", color: C.text, alignItems: "center", justifyContent: "center" }}
+        >
+          <span style={{ display: "flex", flexDirection: "column", gap: 4, width: 18 }}>
+            <span style={{ display: "block", height: 2, background: C.text, borderRadius: 1, transform: menuOpen ? "translateY(6px) rotate(45deg)" : "none", transition: "transform 0.2s" }} />
+            <span style={{ display: "block", height: 2, background: C.text, borderRadius: 1, opacity: menuOpen ? 0 : 1, transition: "opacity 0.15s" }} />
+            <span style={{ display: "block", height: 2, background: C.text, borderRadius: 1, transform: menuOpen ? "translateY(-6px) rotate(-45deg)" : "none", transition: "transform 0.2s" }} />
+          </span>
+        </button>
+        {menuOpen && (
+          <div className="nav-mobile-menu" style={{ position: "absolute", top: 60, left: 0, right: 0, background: "rgba(10,10,10,0.98)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${C.border}`, padding: "16px clamp(20px,4vw,48px) 24px", display: "flex", flexDirection: "column", gap: 4 }}>
+            {[["#features", "Features"], ["#how", "How It Works"], ["#ai", "AI Coach"], ["#pricing", "Pricing"], ["#download", "Get IronMap"]].map(([href, label]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)} style={{ padding: "14px 4px", fontSize: 15, color: C.text, borderBottom: `1px solid ${C.border}`, display: "block" }}>{label}</a>
+            ))}
+          </div>
+        )}
       </nav>
 
       {/* HERO */}
       <section style={{ minHeight: "100vh", padding: "100px clamp(20px,4vw,48px) 100px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center", position: "relative", overflow: "hidden" }} className="hero-grid">
         <div style={{ position: "absolute", top: "30%", left: "50%", width: 700, height: 700, background: `radial-gradient(circle, ${C.redGlow} 0%, transparent 70%)`, pointerEvents: "none", transform: "translate(-50%, -50%)" }} />
         <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start" }} className="hero-text">
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", borderRadius: 100, padding: "6px 16px 6px 10px", marginBottom: 28, animation: "fadeUp 0.7s ease 0.1s both" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", flexWrap: "wrap", rowGap: 6, gap: 10, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", borderRadius: 24, padding: "8px 16px", marginBottom: 28, animation: "fadeUp 0.7s ease 0.1s both", maxWidth: "100%" }}>
             <span style={{ fontSize: 11, fontWeight: 600, color: C.red, letterSpacing: 1.5, textTransform: "uppercase" }}>Now Live</span>
             <span style={{ width: 1, height: 14, background: "rgba(232,57,42,0.3)" }} />
             <a href="https://apps.apple.com/app/ironmap-your-gym-your-tribe/id6760124588" target="_blank" rel="noopener noreferrer" style={{ display: "block", lineHeight: 0 }}>
-              <img src="/app-store-badge.svg" alt="App Store" style={{ height: 40, width: "auto", display: "block" }} />
+              <img src="/app-store-badge.svg" alt="App Store" className="hero-store-badge" style={{ height: 40, width: "auto", display: "block" }} />
             </a>
             <a href="https://play.google.com/store/apps/details?id=com.ironmap.app" target="_blank" rel="noopener noreferrer" style={{ display: "block", lineHeight: 0 }}>
-              <img src="/google-play-badge.svg" alt="Google Play" style={{ height: 40, width: "auto", display: "block" }} />
+              <img src="/google-play-badge.svg" alt="Google Play" className="hero-store-badge" style={{ height: 40, width: "auto", display: "block" }} />
             </a>
           </div>
           <h1 className="hero-h1" style={{ fontSize: "clamp(44px,5.5vw,76px)", fontWeight: 800, lineHeight: 0.98, letterSpacing: -3, marginBottom: 24, animation: "fadeUp 0.7s ease 0.2s both" }}>
@@ -187,7 +211,7 @@ export default function IronMap() {
               <div style={{ padding: "16px 20px", background: C.bg }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
                   <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.5 }}>Workouts</div>
-                  <div style={{ background: C.card2, borderRadius: 8, padding: "4px 10px", fontSize: 9, fontWeight: 600, color: C.muted2 }}>Virgin Active</div>
+                  <div style={{ background: C.card2, borderRadius: 8, padding: "4px 10px", fontSize: 9, fontWeight: 600, color: C.muted2 }}>IronMap</div>
                 </div>
                 <div style={{ display: "flex", gap: 6, marginBottom: 20 }}>
                   {["S1","S2","S3","S4","R"].map((s,i) => (
@@ -711,7 +735,7 @@ export default function IronMap() {
                   </li>
                 ))}
               </ul>
-              <div style={{ display: "block", width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 14, fontWeight: 700, background: C.red, color: "white" }}>Coming Soon</div>
+              <div style={{ display: "block", width: "100%", padding: 14, borderRadius: 12, textAlign: "center", fontSize: 13, fontWeight: 600, background: "rgba(232,57,42,0.08)", border: "1px solid rgba(232,57,42,0.2)", color: C.red, letterSpacing: 0.5 }}>Launching soon — stay tuned</div>
             </div>
           </Reveal>
 
