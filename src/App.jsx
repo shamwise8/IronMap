@@ -286,7 +286,7 @@ export default function IronMap() {
               "Great app. Exactly what I have been looking for to keep track of my gym routine."
             </p>
             <div style={{ fontSize: 12, color: C.muted2, letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 600, position: "relative" }}>
-              depineural.skr <span style={{ color: C.muted, margin: "0 8px" }}>·</span> 4.0★ on Seeker dApp Store
+              depineural.skr <span style={{ color: C.muted, margin: "0 8px" }}>·</span> via Seeker dApp Store
             </div>
           </div>
         </Reveal>
