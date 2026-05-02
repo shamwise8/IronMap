@@ -274,6 +274,24 @@ export default function IronMap() {
         </div>
       </div>
 
+      {/* TESTIMONIAL */}
+      <section style={{ padding: "72px clamp(20px,4vw,48px)", background: C.bg, position: "relative" }}>
+        <Reveal>
+          <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center", position: "relative" }}>
+            <div style={{ position: "absolute", top: -28, left: "50%", transform: "translateX(-50%)", fontSize: 80, color: C.red, opacity: 0.15, fontFamily: "Georgia, serif", lineHeight: 1, fontWeight: 700 }}>"</div>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 3, marginBottom: 18, position: "relative" }}>
+              {[...Array(5)].map((_, i) => <span key={i} style={{ color: C.red, fontSize: 16, letterSpacing: 1 }}>★</span>)}
+            </div>
+            <p style={{ fontSize: "clamp(20px,2.4vw,26px)", fontWeight: 500, lineHeight: 1.4, color: C.text, marginBottom: 20, letterSpacing: -0.5, position: "relative" }}>
+              "Great app. Exactly what I have been looking for to keep track of my gym routine."
+            </p>
+            <div style={{ fontSize: 12, color: C.muted2, letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 600, position: "relative" }}>
+              depineural.skr <span style={{ color: C.muted, margin: "0 8px" }}>·</span> 4.0★ on Seeker dApp Store
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       {/* REAL LIFE */}
       <section style={{ padding: "100px clamp(20px,4vw,48px)", background: C.bg2 }}>
         <div className="section-label">Why IronMap Exists</div>
