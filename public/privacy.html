@@ -346,7 +346,7 @@
   <div class="hero">
     <div class="hero-eyebrow">Legal</div>
     <h1>Privacy Policy</h1>
-    <div class="hero-meta">Effective date: March 2026 &nbsp;·&nbsp; Last updated: March 2026</div>
+    <div class="hero-meta">Effective date: March 2026 &nbsp;·&nbsp; Last updated: August 2026</div>
   </div>
 
   <div class="container">
@@ -357,7 +357,7 @@
       <h2>Overview</h2>
       <p>IronMap ("we", "our", or "the app") is a gym training and daily habit tracking app. We are committed to protecting your privacy. This policy explains what data we collect, how we use it, and your rights.</p>
       <div class="highlight">
-        <strong>The short version:</strong> IronMap stores your gym data locally on your device. We do not require an account. We do not sell your data. We do not run ads. The app works without an internet connection for all core features.
+        <strong>The short version:</strong> IronMap stores your gym data locally on your device. We do not require an account. We do not sell your data. We do not run ads. Core training features work without an internet connection. Two features send data off your device when you use them: communities (your check-ins) and the AI Coach (the training data needed to answer you).
       </div>
     </div>
 
@@ -365,7 +365,7 @@
     <div class="section">
       <div class="section-number">02</div>
       <h2>Data We Collect</h2>
-      <p>IronMap collects the minimal data needed to provide its features. All data is stored locally on your device using AsyncStorage unless you participate in community features.</p>
+      <p>IronMap collects the minimal data needed to provide its features. All data is stored locally on your device using AsyncStorage unless you use a feature that sends data off your device (communities, the AI Coach, or Pro purchases).</p>
 
       <div class="data-table">
         <div class="data-table-row header">
@@ -385,8 +385,8 @@
         </div>
         <div class="data-table-row">
           <div class="data-cell">Workout logs</div>
-          <div class="data-cell">Local device</div>
-          <div class="data-cell">Progressive overload tracking, personal records</div>
+          <div class="data-cell">Local device; sent with AI Coach requests when you use the coach</div>
+          <div class="data-cell">Progressive overload tracking, personal records, coach answers</div>
         </div>
         <div class="data-table-row">
           <div class="data-cell">Daily check-ins</div>
@@ -399,14 +399,29 @@
           <div class="data-cell">Filter exercises to your gym's equipment</div>
         </div>
         <div class="data-table-row">
-          <div class="data-cell">Body weight</div>
-          <div class="data-cell">Local device</div>
-          <div class="data-cell">Progressive overload calculations</div>
+          <div class="data-cell">Body weight &amp; profile (age bracket, training goal)</div>
+          <div class="data-cell">Local device; sent with AI Coach requests when relevant</div>
+          <div class="data-cell">Suggestions, volume scaling, coach answers</div>
         </div>
         <div class="data-table-row">
           <div class="data-cell">Heart rate (Apple Watch)</div>
           <div class="data-cell">Apple HealthKit only</div>
           <div class="data-cell">Live display during workouts, never transmitted</div>
+        </div>
+        <div class="data-table-row">
+          <div class="data-cell">Coach messages</div>
+          <div class="data-cell">Sent to our backend + AI provider when you use the coach</div>
+          <div class="data-cell">Generating coach replies; not stored on our servers</div>
+        </div>
+        <div class="data-table-row">
+          <div class="data-cell">Coach usage counts</div>
+          <div class="data-cell">Supabase</div>
+          <div class="data-cell">Enforcing fair-use limits (calls per week per device)</div>
+        </div>
+        <div class="data-table-row">
+          <div class="data-cell">Purchase history</div>
+          <div class="data-cell">RevenueCat</div>
+          <div class="data-cell">Unlocking Pro after purchase/restore</div>
         </div>
       </div>
 
@@ -430,9 +445,22 @@
       </div>
     </div>
 
-    <!-- 04 APPLE HEALTHKIT -->
+    <!-- 04 AI COACH -->
     <div class="section">
       <div class="section-number">04</div>
+      <h2>AI Coach</h2>
+      <p>When you send the coach a message, IronMap builds the smallest slice of your training data needed to answer it — which can include your logged workout history, personal records, per-exercise effort ratings, training goal, body weight, age bracket, gym equipment, and recovery data you log (including self-reported condition ratings) — and sends it, with your message, to our backend and on to Anthropic, the AI provider that generates the reply.</p>
+      <ul>
+        <li>Data is sent only when you actively use the coach — never in the background.</li>
+        <li>Per Anthropic's commercial API terms, your data is not used to train AI models. Anthropic may retain API inputs briefly (up to ~30 days) for abuse monitoring.</li>
+        <li>We do not store your chat transcripts on our servers. Transcripts live on your device; sharing one with us (feedback export) is always your action.</li>
+        <li>We store per-device usage counts to enforce the coach's fair-use limits.</li>
+      </ul>
+    </div>
+
+    <!-- 05 APPLE HEALTHKIT -->
+    <div class="section">
+      <div class="section-number">05</div>
       <h2>Apple HealthKit (iOS)</h2>
       <p>On iOS with Apple Watch, IronMap requests read access to heart rate data during workouts. This data is:</p>
       <ul>
@@ -444,43 +472,54 @@
       <p>IronMap does not write data to HealthKit other than workout records you explicitly complete. You can revoke HealthKit access at any time in iOS Settings → Privacy & Security → Health → IronMap.</p>
     </div>
 
-    <!-- 05 DATA SHARING -->
-    <div class="section">
-      <div class="section-number">05</div>
-      <h2>Data Sharing & Third Parties</h2>
-      <p>We do not sell, rent, or share your personal data with third parties for advertising or marketing purposes.</p>
-      <p>The only third-party service we use is:</p>
-      <ul>
-        <li><strong>Supabase</strong> — backend database for community features. Community check-in data (device ID, display name, completion status) is stored on Supabase servers. Supabase's privacy policy applies to data stored there.</li>
-      </ul>
-      <p>We do not use analytics SDKs, advertising networks, or third-party tracking in the app.</p>
-    </div>
-
-    <!-- 06 DATA RETENTION -->
+    <!-- 06 PURCHASES -->
     <div class="section">
       <div class="section-number">06</div>
+      <h2>Purchases</h2>
+      <p>Pro purchases are processed by Apple (App Store). We never see your payment details. We use RevenueCat to validate purchases and unlock Pro across reinstalls; RevenueCat stores your purchase history against an anonymous ID.</p>
+      <p>On builds distributed through the Solana dApp Store, an optional Pro unlock can be purchased via the Solana wallet you connect; the transaction occurs on the public Solana blockchain and is inherently public.</p>
+    </div>
+
+    <!-- 07 DATA SHARING -->
+    <div class="section">
+      <div class="section-number">07</div>
+      <h2>Data Sharing & Third Parties</h2>
+      <p>We do not sell, rent, or share your personal data with third parties for advertising or marketing purposes.</p>
+      <p>We use the following third-party services:</p>
+      <ul>
+        <li><strong>Supabase</strong> — backend for community features, the AI Coach relay, and coach usage limits.</li>
+        <li><strong>Anthropic</strong> — AI provider that generates coach replies (see AI Coach).</li>
+        <li><strong>RevenueCat</strong> — purchase validation for Pro (see Purchases).</li>
+      </ul>
+      <p>We do not use analytics SDKs, advertising networks, or third-party tracking.</p>
+    </div>
+
+    <!-- 08 DATA RETENTION -->
+    <div class="section">
+      <div class="section-number">08</div>
       <h2>Data Retention & Deletion</h2>
       <p>Local data (workout logs, check-ins, settings) is stored on your device and remains until you delete the app or use the "Delete all data" option in Settings.</p>
       <p>Community data on our servers is retained while you are a member of a community. When you leave a community, your check-in data for that community is removed from the feed. You can request full deletion of all server-side data associated with your device ID by contacting us.</p>
+      <p>Coach usage counts are retained as rolling aggregates. The "Delete all data" option in Settings, or a deletion request by email, removes all server-side data associated with your device ID, including coach usage records.</p>
     </div>
 
-    <!-- 07 CHILDREN -->
+    <!-- 09 CHILDREN -->
     <div class="section">
-      <div class="section-number">07</div>
+      <div class="section-number">09</div>
       <h2>Children's Privacy</h2>
       <p>IronMap is designed for users aged 18 and over. We do not knowingly collect data from children under 13. If you believe a child has provided data through IronMap, please contact us and we will delete it promptly.</p>
     </div>
 
-    <!-- 08 CHANGES -->
+    <!-- 10 CHANGES -->
     <div class="section">
-      <div class="section-number">08</div>
+      <div class="section-number">10</div>
       <h2>Changes to This Policy</h2>
       <p>We may update this privacy policy as the app's features evolve. When we make material changes, we will update the "Last updated" date at the top of this page. Continued use of IronMap after changes constitutes acceptance of the updated policy.</p>
     </div>
 
-    <!-- 09 CONTACT -->
+    <!-- 11 CONTACT -->
     <div class="section">
-      <div class="section-number">09</div>
+      <div class="section-number">11</div>
       <h2>Contact</h2>
       <p>If you have questions about this privacy policy or want to request deletion of your data, contact us:</p>
       <div class="contact-block">
